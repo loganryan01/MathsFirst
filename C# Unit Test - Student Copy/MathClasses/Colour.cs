@@ -12,8 +12,24 @@ namespace MathClasses
 
         public Colour()
         {
-            colour = 0;
+            
         }
 
+        public Colour(byte red, byte green, byte blue, byte alpha)
+        {
+
+        }
+
+        public byte GetRed() {}
+        public void SetRed(byte red) {}
+
+        public byte GetGreen() {}
+        public void SetGreen(byte green) {}
+
+        public byte GetBlue() {}
+        public void SetBlue(byte blue) {}
+
+        public byte GetAlpha() {}
+        public void SetAlpha(byte alpha) {}
     }
 }

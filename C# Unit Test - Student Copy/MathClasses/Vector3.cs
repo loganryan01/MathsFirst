@@ -33,5 +33,13 @@ namespace MathClasses
         {
             return new Vector3(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
         }
+
+        public static Vector3 operator *(Vector3 v1, float s2)
+        {
+            return new Vector3(
+                v1.x * s2,
+                v1.y * s2,
+                v1.z * s2);
+        }
     }
 }

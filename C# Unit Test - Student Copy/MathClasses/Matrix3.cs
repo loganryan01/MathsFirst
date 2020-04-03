@@ -122,5 +122,13 @@ namespace MathClasses
             // apply vector offest
             m7 += y; m8 += x;
         }
+
+        public void Scale(float x, float y, float z)
+        {
+            Matrix3 m = new Matrix3();
+            m.SetScaled(x, y, z);
+
+            Set(this * m);
+        }
     }
 }

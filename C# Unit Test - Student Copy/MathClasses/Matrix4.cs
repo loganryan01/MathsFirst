@@ -63,5 +63,13 @@ namespace MathClasses
             this.m9 = m9; this.m10 = m10; this.m11 = m11; this.m12 = m12;
             this.m13 = m13; this.m14 = m14; this.m15 = m15; this.m16 = m16;
         }
+
+        public void SetRotateX(double radians)
+        {
+            Set(1, 0, 0, 0,
+                0, (float)Math.Cos(radians), (float)Math.Sin(radians), 0,
+                0, (float)-Math.Sin(radians), (float)Math.Cos(radians), 0,
+                0, 0, 0, 1);
+        }
     }
 }

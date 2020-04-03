@@ -23,5 +23,13 @@ namespace MathClasses
             this.m4 = m4; this.m5 = m5; this.m6 = m6;
             this.m7 = m7; this.m8 = m8; this.m9 = m9;
         }
+
+        public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
+        {
+            return new Vector3(
+                (lhs.m1 * rhs.x) + (lhs.m4 * rhs.y) + (lhs.m7 * rhs.z),
+                (lhs.m2 * rhs.x) + (lhs.m5 * rhs.y) + (lhs.m8 * rhs.z),
+                (lhs.m3 * rhs.x) + (lhs.m6 * rhs.y) + (lhs.m9 * rhs.z));
+        }
     }
 }

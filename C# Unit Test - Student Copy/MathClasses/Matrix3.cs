@@ -96,5 +96,13 @@ namespace MathClasses
                 (float)-Math.Sin(radians), (float)Math.Cos(radians), 0,
                 0, 0, 1);
         }
+
+        public void RotateZ(double radians)
+        {
+            Matrix3 m = new Matrix3();
+            m.SetRotateZ(radians);
+
+            Set(this * m);
+        }
     }
 }

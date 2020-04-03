@@ -116,5 +116,11 @@ namespace MathClasses
         {
             m7 = y; m8 = x; m9 = 1;
         }
+
+        public void Translate(float x, float y)
+        {
+            // apply vector offest
+            m7 += y; m8 += x;
+        }
     }
 }

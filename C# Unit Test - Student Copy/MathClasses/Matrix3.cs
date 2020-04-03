@@ -52,5 +52,12 @@ namespace MathClasses
             m4 = m.m4; m5 = m.m5; m6 = m.m6;
             m7 = m.m7; m8 = m.m8; m9 = m.m9;
         }
+
+        public void Set(float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9)
+        {
+            this.m1 = m1; this.m2 = m2; this.m3 = m3;
+            this.m4 = m4; this.m5 = m5; this.m6 = m6;
+            this.m7 = m7; this.m8 = m8; this.m9 = m9;
+        }
     }
 }

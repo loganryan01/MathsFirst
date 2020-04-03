@@ -111,5 +111,10 @@ namespace MathClasses
             m4 = 0; m5 = y; m6 = 0;
             m7 = 0; m8 = 0; m9 = z;
         }
+
+        public void SetTranslation(float x, float y)
+        {
+            m7 = y; m8 = x; m9 = 1;
+        }
     }
 }

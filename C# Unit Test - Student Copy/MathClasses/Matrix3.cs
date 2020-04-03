@@ -81,5 +81,13 @@ namespace MathClasses
                 0, 1, 0,
                 (float)Math.Sin(radians), 0, (float)Math.Cos(radians));
         }
+
+        public void RotateY(double radians)
+        {
+            Matrix3 m = new Matrix3();
+            m.SetRotateY(radians);
+
+            Set(this * m);
+        }
     }
 }

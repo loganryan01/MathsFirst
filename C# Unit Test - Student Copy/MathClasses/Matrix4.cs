@@ -71,5 +71,13 @@ namespace MathClasses
                 0, (float)-Math.Sin(radians), (float)Math.Cos(radians), 0,
                 0, 0, 0, 1);
         }
+
+        public void SetRotateY(double radians)
+        {
+            Set((float)Math.Cos(radians), 0, (float)-Math.Sin(radians), 0,
+                0, 1, 0, 0,
+                (float)Math.Sin(radians), 0, (float)Math.Cos(radians), 0,
+                0, 0, 0, 1);
+        }
     }
 }

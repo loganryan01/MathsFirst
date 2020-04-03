@@ -89,5 +89,12 @@ namespace MathClasses
 
             Set(this * m);
         }
+
+        public void SetRotateZ(double radians)
+        {
+            Set((float)Math.Cos(radians), (float)Math.Sin(radians), 0,
+                (float)-Math.Sin(radians), (float)Math.Cos(radians), 0,
+                0, 0, 1);
+        }
     }
 }

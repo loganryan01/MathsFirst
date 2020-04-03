@@ -51,5 +51,18 @@ namespace MathClasses
         {
             return x * rhs.x + y * rhs.y + z * rhs.z;
         }
+
+        public Vector3 Cross(Vector3 rhs)
+        {
+            return new Vector3(
+                y * rhs.z - z * rhs.y,
+                z * rhs.x - x * rhs.z,
+                x * rhs.y - y * rhs.x);
+        }
+
+        public float Magnitude()
+        {
+            return (float)Math.Sqrt(x * x + y * y + z * z);
+        }
     }
 }

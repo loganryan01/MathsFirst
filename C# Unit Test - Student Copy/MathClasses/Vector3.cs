@@ -41,5 +41,11 @@ namespace MathClasses
                 v1.y * s2,
                 v1.z * s2);
         }
+
+        public static Vector3 operator *(float s1, Vector3 v2)
+        {
+            return v2 * s1;
+        }
+
     }
 }

@@ -104,5 +104,12 @@ namespace MathClasses
 
             Set(this * m);
         }
+
+        public void SetScaled(float x, float y, float z)
+        {
+            m1 = x; m2 = 0; m3 = 0;
+            m4 = 0; m5 = y; m6 = 0;
+            m7 = 0; m8 = 0; m9 = z;
+        }
     }
 }

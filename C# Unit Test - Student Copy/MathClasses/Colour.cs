@@ -30,8 +30,15 @@ namespace MathClasses
             colour |= (UInt32)red << 24;
         }
 
-        public byte GetGreen() {}
-        public void SetGreen(byte green) {}
+        public byte GetGreen() 
+        {
+            return (byte)((colour & 0x00ff0000));
+        }
+        public void SetGreen(byte green) 
+        {
+            colour = colour & 0xff00ffff;
+            colour |= (UInt32)green << 16;
+        }
 
         public byte GetBlue() {}
         public void SetBlue(byte blue) {}

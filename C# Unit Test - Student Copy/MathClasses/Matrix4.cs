@@ -25,5 +25,14 @@ namespace MathClasses
             this.m9 = m9; this.m10 = m10; this.m11 = m11; this.m12 = m12;
             this.m13 = m13; this.m14 = m14; this.m15 = m15; this.m16 = m16;
         }
+
+        public static Vector4 operator *(Matrix4 lhs, Vector4 rhs)
+        {
+            return new Vector4(
+                (rhs.x * lhs.m1) + (rhs.y * lhs.m5) + (rhs.z * lhs.m9) + (rhs.w * lhs.m13),
+                (rhs.x * lhs.m2) + (rhs.y * lhs.m6) + (rhs.z * lhs.m10) + (rhs.w * lhs.m14),
+                (rhs.x * lhs.m3) + (rhs.y * lhs.m7) + (rhs.z * lhs.m11) + (rhs.w * lhs.m15),
+                (rhs.x * lhs.m4) + (rhs.y * lhs.m8) + (rhs.z * lhs.m12) + (rhs.w * lhs.m16));
+        }
     }
 }

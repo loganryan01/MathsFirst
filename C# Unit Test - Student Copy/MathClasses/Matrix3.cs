@@ -45,5 +45,12 @@ namespace MathClasses
                 lhs.m2 * rhs.m7 + lhs.m5 * rhs.m8 + lhs.m8 * rhs.m9,
                 lhs.m3 * rhs.m7 + lhs.m6 * rhs.m8 + lhs.m9 * rhs.m9);
         }
+
+        public void Set(Matrix3 m)
+        {
+            m1 = m.m1; m2 = m.m2; m3 = m.m3;
+            m4 = m.m4; m5 = m.m5; m6 = m.m6;
+            m7 = m.m7; m8 = m.m8; m9 = m.m9;
+        }
     }
 }

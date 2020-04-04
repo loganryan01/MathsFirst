@@ -22,7 +22,7 @@ namespace MathClasses
 
         public byte GetRed() 
         {
-            return (byte)((colour & 0xff000000));
+            return (byte)((colour & 0xff000000) >> 24);
         }
         public void SetRed(byte red) 
         {
@@ -32,7 +32,7 @@ namespace MathClasses
 
         public byte GetGreen() 
         {
-            return (byte)((colour & 0x00ff0000));
+            return (byte)((colour & 0x00ff0000) >> 16);
         }
         public void SetGreen(byte green) 
         {

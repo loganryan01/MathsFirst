@@ -63,5 +63,10 @@ namespace MathClasses
                 x * rhs.y - y * rhs.x,
                 0);
         }
+
+        public float Magnitude()
+        {
+            return (float)Math.Sqrt((double)(x * x + y * y + z * z + w * w));
+        }
     }
 }

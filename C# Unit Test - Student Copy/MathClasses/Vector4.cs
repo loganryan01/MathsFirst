@@ -44,5 +44,10 @@ namespace MathClasses
                 v1.z * s2,
                 v1.w * s2);
         }
+
+        public float Dot(Vector4 rhs)
+        {
+            return x * rhs.x + y * rhs.y + z * rhs.z + w * rhs.w;
+        }
     }
 }

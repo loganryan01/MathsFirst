@@ -45,6 +45,11 @@ namespace MathClasses
                 v1.w * s2);
         }
 
+        public static Vector4 operator *(float s1, Vector4 v2)
+        {
+            return v2 * s1;
+        }
+
         public float Dot(Vector4 rhs)
         {
             return x * rhs.x + y * rhs.y + z * rhs.z + w * rhs.w;

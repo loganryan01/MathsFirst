@@ -35,5 +35,14 @@ namespace MathClasses
         {
             return new Vector4(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w);
         }
+
+        public static Vector4 operator *(Vector4 v1, float s2)
+        {
+            return new Vector4(
+                v1.x * s2,
+                v1.y * s2,
+                v1.z * s2,
+                v1.w * s2);
+        }
     }
 }

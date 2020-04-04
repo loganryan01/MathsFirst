@@ -25,5 +25,10 @@ namespace MathClasses
             this.z = z;
             this.w = w;
         }
+
+        public static Vector4 operator +(Vector4 lhs, Vector4 rhs)
+        {
+            return new Vector4(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w);
+        }
     }
 }

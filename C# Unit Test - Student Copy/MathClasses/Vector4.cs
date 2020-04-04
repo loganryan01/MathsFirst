@@ -68,5 +68,14 @@ namespace MathClasses
         {
             return (float)Math.Sqrt((double)(x * x + y * y + z * z + w * w));
         }
+
+        public void Normalize()
+        {
+            float m = Magnitude();
+            this.x /= m;
+            this.y /= m;
+            this.z /= m;
+            this.w /= m;
+        }
     }
 }

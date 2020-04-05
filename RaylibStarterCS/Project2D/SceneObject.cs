@@ -62,5 +62,15 @@ namespace Project2D
                 so.parent = null;
             }
         }
+
+        public virtual void OnUpdate(float deltaTime)
+        {
+
+        }
+
+        public virtual void OnDraw()
+        {
+
+        }
     }
 }

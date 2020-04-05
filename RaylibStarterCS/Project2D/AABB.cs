@@ -175,5 +175,23 @@ namespace Project2D
                 max = Vector3.Max(max, p);
             }
         }
+
+        public void Fit(Vector3[] points)
+        {
+            // invalidate the extents
+            min = new Vector3(float.PositiveInfinity,
+                              float.PositiveInfinity,
+                              float.PositiveInfinity);
+            max = new Vector3(float.NegativeInfinity,
+                              float.NegativeInfinity,
+                              float.NegativeInfinity);
+
+            // find min an max of the points
+            foreach (Vector3 p in points)
+            {
+                min = Vector3.Min(min, p);
+                max = Vector3.Max(max, p);
+            }
+        }
     }
 }

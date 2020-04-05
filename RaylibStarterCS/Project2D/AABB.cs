@@ -201,6 +201,11 @@ namespace Project2D
                      p.x > max.x || p.y > max.y);
         }
 
-
+        public bool Overlaps(AABB other)
+        {
+            // test for not overlapped as it exits faster
+            return !(max.x < other.min.x || max.y < other.min.y ||
+                     min.x > other.max.x || min.y > other.max.y);
+        }
     }
 }

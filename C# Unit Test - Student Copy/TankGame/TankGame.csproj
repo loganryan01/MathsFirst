@@ -5,4 +5,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MathClasses\MathClasses.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\..\RaylibStarterCS\Project2D\Bindings\Raylib.projitems" Label="Shared" />
+
 </Project>

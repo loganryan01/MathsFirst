@@ -21,10 +21,6 @@ namespace Project2D
 
         private float deltaTime = 0.005f;
 
-
-        Image logo;
-        Texture2D texture;
-
         public Game()
         {
         }
@@ -33,16 +29,6 @@ namespace Project2D
         {
             stopwatch.Start();
             lastTime = stopwatch.ElapsedMilliseconds;
-
-            if (Stopwatch.IsHighResolution)
-            {
-                Console.WriteLine("Stopwatch high-resolution frequency: {0} ticks per second", Stopwatch.Frequency);
-            }
-
-            //logo = LoadImage("..\\Images\\aie-logo-dark.jpg");
-            //logo = LoadImage(@"..\Images\aie-logo-dark.jpg");
-            logo = LoadImage("../Images/aie-logo-dark.jpg");
-            texture = LoadTextureFromImage(logo);
         }
 
         public void Shutdown()
@@ -51,9 +37,9 @@ namespace Project2D
 
         public void Update()
         {
-            lastTime = currentTime;
             currentTime = stopwatch.ElapsedMilliseconds;
             deltaTime = (currentTime - lastTime) / 1000.0f;
+
             timer += deltaTime;
             if (timer >= 1)
             {
@@ -63,7 +49,7 @@ namespace Project2D
             }
             frames++;
 
-            // insert game logic here            
+            lastTime = currentTime;
         }
 
         public void Draw()
@@ -71,11 +57,7 @@ namespace Project2D
             BeginDrawing();
 
             ClearBackground(Color.WHITE);
-
             DrawText(fps.ToString(), 10, 10, 14, Color.RED);
-
-            DrawTexture(texture, 
-                GetScreenWidth() / 2 - texture.width / 2, GetScreenHeight() / 2 - texture.height / 2, Color.WHITE);
 
             EndDrawing();
         }

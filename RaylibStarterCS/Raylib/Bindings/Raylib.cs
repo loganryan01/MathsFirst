@@ -754,7 +754,7 @@ namespace Raylib
     public static partial class Raylib
     {
         // Used by DllImport to load the native library.
-        public const string nativeLibName = "raylib";
+        public const string nativeLibName = @"D:\\Windows\\MathsForGames\\RaylibStarterCS\\Raylib\\dll\\raylib.dll";
 
         public const float DEG2RAD = (float)Math.PI / 180.0f;
         public const float RAD2DEG = 180.0f / (float)Math.PI;

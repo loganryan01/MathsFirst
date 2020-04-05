@@ -14,7 +14,8 @@ namespace Project2D
         {
             Game game = new Game();
 
-            InitWindow(640, 480, "Hello World");
+            SetTargetFPS(60);
+            InitWindow(640, 480, "Tanks for Everything!");
 
             game.Init();
 
@@ -25,7 +26,6 @@ namespace Project2D
             }
 
             game.Shutdown();
-
             CloseWindow();
         }
     }

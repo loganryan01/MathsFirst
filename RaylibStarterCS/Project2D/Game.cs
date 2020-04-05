@@ -35,6 +35,16 @@ namespace Project2D
         {
             stopwatch.Start();
             lastTime = stopwatch.ElapsedMilliseconds;
+
+            tankSprite.Load("tankBlue_outline.png");
+            // sprite is facing the wrong way... fix that here
+            tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
+            // sets an offset for the base, so it rotates around the centre
+            tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f);
+            turretSprite.Load("barrelBlue.png");
+            turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
+            // set the turret offset from the tank base
+            turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
         }
 
         public void Shutdown()

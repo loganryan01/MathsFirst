@@ -157,5 +157,18 @@ namespace Project2D
             corners[3] = new Vector3(max.x, min.y, min.z);
             return corners;
         }
+
+        public void Fit(List<Vector3> points)
+        {
+            // invalidate the extents
+            min = new Vector3(float.PositiveInfinity,
+                              float.PositiveInfinity,
+                              float.PositiveInfinity);
+            max = new Vector3(float.NegativeInfinity,
+                              float.NegativeInfinity,
+                              float.NegativeInfinity);
+
+
+        }
     }
 }

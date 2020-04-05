@@ -207,5 +207,10 @@ namespace Project2D
             return !(max.x < other.min.x || max.y < other.min.y ||
                      min.x > other.max.x || min.y > other.max.y);
         }
+
+        public Vector3 ClosestPoint(Vector3 p)
+        {
+            return Vector3.Clamp(p, min, max);
+        }
     }
 }

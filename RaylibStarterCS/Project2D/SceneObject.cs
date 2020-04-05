@@ -41,5 +41,13 @@ namespace Project2D
             // add new child to collection
             children.Add(child);
         }
+
+        public void RemoveChild(SceneObject child)
+        {
+            if ( children.Remove(child) == true)
+            {
+                child.parent = null;
+            }
+        }
     }
 }

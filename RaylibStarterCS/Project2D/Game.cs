@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Raylib;
+using rl = Raylib;
 using static Raylib.Raylib;
 
 namespace Project2D
@@ -56,8 +56,8 @@ namespace Project2D
         {
             BeginDrawing();
 
-            ClearBackground(Color.WHITE);
-            DrawText(fps.ToString(), 10, 10, 14, Color.RED);
+            ClearBackground(rl.Color.WHITE);
+            DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
 
             EndDrawing();
         }

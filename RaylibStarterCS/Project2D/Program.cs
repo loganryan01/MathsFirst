@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Raylib;
+using rl = Raylib;
 using static Raylib.Raylib;
 
 namespace Project2D

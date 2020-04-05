@@ -133,11 +133,18 @@ namespace Project2D
             {
                 min.z += m.m9 * box.max.x; max.z += m.m9 * box.min.x;
             }
+        }
 
-            public Vector3 Center()
-            {
-                return (min + max) * 0.5f;
-            }
+        public Vector3 Center()
+        {
+            return (min + max) * 0.5f;
+        }
+
+        public Vector3 Extents()
+        {
+            return new Vector3(Math.Abs(max.x - min.x) * 0.5f,
+                               Math.Abs(max.y - min.y) * 0.5f,
+                               Math.Abs(max.z - min.z) * 0.5f);
         }
     }
 }

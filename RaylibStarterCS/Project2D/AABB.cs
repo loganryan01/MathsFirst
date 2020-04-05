@@ -193,5 +193,14 @@ namespace Project2D
                 max = Vector3.Max(max, p);
             }
         }
+
+        public bool Overlaps(Vector3 p)
+        {
+            // test for not overlapped as it exits faster
+            return !(p.x < min.x || p.y < min.y ||
+                     p.x > max.x || p.y > max.y);
+        }
+
+
     }
 }

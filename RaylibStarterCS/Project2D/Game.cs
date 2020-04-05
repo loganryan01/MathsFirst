@@ -51,6 +51,11 @@ namespace Project2D
             turretObject.AddChild(turretSprite);
             tankObject.AddChild(tankSprite);
             tankObject.AddChild(turretObject);
+
+            // having an empty object for the tank parent means we can set the
+            // position/rotation of the tank without
+            // affecting the offset of the base sprite
+            tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
         }
 
         public void Shutdown()

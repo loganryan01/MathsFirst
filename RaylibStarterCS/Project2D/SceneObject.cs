@@ -110,5 +110,16 @@ namespace Project2D
                 child.Draw();
             }
         }
+
+        public void UpdateTransform()
+        {
+            if (parent != null)
+                globalTransform = parent.globalTransform * localTransform;
+            else
+                globalTransform = localTransform;
+
+            foreach (SceneObject child in children)
+                child.UpdateTransform();
+        }
     }
 }

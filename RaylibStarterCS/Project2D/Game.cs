@@ -86,6 +86,8 @@ namespace Project2D
             ClearBackground(rl.Color.WHITE);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
 
+            tankObject.Draw();
+
             EndDrawing();
         }
 

@@ -49,5 +49,18 @@ namespace Project2D
                 child.parent = null;
             }
         }
+
+        ~SceneObject()
+        {
+            if(parent != null)
+            {
+                parent.RemoveChild(this);
+            }
+
+            foreach(SceneObject so in children)
+            {
+                so.parent = null;
+            }
+        }
     }
 }

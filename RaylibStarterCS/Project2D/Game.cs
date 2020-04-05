@@ -99,6 +99,14 @@ namespace Project2D
                            tankObject.LocalTransform.m2, 1) * deltaTime * -100;
                 tankObject.Translate(facing.x, facing.y);
             }
+            if (IsKeyDown(rl.KeyboardKey.KEY_Q))
+            {
+                turretObject.Rotate(-deltaTime);
+            }
+            if (IsKeyDown(rl.KeyboardKey.KEY_E))
+            {
+                turretObject.Rotate(deltaTime);
+            }
             tankObject.Update(deltaTime);
 
             lastTime = currentTime;

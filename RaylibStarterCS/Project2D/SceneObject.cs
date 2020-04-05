@@ -72,5 +72,29 @@ namespace Project2D
         {
 
         }
+
+        public void Update(float deltaTime)
+        {
+            // run OnUpdate behaviour
+            OnUpdate(deltaTime);
+
+            // update children
+            foreach (SceneObject child in children)
+            {
+                child.Update(deltaTime);
+            }
+        }
+
+        public void Draw()
+        {
+            // run OnDraw behaviour
+            OnDraw();
+
+            // draw children
+            foreach (SceneObject child in children)
+            {
+                child.Draw();
+            }
+        }
     }
 }

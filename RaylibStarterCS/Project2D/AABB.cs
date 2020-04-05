@@ -133,6 +133,11 @@ namespace Project2D
             {
                 min.z += m.m9 * box.max.x; max.z += m.m9 * box.min.x;
             }
+
+            public Vector3 Center()
+            {
+                return (min + max) * 0.5f;
+            }
         }
     }
 }

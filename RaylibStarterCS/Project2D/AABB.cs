@@ -16,6 +16,17 @@ namespace Project2D
                                   float.PositiveInfinity,
                                   float.PositiveInfinity);
 
+        public AABB()
+        {
+
+        }
+
+        public AABB(Vector3 min, Vector3 max)
+        {
+            this.min = min;
+            this.max = max;
+        }
+
         public bool IsEmpty()
         {
             if (float.IsNegativeInfinity(min.x) &&

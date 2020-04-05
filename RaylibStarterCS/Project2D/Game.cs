@@ -45,7 +45,7 @@ namespace Project2D
             turretSprite.Load(@"D:\\Windows\\PNG\\Tanks\\barrelBlue.png");
             turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
             // set the turret offset from the tank base
-            turretSprite.SetPosition(-75, 75);
+            turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
 
             // set up the scene object hierarchy - parent the turret to the base,
             // then the base to the tank sceneObject

@@ -114,13 +114,13 @@ namespace MathClasses
 
         public void SetTranslation(float x, float y)
         {
-            m7 = y; m8 = x; m9 = 1;
+            m7 = x; m8 = y; m9 = 1;
         }
 
         public void Translate(float x, float y)
         {
-            // apply vector offest
-            m7 += y; m8 += x;
+            // apply vector offset
+            m7 += x; m8 += y;
         }
 
         public void Scale(float x, float y, float z)

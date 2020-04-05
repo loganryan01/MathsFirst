@@ -8,7 +8,7 @@ using MathClasses;
 
 namespace Project2D
 {
-    class SceneObject
+    public class SceneObject
     {
         protected SceneObject parent = null;
         protected List<SceneObject> children = new List<SceneObject>();

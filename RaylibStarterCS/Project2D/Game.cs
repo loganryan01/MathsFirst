@@ -45,6 +45,12 @@ namespace Project2D
             turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
             // set the turret offset from the tank base
             turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
+
+            // set up the scene object hierarchy - parent the turret to the base,
+            // then the base to the tank sceneObject
+            turretObject.AddChild(turretSprite);
+            tankObject.AddChild(tankSprite);
+            tankObject.AddChild(turretObject);
         }
 
         public void Shutdown()

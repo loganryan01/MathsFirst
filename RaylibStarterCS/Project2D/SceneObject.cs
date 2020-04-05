@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,16 @@ namespace Project2D
         public SceneObject GetChild(int index)
         {
             return children[index];
+        }
+
+        public void AddChild(SceneObject child)
+        {
+            // make sure it doesn't have a parent already
+            Debug.Assert(child.parent == null);
+            // assign "this as parent
+            child.parent = this;
+            // add new child to collection
+            children.Add(child);
         }
     }
 }

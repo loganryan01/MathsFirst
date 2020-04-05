@@ -13,6 +13,12 @@ namespace Project2D
     {
         Stopwatch stopwatch = new Stopwatch();
 
+        SceneObject tankObject = new SceneObject();
+        SceneObject turretObject = new SceneObject();
+
+        SpriteObject tankSprite = new SpriteObject();
+        SpriteObject turretSprite = new SpriteObject();
+
         private long currentTime = 0;
         private long lastTime = 0;
         private float timer = 0;

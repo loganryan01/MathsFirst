@@ -76,6 +76,8 @@ namespace Project2D
             }
             frames++;
 
+            tankObject.Update(deltaTime);
+
             lastTime = currentTime;
         }
 

@@ -146,5 +146,16 @@ namespace Project2D
                                Math.Abs(max.y - min.y) * 0.5f,
                                Math.Abs(max.z - min.z) * 0.5f);
         }
+
+        public List<Vector3> Corners()
+        {
+            // ignoring z axis for 2D
+            List<Vector3> corners = new List<Vector3>(4);
+            corners[0] = min;
+            corners[1] = new Vector3(min.x, max.y, min.z);
+            corners[2] = max;
+            corners[3] = new Vector3(max.x, min.y, min.z);
+            return corners;
+        }
     }
 }

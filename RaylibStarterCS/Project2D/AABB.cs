@@ -168,7 +168,12 @@ namespace Project2D
                               float.NegativeInfinity,
                               float.NegativeInfinity);
 
-
+            // find min an max of the points
+            foreach(Vector3 p in points)
+            {
+                min = Vector3.Min(min, p);
+                max = Vector3.Max(max, p);
+            }
         }
     }
 }

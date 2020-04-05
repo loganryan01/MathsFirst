@@ -16,6 +16,16 @@ namespace Project2D
         protected Matrix3 localTransform = new Matrix3();
         protected Matrix3 globalTransform = new Matrix3();
 
+        public Matrix3 LocalTransform
+        {
+            get { return localTransform; }
+        }
+
+        public Matrix3 GlobalTransform
+        {
+            get { return globalTransform; }
+        }
+
         public SceneObject Parent
         {
             get { return parent; }

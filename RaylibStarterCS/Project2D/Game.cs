@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MathClasses;
 using rl = Raylib;
 using static Raylib.Raylib;
 
@@ -76,6 +77,28 @@ namespace Project2D
             }
             frames++;
 
+            if (IsKeyDown(rl.KeyboardKey.KEY_A))
+            {
+                tankObject.Rotate(-deltaTime);
+            }
+            if (IsKeyDown(rl.KeyboardKey.KEY_D))
+            {
+                tankObject.Rotate(deltaTime);
+            }
+            if (IsKeyDown(rl.KeyboardKey.KEY_W))
+            {
+                Vector3 facing = new Vector3(
+                           tankObject.LocalTransform.m1,
+                           tankObject.LocalTransform.m2, 1) * deltaTime * 100;
+                tankObject.Translate(facing.x, facing.y);
+            }
+            if (IsKeyDown(rl.KeyboardKey.KEY_S))
+            {
+                Vector3 facing = new Vector3(
+                           tankObject.LocalTransform.m1,
+                           tankObject.LocalTransform.m2, 1) * deltaTime * -100;
+                tankObject.Translate(facing.x, facing.y);
+            }
             tankObject.Update(deltaTime);
 
             lastTime = currentTime;

@@ -20,17 +20,13 @@ namespace Project2D
         SpriteObject tankSprite = new SpriteObject();
         SpriteObject turretSprite = new SpriteObject();
 
-        static Vector3 corner1 = new Vector3(0, 0, 1);
-        static Vector3 corner2 = new Vector3(640, 0, 1);
-        static Vector3 corner3 = new Vector3(640, 480, 1);
-        static Vector3 corner4 = new Vector3(0, 480, 1);
+        //static Vector3 min2 = new Vector3();
+        //static Vector3 max2 = new Vector3();
+        //static Vector3 max1 = new Vector3(640, 480, 1);
+        //static Vector3 min1 = new Vector3(0, 0, 1);
 
-        Plane plane1 = new Plane(corner1, corner2);
-        Plane plane2 = new Plane(corner2, corner3);
-        Plane plane3 = new Plane(corner3, corner4);
-        Plane plane4 = new Plane(corner4, corner1);
-
-        AABB tank = new AABB();
+        //AABB box = new AABB(min1, max1);
+        //AABB tank = new AABB(min2, max2);
 
         private long currentTime = 0;
         private long lastTime = 0;
@@ -69,8 +65,12 @@ namespace Project2D
             // position/rotation of the tank without
             // affecting the offset of the base sprite
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
+            //42, 42
 
-            tank.SetToTransformedBox(tank, tankObject.LocalTransform);
+            //min2.x = tankSprite.LocalTransform.m7 - 42;
+            //min2.y = tankSprite.LocalTransform.m8 - 42;
+            //max2.x = tankSprite.LocalTransform.m7 + 42;
+            //max2.y = tankSprite.LocalTransform.m8 + 42;
         }
 
         public void Shutdown()
@@ -123,10 +123,7 @@ namespace Project2D
             }
             tankObject.Update(deltaTime);
 
-            //if (plane1.TestSide(tank) == 0)
-            //{
-            //    tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
-            //}
+            //tank.SetToTransformedBox(tank, tankObject.LocalTransform);
 
             lastTime = currentTime;
         }
@@ -137,7 +134,20 @@ namespace Project2D
 
             ClearBackground(rl.Color.WHITE);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
-            
+
+            DrawRectangleLines(0, 0, GetScreenWidth(), GetScreenHeight(), rl.Color.GREEN);
+            //DrawLine(0, 0, -640, 480, rl.Color.GREEN);
+
+            if (tankObject.LocalTransform.m7 >= 640 || tankObject.LocalTransform.m7 <= 0 ||
+                tankObject.LocalTransform.m8 >= 480 || tankObject.LocalTransform.m8 <= 0)
+            {
+                DrawText("Tank is out of bounds", 10, 30, 14, rl.Color.RED); 
+                
+            }
+            //m7 is x.
+            //DrawText((tankObject.LocalTransform.m7).ToString(), 10, 50, 14, rl.Color.RED); //m8 is y.
+            //DrawText((tankSprite.Width).ToString(), 10, 70, 14, rl.Color.RED); //The width of the tank is 83.
+            //DrawText((tankSprite.Height).ToString(), 10, 90, 14, rl.Color.RED); //The height of the tank is 78.
 
             tankObject.Draw();
 

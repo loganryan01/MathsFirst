@@ -49,7 +49,7 @@ namespace Project2D
                               float.PositiveInfinity);
         }
 
-        void SetToTransformedBox(AABB box, Matrix3 m)
+        public void SetToTransformedBox(AABB box, Matrix3 m)
         {
             // If we're empty, then exit (an empty box defined as having the min/max
             // set to infinity)

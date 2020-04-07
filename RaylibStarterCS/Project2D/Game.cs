@@ -20,6 +20,8 @@ namespace Project2D
         SpriteObject tankSprite = new SpriteObject();
         SpriteObject turretSprite = new SpriteObject();
 
+        AABB tank = new AABB();
+
         private long currentTime = 0;
         private long lastTime = 0;
         private float timer = 0;
@@ -57,6 +59,8 @@ namespace Project2D
             // position/rotation of the tank without
             // affecting the offset of the base sprite
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
+
+            tank.SetToTransformedBox(tank, tankObject.LocalTransform);
         }
 
         public void Shutdown()
@@ -109,6 +113,8 @@ namespace Project2D
             }
             tankObject.Update(deltaTime);
 
+            
+
             lastTime = currentTime;
         }
 
@@ -118,6 +124,7 @@ namespace Project2D
 
             ClearBackground(rl.Color.WHITE);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
+            
 
             tankObject.Draw();
 

@@ -48,5 +48,10 @@ namespace Project2D
         {
             return p.Dot(N) + d;
         }
+
+        public Vector3 ClosestPoint(Vector3 p)
+        {
+            return p - N * DistanceTo(p);
+        }
     }
 }

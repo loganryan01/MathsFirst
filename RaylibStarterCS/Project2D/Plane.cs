@@ -23,5 +23,11 @@ namespace Project2D
             this.N = new Vector3(x, y, 0);
             this.d = d;
         }
+
+        public Plane(Vector3 n, float d)
+        {
+            this.N = n;
+            this.d = d;
+        }
     }
 }

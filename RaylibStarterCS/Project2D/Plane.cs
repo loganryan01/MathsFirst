@@ -29,5 +29,19 @@ namespace Project2D
             this.N = n;
             this.d = d;
         }
+
+        public Plane(Vector3 p1, Vector3 p2)
+        {
+            // calculate normalised vector p0 to p1
+            Vector3 v = p2 - p1;
+            v.Normalize();
+
+            // set normal perpendicular to the vector
+            N.x = -v.y;
+            N.y = v.x;
+
+            // calculate d
+            d = -p1.Dot(N);
+        }
     }
 }

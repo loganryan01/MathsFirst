@@ -60,5 +60,53 @@ namespace Project2D
         {
             return p - N * DistanceTo(p);
         }
+
+        public ePlaneResult TestSide(Vector3 p)
+        {
+            float t = p.Dot(N) + d;
+
+            if (t < 0)
+            {
+                return ePlaneResult.BACK;
+            }
+            else if (t > 0)
+            {
+                return ePlaneResult.FRONT;
+            }
+            return ePlaneResult.INTERSECTS;
+        }
+        
+        public ePlaneResult TestSide(AABB aabb)
+        {
+            // tag if we find a corner on each side
+            bool[] side = new bool[2] { false, false };
+
+            // compare each corner
+            foreach (Vector3 c in aabb.Corners())
+            {
+                ePlaneResult result = TestSide(c);
+                if (result == ePlaneResult.FRONT)
+                {
+                    side[0] = true;
+                }
+                else if (result == ePlaneResult.BACK)
+                {
+                    side[1] = true;
+                }
+            }
+
+            // if front but not back
+            if (side[0] && !side[1])
+            {
+                return ePlaneResult.FRONT;
+            }
+            // if back but not front
+            else if (!side[0] && side[1])
+            {
+                return ePlaneResult.BACK;
+            }
+            // else overlapping
+            return ePlaneResult.INTERSECTS;
+        }
     }
 }

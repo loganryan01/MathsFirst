@@ -51,6 +51,19 @@ namespace Project2D
             d = -p1.Dot(N);
         }
 
+        public Plane(Vector3 p1, Vector3 p2, Vector3 p3)
+        {
+            // calculate edge vectors
+            Vector3 v1 = (p2 - p1).GetNormalised();
+            Vector3 v2 = (p3 - p1).GetNormalised();
+
+            // calculate normal
+            N = v1.Cross(v2);
+
+            // calculate d
+            d = -p1.Dot(N);
+        }
+
         public float DistanceTo(Vector3 p)
         {
             return p.Dot(N) + d;

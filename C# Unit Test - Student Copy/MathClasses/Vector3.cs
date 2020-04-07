@@ -47,6 +47,14 @@ namespace MathClasses
             return v2 * s1;
         }
 
+        public static Vector3 operator /(Vector3 v1, float s2)
+        {
+            return new Vector3(
+                v1.x / s2,
+                v1.y / s2,
+                v1.z / s2);
+        }
+
         public float Dot(Vector3 rhs)
         {
             return x * rhs.x + y * rhs.y + z * rhs.z;
@@ -71,6 +79,11 @@ namespace MathClasses
             this.x /= m;
             this.y /= m;
             this.z /= m;
+        }
+
+        public Vector3 GetNormalised()
+        {
+            return (this / Magnitude());
         }
 
         public static Vector3 Min(Vector3 a, Vector3 b)

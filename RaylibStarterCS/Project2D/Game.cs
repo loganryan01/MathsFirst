@@ -20,6 +20,16 @@ namespace Project2D
         SpriteObject tankSprite = new SpriteObject();
         SpriteObject turretSprite = new SpriteObject();
 
+        static Vector3 corner1 = new Vector3(0, 0, 1);
+        static Vector3 corner2 = new Vector3(640, 0, 1);
+        static Vector3 corner3 = new Vector3(640, 480, 1);
+        static Vector3 corner4 = new Vector3(0, 480, 1);
+
+        Plane plane1 = new Plane(corner1, corner2);
+        Plane plane2 = new Plane(corner2, corner3);
+        Plane plane3 = new Plane(corner3, corner4);
+        Plane plane4 = new Plane(corner4, corner1);
+
         AABB tank = new AABB();
 
         private long currentTime = 0;
@@ -113,7 +123,10 @@ namespace Project2D
             }
             tankObject.Update(deltaTime);
 
-            
+            //if (plane1.TestSide(tank) == 0)
+            //{
+            //    tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
+            //}
 
             lastTime = currentTime;
         }

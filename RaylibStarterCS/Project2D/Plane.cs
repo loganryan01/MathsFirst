@@ -43,5 +43,10 @@ namespace Project2D
             // calculate d
             d = -p1.Dot(N);
         }
+
+        public float DistanceTo(Vector3 p)
+        {
+            return p.Dot(N) + d;
+        }
     }
 }

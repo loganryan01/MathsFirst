@@ -13,6 +13,13 @@ namespace Project2D
         Vector3 N;
         float d;
 
+        public enum ePlaneResult : int 
+        {
+            FRONT = 1,
+            BACK = -1,
+            INTERSECTS = 0
+        }
+
         public Plane()
         {
 

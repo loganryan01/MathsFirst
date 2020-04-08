@@ -43,5 +43,13 @@ namespace Project2D
             return origin + direction * t;
         }
 
+        public bool Intersects(AABB aabb, Vector3 I = null)
+        {
+            // get distances to each axis of the box
+            float xmin, xmax, ymin, ymax;
+
+            // not within Ray's range
+            return false;
+        }
     }
 }

@@ -72,6 +72,15 @@ namespace Project2D
                 ymax = (aabb.max.y - origin.y) / direction.y;
             }
 
+            // ensure within box
+            if (xmin > ymax || ymin > xmax)
+            {
+                return false;
+            }
+
+            // the first contact is the largest of the two min
+            float t = Math.Max(xmin, ymin);
+
             // not within Ray's range
             return false;
         }

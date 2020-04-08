@@ -60,6 +60,18 @@ namespace Project2D
                 xmax = (aabb.max.x - origin.x) / direction.x;
             }
 
+            // get min and max in the y-axis
+            if (direction.y < 0)
+            {
+                ymin = (aabb.max.y - origin.y) / direction.y;
+                ymax = (aabb.min.y - origin.y) / direction.y;
+            }
+            else
+            {
+                ymin = (aabb.min.y - origin.y) / direction.y;
+                ymax = (aabb.max.y - origin.y) / direction.y;
+            }
+
             // not within Ray's range
             return false;
         }

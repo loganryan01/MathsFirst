@@ -48,6 +48,18 @@ namespace Project2D
             // get distances to each axis of the box
             float xmin, xmax, ymin, ymax;
 
+            // get min and max in the x-axis
+            if (direction.x < 0)
+            {
+                xmin = (aabb.max.x - origin.x) / direction.x;
+                xmax = (aabb.min.x - origin.x) / direction.x;
+            }
+            else
+            {
+                xmin = (aabb.min.x - origin.x) / direction.x;
+                xmax = (aabb.max.x - origin.x) / direction.x;
+            }
+
             // not within Ray's range
             return false;
         }

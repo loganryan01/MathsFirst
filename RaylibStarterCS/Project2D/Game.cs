@@ -123,7 +123,23 @@ namespace Project2D
             }
             tankObject.Update(deltaTime);
 
-            //tank.SetToTransformedBox(tank, tankObject.LocalTransform);
+            // Make sure tank does not go out of bounds
+            if (tankObject.LocalTransform.m7 >= 605)
+            {
+                tankObject.SetPosition(605, tankObject.LocalTransform.m8);
+            }
+            if (tankObject.LocalTransform.m7 <= 35)
+            {
+                tankObject.SetPosition(35, tankObject.LocalTransform.m8);
+            }
+            if (tankObject.LocalTransform.m8 >= 445)
+            {
+                tankObject.SetPosition(tankObject.LocalTransform.m7, 445);
+            }
+            if (tankObject.LocalTransform.m8 <= 35)
+            {
+                tankObject.SetPosition(tankObject.LocalTransform.m7, 35);
+            }
 
             lastTime = currentTime;
         }
@@ -135,15 +151,6 @@ namespace Project2D
             ClearBackground(rl.Color.WHITE);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
 
-            DrawRectangleLines(0, 0, GetScreenWidth(), GetScreenHeight(), rl.Color.GREEN);
-            //DrawLine(0, 0, -640, 480, rl.Color.GREEN);
-
-            if (tankObject.LocalTransform.m7 >= 640 || tankObject.LocalTransform.m7 <= 0 ||
-                tankObject.LocalTransform.m8 >= 480 || tankObject.LocalTransform.m8 <= 0)
-            {
-                DrawText("Tank is out of bounds", 10, 30, 14, rl.Color.RED); 
-                
-            }
             //m7 is x.
             //DrawText((tankObject.LocalTransform.m7).ToString(), 10, 50, 14, rl.Color.RED); //m8 is y.
             //DrawText((tankSprite.Width).ToString(), 10, 70, 14, rl.Color.RED); //The width of the tank is 83.

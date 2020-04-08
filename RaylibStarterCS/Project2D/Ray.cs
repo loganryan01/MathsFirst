@@ -81,6 +81,18 @@ namespace Project2D
             // the first contact is the largest of the two min
             float t = Math.Max(xmin, ymin);
 
+            // intersects if within range
+            if (t >= 0 && t <= length)
+            {
+                // store intersection point if requested
+                if (I != null)
+                {
+                    I = origin + direction * t;
+                }
+
+                return true;
+            }
+
             // not within Ray's range
             return false;
         }

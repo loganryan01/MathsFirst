@@ -20,13 +20,13 @@ namespace Project2D
         SpriteObject tankSprite = new SpriteObject();
         SpriteObject turretSprite = new SpriteObject();
 
-        //static Vector3 min2 = new Vector3();
-        //static Vector3 max2 = new Vector3();
-        //static Vector3 max1 = new Vector3(640, 480, 1);
-        //static Vector3 min1 = new Vector3(0, 0, 1);
+        static Vector3 max1 = new Vector3(640, 480, 1);
+        static Vector3 min1 = new Vector3(0, 0, 1);
+        static Vector3 min2 = new Vector3();
+        static Vector3 max2 = new Vector3();
 
-        //AABB box = new AABB(min1, max1);
-        //AABB tank = new AABB(min2, max2);
+        AABB tank = new AABB(min2, max2);
+        AABB box = new AABB(min1, max1);
 
         private long currentTime = 0;
         private long lastTime = 0;
@@ -124,21 +124,21 @@ namespace Project2D
             tankObject.Update(deltaTime);
 
             // Make sure tank does not go out of bounds
-            if (tankObject.LocalTransform.m7 >= 605)
+            if (tankObject.LocalTransform.m7 >= 594)
             {
-                tankObject.SetPosition(605, tankObject.LocalTransform.m8);
+                tankObject.SetPosition(594, tankObject.LocalTransform.m8);
             }
-            if (tankObject.LocalTransform.m7 <= 35)
+            if (tankObject.LocalTransform.m7 <= 50)
             {
-                tankObject.SetPosition(35, tankObject.LocalTransform.m8);
+                tankObject.SetPosition(50, tankObject.LocalTransform.m8);
             }
-            if (tankObject.LocalTransform.m8 >= 445)
+            if (tankObject.LocalTransform.m8 >= 430)
             {
-                tankObject.SetPosition(tankObject.LocalTransform.m7, 445);
+                tankObject.SetPosition(tankObject.LocalTransform.m7, 430);
             }
-            if (tankObject.LocalTransform.m8 <= 35)
+            if (tankObject.LocalTransform.m8 <= 50)
             {
-                tankObject.SetPosition(tankObject.LocalTransform.m7, 35);
+                tankObject.SetPosition(tankObject.LocalTransform.m7, 50);
             }
 
             lastTime = currentTime;
@@ -146,15 +146,37 @@ namespace Project2D
 
         public void Draw()
         {
+            min2.x = tankObject.LocalTransform.m7 - 52;
+            min2.y = tankObject.LocalTransform.m8 - 50;
+            min2.z = 1;
+            max2.x = tankObject.LocalTransform.m7 + 52;
+            max2.y = tankObject.LocalTransform.m8 + 50;
+            max2.z = 1;
+
             BeginDrawing();
 
             ClearBackground(rl.Color.WHITE);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
+            
+            DrawRectangleLines((int)(tankObject.LocalTransform.m7 - 52), (int)(tankObject.LocalTransform.m8 - 50), 100, 100, rl.Color.BLACK);
+            DrawRectangleLines(0, 0, GetScreenWidth(), GetScreenHeight(), rl.Color.BLUE);
 
-            //m7 is x.
-            //DrawText((tankObject.LocalTransform.m7).ToString(), 10, 50, 14, rl.Color.RED); //m8 is y.
-            //DrawText((tankSprite.Width).ToString(), 10, 70, 14, rl.Color.RED); //The width of the tank is 83.
-            //DrawText((tankSprite.Height).ToString(), 10, 90, 14, rl.Color.RED); //The height of the tank is 78.
+            //if (tank.Overlaps(box))
+            //{
+            //    DrawText("Tank overlaps box", 10, 70, 14, rl.Color.RED);
+            //}
+            //m1 = 1, when the front of the tank is facing left
+            //m2 = 1, when the front of the tank is facing down
+            //m3 is constantly 0.
+            //m4 = 1, when the front of the tank is facing up.
+            //m5 = 1, when the front of the tank is facing right
+            //m6 is contantly 0.
+            //m7 is x position of the tank.
+            //m8 is y position of the tank.
+            //m9 is constantly 1.
+            // turretObject.LocalTransform.m5, turretObject.LocalTransform.m2
+            //The width of the tank is 83.
+            //The height of the tank is 78.
 
             tankObject.Draw();
 

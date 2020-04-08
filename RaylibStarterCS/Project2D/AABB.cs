@@ -9,10 +9,10 @@ namespace Project2D
 {
     class AABB
     {
-        Vector3 min = new Vector3(float.NegativeInfinity,
+        public Vector3 min = new Vector3(float.NegativeInfinity,
                                   float.NegativeInfinity,
                                   float.NegativeInfinity);
-        Vector3 max = new Vector3(float.PositiveInfinity,
+        public Vector3 max = new Vector3(float.PositiveInfinity,
                                   float.PositiveInfinity,
                                   float.PositiveInfinity);
 

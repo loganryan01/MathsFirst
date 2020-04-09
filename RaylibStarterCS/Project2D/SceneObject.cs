@@ -111,6 +111,12 @@ namespace Project2D
             }
         }
 
+        public void CopyTransform(Matrix3 newTransform)
+        {
+            localTransform = newTransform;
+            UpdateTransform();
+        }
+
         public void UpdateTransform()
         {
             if (parent != null)

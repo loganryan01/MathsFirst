@@ -16,9 +16,11 @@ namespace Project2D
 
         SceneObject tankObject = new SceneObject();
         SceneObject turretObject = new SceneObject();
+        SceneObject bulletObject = new SceneObject();
 
         SpriteObject tankSprite = new SpriteObject();
         SpriteObject turretSprite = new SpriteObject();
+        SpriteObject bulletSprite = new SpriteObject();
 
         static Vector3 max1 = new Vector3(640, 480, 1);
         static Vector3 min1 = new Vector3(0, 0, 1);
@@ -49,20 +51,27 @@ namespace Project2D
             lastTime = stopwatch.ElapsedMilliseconds;
 
             tankSprite.Load(@"D:\\Windows\\PNG\\Tanks\\tankBlue_outline.png");
-            // sprite is facing the wrong way... fix that here
-            tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
+            tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // converts degrees to radians
             // sets an offset for the base, so it rotates around the centre
             tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f);
+
             turretSprite.Load(@"D:\\Windows\\PNG\\Tanks\\barrelBlue.png");
             turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
             // set the turret offset from the tank base
             turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
 
+            bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png");
+            //bulletSprite.SetPosition(0, 0);
+            bulletSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
+
             // set up the scene object hierarchy - parent the turret to the base,
             // then the base to the tank sceneObject
+            bulletObject.AddChild(bulletSprite);
             turretObject.AddChild(turretSprite);
+            //turretObject.AddChild(bulletObject);
             tankObject.AddChild(tankSprite);
             tankObject.AddChild(turretObject);
+            //tankObject.AddChild(bulletObject);
 
             // having an empty object for the tank parent means we can set the
             // position/rotation of the tank without
@@ -118,7 +127,16 @@ namespace Project2D
             {
                 turretObject.Rotate(deltaTime);
             }
+            if (IsKeyDown(rl.KeyboardKey.KEY_SPACE))
+            {
+                bulletObject.SetPosition(tankObject.LocalTransform.m7 + 15f, tankObject.LocalTransform.m8 - 7.5f);
+                bulletObject.LocalTransform.m1 = tankObject.LocalTransform.m1;
+                bulletObject.LocalTransform.m2 = tankObject.LocalTransform.m2;
+                bulletObject.LocalTransform.m4 = tankObject.LocalTransform.m4;
+                bulletObject.LocalTransform.m5 = tankObject.LocalTransform.m5;
+            }
             tankObject.Update(deltaTime);
+            bulletObject.Update(deltaTime);
 
             // Make sure tank does not go out of bounds
             if (tankObject.LocalTransform.m7 >= 594)
@@ -154,8 +172,6 @@ namespace Project2D
             origin.y = tankObject.LocalTransform.m8;
             origin.z = 1;
 
-            
-
             // m1 >= 0 || m2 <= 0: Lines at (640, 240) and (320, 0)
             // m1 <= 0 || m2 <= 0: Lines at (320, 0) and (0, 240)
             // m1 <= 0 || m2 >= 0: Lines at (0, 240) and (320, 480)
@@ -168,48 +184,17 @@ namespace Project2D
             
             DrawRectangleLines((int)(tankObject.LocalTransform.m7 - 52), (int)(tankObject.LocalTransform.m8 - 50), 100, 100, rl.Color.BLACK);
             DrawRectangleLines(0, 0, GetScreenWidth(), GetScreenHeight(), rl.Color.BLUE);
+            //DrawCircleLines((int)(bulletObject.LocalTransform.m7), (int)(bulletObject.LocalTransform.m8), 15, rl.Color.BLACK);
 
-            //DrawLine((int)(origin.x), (int)(origin.y), (int)(direction.x), (int)(direction.y), rl.Color.BLACK);
+            DrawText((bulletObject.LocalTransform.m7).ToString(), 10, 30, 14, rl.Color.RED);
+            //DrawText((turretObject.LocalTransform.m2).ToString(), 10, 50, 14, rl.Color.RED);
+            //DrawText((direction1.y).ToString(), 10, 70, 14, rl.Color.RED);
+            //DrawText((turretObject.LocalTransform.m5).ToString(), 10, 90, 14, rl.Color.RED);
 
-            DrawText((turretObject.LocalTransform.m1).ToString(), 10, 30, 14, rl.Color.RED);
-            DrawText((turretObject.LocalTransform.m2).ToString(), 10, 50, 14, rl.Color.RED);
+            // When m1 = 0.8 && m2 = 0.8 the laser should be aiming at (640, 480)
+            // When m1 = 1 the laser should be aiming at (640, 240)
+            // When m1 = 0.8 && m2 = -0.8 the laser should be aiming at (640, 0)
 
-            if (turretObject.LocalTransform.m1 >= 0 || turretObject.LocalTransform.m2 <= 0)
-            {
-                direction1.x = 640;
-                direction1.y = 240;
-                direction2.x = 320;
-                direction2.y = 0;
-                DrawLine((int)(origin.x), (int)(origin.y), (int)(direction1.x), (int)(direction1.y), rl.Color.BLACK);
-                DrawLine((int)(origin.x), (int)(origin.y), (int)(direction2.x), (int)(direction2.y), rl.Color.BLACK);
-            }
-            else if (turretObject.LocalTransform.m1 <= 0 || turretObject.LocalTransform.m2 <= 0)
-            {
-                direction1.x = 320;
-                direction1.y = 0;
-                direction2.x = 0;
-                direction2.y = 240;
-                DrawLine((int)(origin.x), (int)(origin.y), (int)(direction1.x), (int)(direction1.y), rl.Color.BLACK);
-                DrawLine((int)(origin.x), (int)(origin.y), (int)(direction2.x), (int)(direction2.y), rl.Color.BLACK);
-            }
-            else if (turretObject.LocalTransform.m1 <= 0 || turretObject.LocalTransform.m2 >= 0)
-            {
-                direction1.x = 0;
-                direction1.y = 240;
-                direction2.x = 320;
-                direction2.y = 480;
-                DrawLine((int)(origin.x), (int)(origin.y), (int)(direction1.x), (int)(direction1.y), rl.Color.BLACK);
-                DrawLine((int)(origin.x), (int)(origin.y), (int)(direction2.x), (int)(direction2.y), rl.Color.BLACK);
-            }
-            else if (turretObject.LocalTransform.m1 >= 0 || turretObject.LocalTransform.m2 >= 0)
-            {
-                direction1.x = 320;
-                direction1.y = 480;
-                direction2.x = 640;
-                direction2.y = 240;
-                DrawLine((int)(origin.x), (int)(origin.y), 320, 480, rl.Color.BLACK);
-                DrawLine((int)(origin.x), (int)(origin.y), 640, 240, rl.Color.BLACK);
-            }
             //if (tank.Overlaps(box))
             //{
             //    DrawText("Tank overlaps box", 10, 70, 14, rl.Color.RED);
@@ -223,11 +208,9 @@ namespace Project2D
             //m7 is x position of the tank.
             //m8 is y position of the tank.
             //m9 is constantly 1.
-            // , turretObject.LocalTransform.m2
-            //The width of the tank is 83.
-            //The height of the tank is 78.
 
             tankObject.Draw();
+            bulletObject.Draw();
 
             EndDrawing();
         }

@@ -77,16 +77,19 @@ namespace Project2D
             }
         }
 
+        // Implement specific derived behaviours
         public virtual void OnUpdate(float deltaTime)
         {
 
         }
 
+        // Implement specific derived drawing behaviours
         public virtual void OnDraw()
         {
 
         }
 
+        // Updates all children
         public void Update(float deltaTime)
         {
             // run OnUpdate behaviour
@@ -128,12 +131,14 @@ namespace Project2D
                 child.UpdateTransform();
         }
 
+        //Sets an object to a specific position
         public void SetPosition(float x, float y)
         {
             localTransform.SetTranslation(x, y);
             UpdateTransform();
         }
 
+        //Sets an object to a specific rotation
         public void SetRotate(float radians)
         {
             localTransform.SetRotateZ(radians);
@@ -146,12 +151,14 @@ namespace Project2D
             UpdateTransform();
         }
 
+        //Modifys an objects position
         public void Translate(float x, float y)
         {
             localTransform.Translate(x, y);
             UpdateTransform();
         }
 
+        //Modifys an objects rotation
         public void Rotate(float radians)
         {
             localTransform.RotateZ(radians);

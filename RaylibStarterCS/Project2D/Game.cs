@@ -26,10 +26,12 @@ namespace Project2D
         //static Vector3 min1 = new Vector3(0, 0, 1);
         //static Vector3 min2 = new Vector3();
         //static Vector3 max2 = new Vector3();
-        Vector3 tankPosition = new Vector3(GetScreenWidth() / 2, GetScreenHeight() / 2, 1);
+        Vector3 bulletOrigin = new Vector3();
 
         //AABB tank = new AABB(min2, max2);
         //AABB border = new AABB(min1, max1);
+
+        Sphere bullet = new Sphere();
 
         private long currentTime = 0;
         private long lastTime = 0;
@@ -59,8 +61,9 @@ namespace Project2D
             turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
 
             bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png");
-            bulletSprite.SetRotate(-270 * (float)(Math.PI / 180.0f));
-            bulletSprite.SetPosition(bulletSprite.Width / 2.0f, bulletSprite.Height / 2.0f);
+            bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
+            // sets an offset for the bullet, so it rotates around the centre
+            bulletSprite.SetPosition(13, -6);
 
             bulletObject.AddChild(bulletSprite);
             turretObject.AddChild(turretSprite);
@@ -68,6 +71,7 @@ namespace Project2D
             tankObject.AddChild(turretObject);
 
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
+            bulletObject.SetPosition((GetScreenWidth() / 2.0f) + (bulletSprite.Width / 2.0f), (GetScreenHeight() / 2.0f) - (bulletSprite.Height / 2.0f));
         }
 
         public void Shutdown()
@@ -121,9 +125,6 @@ namespace Project2D
             if (IsKeyDown(rl.KeyboardKey.KEY_SPACE))
             {
                 bulletObject.CopyTransform(turretObject.GlobalTransform);
-                
-                //bulletObject.SetPosition(tankObject.LocalTransform.m7 + 15f, tankObject.LocalTransform.m8 - 7.5f);
-                //bulletObject.Rotate(deltaTime);
             }
             tankObject.Update(deltaTime);
             bulletObject.Update(deltaTime);
@@ -151,6 +152,10 @@ namespace Project2D
 
         public void Draw()
         {
+            bulletOrigin.x = bulletObject.GlobalTransform.m7;
+            bulletOrigin.y = bulletObject.GlobalTransform.m8;
+            bulletOrigin.z = 1;
+            
             BeginDrawing();
 
             ClearBackground(rl.Color.WHITE);
@@ -158,12 +163,14 @@ namespace Project2D
             
             DrawRectangleLines((int)(tankObject.LocalTransform.m7 - 52), (int)(tankObject.LocalTransform.m8 - 50), 100, 100, rl.Color.BLACK);
             DrawRectangleLines(0, 0, GetScreenWidth(), GetScreenHeight(), rl.Color.BLUE);
-            //DrawCircleLines((int)(bulletObject.LocalTransform.m7), (int)(bulletObject.LocalTransform.m8), 15, rl.Color.BLACK);
-
-            //DrawText((bulletObject.LocalTransform.m7).ToString(), 10, 30, 14, rl.Color.RED);
-            //DrawText((turretObject.LocalTransform.m2).ToString(), 10, 50, 14, rl.Color.RED);
-            //DrawText((direction1.y).ToString(), 10, 70, 14, rl.Color.RED);
-            //DrawText((turretObject.LocalTransform.m5).ToString(), 10, 90, 14, rl.Color.RED);
+            DrawRectangleLines(320, 240, 1, 1, rl.Color.BLACK);
+            DrawCircleLines((int)bulletOrigin.x, (int)bulletOrigin.y, bulletSprite.Height / 2.0f, rl.Color.RED);
+            DrawRectangle((int)bulletOrigin.x, (int)bulletOrigin.y, 1, 1, rl.Color.RED);
+            
+            DrawText((tankObject.GlobalTransform.m7).ToString(), 10, 30, 14, rl.Color.RED);
+            DrawText((tankObject.GlobalTransform.m8).ToString(), 10, 50, 14, rl.Color.RED);
+            DrawText((bulletObject.GlobalTransform.m7).ToString(), 10, 70, 14, rl.Color.RED);
+            DrawText((bulletObject.GlobalTransform.m8).ToString(), 10, 90, 14, rl.Color.RED);
             //m1 = 1, when the front of the tank is facing right
             //m2 = 1, when the front of the tank is facing down
             //m3 is constantly 0.

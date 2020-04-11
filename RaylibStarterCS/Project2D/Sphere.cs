@@ -9,8 +9,8 @@ namespace Project2D
 {
     class Sphere
     {
-        Vector3 center;
-        float radius;
+        public Vector3 center;
+        public float radius;
 
         public Sphere()
         {

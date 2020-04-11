@@ -22,22 +22,24 @@ namespace Project2D
         SpriteObject turretSprite = new SpriteObject();
         SpriteObject bulletSprite = new SpriteObject();
 
-        //static Vector3 max1 = new Vector3(640, 480, 1);
-        //static Vector3 min1 = new Vector3(0, 0, 1);
+        static Vector3 max1 = new Vector3(640, 480, 1);
+        static Vector3 min1 = new Vector3(0, 0, 1);
         //static Vector3 min2 = new Vector3();
         //static Vector3 max2 = new Vector3();
-        Vector3 bulletOrigin = new Vector3();
+        static Vector3 bulletOrigin = new Vector3();
 
         //AABB tank = new AABB(min2, max2);
-        //AABB border = new AABB(min1, max1);
+        AABB border = new AABB(min1, max1);
 
-        Sphere bullet = new Sphere();
+        Sphere bullet = new Sphere(bulletOrigin, bulletRadius);
 
         private long currentTime = 0;
         private long lastTime = 0;
         private float timer = 0;
         private int fps = 1;
         private int frames;
+
+        private static float bulletRadius;
 
         private float deltaTime = 0.005f;
 
@@ -71,7 +73,7 @@ namespace Project2D
             tankObject.AddChild(turretObject);
 
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
-            bulletObject.SetPosition((GetScreenWidth() / 2.0f) + (bulletSprite.Width / 2.0f), (GetScreenHeight() / 2.0f) - (bulletSprite.Height / 2.0f));
+            bulletObject.SetPosition(-10, -10);
         }
 
         public void Shutdown()
@@ -92,6 +94,7 @@ namespace Project2D
             }
             frames++;
 
+            // Player controls
             if (IsKeyDown(rl.KeyboardKey.KEY_A))
             {
                 tankObject.Rotate(-deltaTime);
@@ -122,12 +125,26 @@ namespace Project2D
             {
                 turretObject.Rotate(deltaTime);
             }
-            if (IsKeyDown(rl.KeyboardKey.KEY_SPACE))
+            if (IsKeyPressed(rl.KeyboardKey.KEY_SPACE))
             {
-                bulletObject.CopyTransform(turretObject.GlobalTransform);
+                if (!bullet.Overlaps(border))
+                {
+                    bulletObject.CopyTransform(turretObject.GlobalTransform);
+                }
             }
-            tankObject.Update(deltaTime);
-            bulletObject.Update(deltaTime);
+
+            // bullet movement
+            if (bullet.Overlaps(border))
+            {
+                bullet.radius = bulletSprite.Height / 2.0f;
+                for (int i = 0; i < 2; i++)
+                {
+                    Vector3 facing = new Vector3(
+                          bulletObject.LocalTransform.m1,
+                          bulletObject.LocalTransform.m2, 1) * deltaTime * 100;
+                    bulletObject.Translate(facing.x, facing.y);
+                }
+            }
 
             // Make sure tank does not go out of bounds
             if (tankObject.LocalTransform.m7 >= 594)
@@ -146,6 +163,9 @@ namespace Project2D
             {
                 tankObject.SetPosition(tankObject.LocalTransform.m7, 50);
             }
+
+            tankObject.Update(deltaTime);
+            bulletObject.Update(deltaTime);
 
             lastTime = currentTime;
         }
@@ -171,15 +191,6 @@ namespace Project2D
             DrawText((tankObject.GlobalTransform.m8).ToString(), 10, 50, 14, rl.Color.RED);
             DrawText((bulletObject.GlobalTransform.m7).ToString(), 10, 70, 14, rl.Color.RED);
             DrawText((bulletObject.GlobalTransform.m8).ToString(), 10, 90, 14, rl.Color.RED);
-            //m1 = 1, when the front of the tank is facing right
-            //m2 = 1, when the front of the tank is facing down
-            //m3 is constantly 0.
-            //m4 = 1, when the front of the tank is facing up.
-            //m5 = 1, when the front of the tank is facing right
-            //m6 is contantly 0.
-            //m7 is x position of the tank.
-            //m8 is y position of the tank.
-            //m9 is constantly 1.
 
             tankObject.Draw();
             bulletObject.Draw();

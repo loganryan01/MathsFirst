@@ -65,7 +65,7 @@ namespace Project2D
             bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png");
             bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
             // sets an offset for the bullet, so it rotates around the centre
-            bulletSprite.SetPosition(13, -6);
+            bulletSprite.SetPosition(bulletSprite.Height / 2.0f + 37, -bulletSprite.Width / 2.0f);
 
             bulletObject.AddChild(bulletSprite);
             turretObject.AddChild(turretSprite);
@@ -172,8 +172,8 @@ namespace Project2D
 
         public void Draw()
         {
-            bulletOrigin.x = bulletObject.GlobalTransform.m7;
-            bulletOrigin.y = bulletObject.GlobalTransform.m8;
+            bulletOrigin.x = bulletSprite.GlobalTransform.m7;
+            bulletOrigin.y = bulletSprite.GlobalTransform.m8;
             bulletOrigin.z = 1;
             
             BeginDrawing();
@@ -183,8 +183,9 @@ namespace Project2D
             
             DrawRectangleLines((int)(tankObject.LocalTransform.m7 - 52), (int)(tankObject.LocalTransform.m8 - 50), 100, 100, rl.Color.BLACK);
             DrawRectangleLines(0, 0, GetScreenWidth(), GetScreenHeight(), rl.Color.BLUE);
-            DrawRectangleLines(320, 240, 1, 1, rl.Color.BLACK);
-            DrawCircleLines((int)bulletOrigin.x, (int)bulletOrigin.y, bulletSprite.Height / 2.0f, rl.Color.RED);
+            DrawRectangleLines(320, 240, 1, 1, rl.Color.BLACK); // Center of the window.
+            DrawRectangleLines((int)bulletOrigin.x, (int)bulletOrigin.y, 10, 10, rl.Color.RED);
+            //DrawCircleLines((int)bulletOrigin.x, (int)bulletOrigin.y, bulletSprite.Height / 2.0f, rl.Color.RED); // Circle around of the bullet
             DrawRectangle((int)bulletOrigin.x, (int)bulletOrigin.y, 1, 1, rl.Color.RED);
             
             DrawText((tankObject.GlobalTransform.m7).ToString(), 10, 30, 14, rl.Color.RED);

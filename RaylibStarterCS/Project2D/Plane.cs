@@ -88,6 +88,22 @@ namespace Project2D
             }
             return ePlaneResult.INTERSECTS;
         }
+
+        public ePlaneResult TestSide(Sphere sphere)
+        {
+            float t = DistanceTo(sphere.center);
+
+            if (t > sphere.radius)
+            {
+                return ePlaneResult.FRONT;
+            }
+            else if (t < -sphere.radius)
+            {
+                return ePlaneResult.BACK;
+            }
+
+            return ePlaneResult.INTERSECTS;
+        }
         
         public ePlaneResult TestSide(AABB aabb)
         {

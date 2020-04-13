@@ -43,7 +43,7 @@ namespace Project2D
             return origin + direction * t;
         }
 
-        public bool Intersects(AABB aabb, Vector3 I = null)
+        public bool Intersects(AABB aabb, Vector3 I = null, Vector3 R = null)
         {
             // get distances to each axis of the box
             float xmin, xmax, ymin, ymax;
@@ -88,6 +88,49 @@ namespace Project2D
                 if (I != null)
                 {
                     I = origin + direction * t;
+                }
+
+                if (R != null)
+                {
+                    // need to determine box side hit
+                    Vector3 N;
+                    if (t == xmin)
+                    {
+                        // horizontal normal
+                        if (direction.x < 0)
+                        {
+                            // right side
+                            N = new Vector3(1, 0, 1);
+                        }
+                        else
+                        {
+                            // left side
+                            N = new Vector3(-1, 0, 1);
+                        }
+                    }
+                    else
+                    {
+                        // vertical normal
+                        if (direction.y < 0)
+                        {
+                            // top
+                            N = new Vector3(0, 1, 1);
+                        }
+                        else
+                        {
+                            // bottom
+                            N = new Vector3(0, -1, 1);
+                        }
+                    }
+
+                    // get penetration vector
+                    Vector3 P = direction * (length - t);
+
+                    // get penetration amount
+                    float p = P.Dot(N);
+
+                    // get reflected vector
+                    R = N * -2 * p + P;
                 }
 
                 return true;

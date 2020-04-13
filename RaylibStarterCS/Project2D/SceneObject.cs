@@ -64,19 +64,6 @@ namespace Project2D
             }
         }
 
-        ~SceneObject()
-        {
-            if(parent != null)
-            {
-                parent.RemoveChild(this);
-            }
-
-            foreach(SceneObject so in children)
-            {
-                so.parent = null;
-            }
-        }
-
         // Implement specific derived behaviours
         public virtual void OnUpdate(float deltaTime)
         {
@@ -169,6 +156,19 @@ namespace Project2D
         {
             localTransform.Scale(width, height, 1);
             UpdateTransform();
+        }
+
+        ~SceneObject()
+        {
+            if (parent != null)
+            {
+                parent.RemoveChild(this);
+            }
+
+            foreach (SceneObject so in children)
+            {
+                so.parent = null;
+            }
         }
     }
 }

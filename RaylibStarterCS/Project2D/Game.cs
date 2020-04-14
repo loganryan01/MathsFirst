@@ -22,40 +22,14 @@ namespace Project2D
         SpriteObject turretSprite = new SpriteObject();
         SpriteObject bulletSprite = new SpriteObject();
 
-        static Vector3 max1 = new Vector3(640, 480, 1);
-        static Vector3 min1 = new Vector3(0, 0, 1);
-        static Vector3 min2 = new Vector3();
-        static Vector3 max2 = new Vector3();
-        static Vector3 min3 = new Vector3();
-        static Vector3 max3 = new Vector3();
-        static Vector3 bulletOrigin = new Vector3();
-        //static Vector3 bulletStart = new Vector3();
-        static Vector3 turretOrigin = new Vector3();
-        static Vector3 edge1 = new Vector3(640, 0, 1);
-        static Vector3 edge2 = new Vector3(640, 480, 1);
-        static Vector3 edge3 = new Vector3(0, 480, 1);
-        static Vector3 edge4 = new Vector3(0, 0, 1);
+        
 
-        AABB tank = new AABB(min2, max2);
-        AABB border = new AABB(min1, max1);
-        //AABB turret = new AABB(min3, max3)
-
-        Sphere bullet = new Sphere(bulletOrigin, bulletRadius);
-
-        Plane plane1 = new Plane(edge1, edge2);
-        Plane plane2 = new Plane(edge2, edge3);
-        Plane plane3 = new Plane(edge3, edge4);
-        Plane plane4 = new Plane(edge4, edge1);
-
-        Ray bulletLine = new Ray(turretOrigin, bulletOrigin);
 
         private long currentTime = 0;
         private long lastTime = 0;
         private float timer = 0;
         private int fps = 1;
         private int frames;
-
-        private static float bulletRadius;
 
         private float deltaTime = 0.005f;
 
@@ -78,14 +52,18 @@ namespace Project2D
             // set the turret offset from the tank base
             turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
 
-            Bullet();
+            bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png");
+            bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
+            // sets an offset for the bullet, so it rotates around the centre
+            bulletSprite.SetPosition(bulletSprite.Height / 2.0f, -bulletSprite.Width / 2.0f);
 
+            bulletObject.AddChild(bulletSprite);
             turretObject.AddChild(turretSprite);
             tankObject.AddChild(tankSprite);
             tankObject.AddChild(turretObject);
 
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
-
+            bulletObject.SetPosition(-100, -100);
         }
 
         public void Shutdown()
@@ -94,11 +72,31 @@ namespace Project2D
 
         public void Update()
         {
-            turretOrigin.x = tankObject.GlobalTransform.m7;
-            turretOrigin.y = tankObject.GlobalTransform.m8;
-            turretOrigin.z = 1;
+            //Box for window
+            Vector3 borderMin = new Vector3(0, 0, 1);
+            Vector3 borderMax = new Vector3(640, 480, 1);
+            AABB border = new AABB(borderMin, borderMax);
 
-            Vector3 bulletStart = new Vector3(turretObject.GlobalTransform.m7, turretObject.GlobalTransform.m8, 1);
+            //Planes for window
+            Vector3 edge1 = new Vector3(640, 0, 1);
+            Vector3 edge2 = new Vector3(640, 480, 1);
+            Vector3 edge3 = new Vector3(0, 480, 1);
+            Vector3 edge4 = new Vector3(0, 0, 1);
+
+            Plane plane1 = new Plane(edge1, edge2); //Right side
+            Plane plane2 = new Plane(edge2, edge3); //Bottom
+            Plane plane3 = new Plane(edge3, edge4); //Left Side
+            Plane plane4 = new Plane(edge4, edge1); //Top
+
+            //Box for tank
+            Vector3 tankMin = new Vector3(tankObject.LocalTransform.m7 - 50, tankObject.LocalTransform.m8 + 50, 1);
+            Vector3 tankMax = new Vector3(tankObject.LocalTransform.m7 + 50, tankObject.LocalTransform.m8 - 50, 1);
+            AABB tank = new AABB(tankMin, tankMax);
+
+            //Circle for bullet 
+            Vector3 bulletOrigin = new Vector3(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8, 1);
+            float bulletRadius = bulletSprite.Height / 2.0f;
+            Sphere bullet = new Sphere(bulletOrigin, bulletRadius);
 
             currentTime = stopwatch.ElapsedMilliseconds;
             deltaTime = (currentTime - lastTime) / 1000.0f;
@@ -167,19 +165,16 @@ namespace Project2D
                 turretObject.SetPosition(0, 0);
                 bulletObject.SetPosition(-100, -100);
             }
-
             if (plane2.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
                 turretObject.SetPosition(0, 0);
                 bulletObject.SetPosition(-100, -100);
             }
-
             if (plane3.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
                 turretObject.SetPosition(0, 0);
                 bulletObject.SetPosition(-100, -100);
             }
-
             if (plane4.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
                 turretObject.SetPosition(0, 0);
@@ -215,66 +210,15 @@ namespace Project2D
 
         public void Draw()
         {
-            if (bulletObject != null)
-            {
-                bulletOrigin.x = bulletObject.GlobalTransform.m7;
-                bulletOrigin.y = bulletObject.GlobalTransform.m8;
-                bulletOrigin.z = 1;
-            }
-
-            if (bulletSprite != null)
-            {
-                bulletRadius = bulletSprite.Height / 2.0f;
-            }
-
-            min2.x = tankObject.LocalTransform.m7 - 50;
-            min2.y = tankObject.LocalTransform.m8 + 50;
-            min2.z = 1;
-
-            max2.x = tankObject.LocalTransform.m7 + 50;
-            max2.y = tankObject.LocalTransform.m8 - 50;
-            max2.z = 1;
-
             BeginDrawing();
 
             ClearBackground(rl.Color.WHITE);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
-            
-            DrawRectangleLines((int)(tankObject.LocalTransform.m7 - 52), (int)(tankObject.LocalTransform.m8 - 50), 100, 100, rl.Color.BLACK);
-            //DrawLine((int)turretOrigin.x, (int)turretOrigin.y, (int)bulletOrigin.x, (int)bulletOrigin.y, rl.Color.RED);
-            //DrawRectangleLines(0, 0, GetScreenWidth(), GetScreenHeight(), rl.Color.BLUE);
-            //DrawRectangleLines(320, 240, 1, 1, rl.Color.BLACK); // Center of the window.
-            //DrawRectangleLines((int)(turretObject.GlobalTransform.m7), (int)turretObject.GlobalTransform.m8, 100, 1, rl.Color.BLACK); // Center of the window.
-            //DrawRectangleLines((int)bulletOrigin.x, (int)bulletOrigin.y, 10, 10, rl.Color.RED);
-            //DrawCircleLines((int)bulletOrigin.x, (int)bulletOrigin.y, bulletSprite.Height / 2.0f, rl.Color.RED); // Circle around of the bullet
-            //DrawRectangle((int)bulletOrigin.x, (int)bulletOrigin.y, 1, 1, rl.Color.RED);
-            
-            DrawText((turretObject.GlobalTransform.m7).ToString(), 10, 30, 14, rl.Color.RED);
-            //DrawText((turretSprite.GlobalTransform.m8).ToString(), 10, 50, 14, rl.Color.RED);
-            DrawText((bulletObject.GlobalTransform.m7).ToString(), 10, 70, 14, rl.Color.RED);
-            //DrawText((bulletSprite.GlobalTransform.m8).ToString(), 10, 90, 14, rl.Color.RED);
 
             tankObject.Draw();
-            if (bulletObject != null)
-            {
-                bulletObject.Draw();
-            }
+            bulletObject.Draw();
 
             EndDrawing();
-        }
-
-        public void Bullet()
-        {
-            bulletObject = new SceneObject();
-            bulletSprite = new SpriteObject();
-
-            bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png");
-            bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
-            // sets an offset for the bullet, so it rotates around the centre
-            bulletSprite.SetPosition(bulletSprite.Height / 2.0f, -bulletSprite.Width / 2.0f);
-
-            bulletObject.AddChild(bulletSprite);
-            bulletObject.SetPosition(-10, -10);
         }
     }
 }

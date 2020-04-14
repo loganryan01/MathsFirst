@@ -139,5 +139,43 @@ namespace Project2D
             // not within Ray's range
             return false;
         }
+
+        public bool Intersects(Plane plane, Vector3 I = null, Vector3 R = null)
+        {
+            float t = direction.Dot(plane.N);
+            if (t > 0)
+            {
+                return false;
+            }
+
+            float d = origin.Dot(plane.N) + plane.d;
+
+            if (t == 0 && d != 0)
+            {
+                return false;
+            }
+
+            t = d == 0 ? 0 : -(d / t);
+
+            if (t >= 0 &&
+                t <= length)
+            {
+                if (I != null)
+                {
+                    I = origin + direction * t;
+                }
+
+                if (R != null)
+                {
+                    Vector3 P = direction * (length - t);
+                    float p = P.Dot(plane.N);
+                    R = plane.N * -2 * p + P;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }

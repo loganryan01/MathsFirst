@@ -10,8 +10,8 @@ namespace Project2D
     // 2D mathematical plane using Ax + By + d = 0
     class Plane
     {
-        Vector3 N = new Vector3(0, 0, 0);
-        float d;
+        public Vector3 N = new Vector3(0, 0, 0);
+        public float d;
 
         public enum ePlaneResult : int 
         {

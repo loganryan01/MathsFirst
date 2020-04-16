@@ -83,7 +83,7 @@ namespace Project2D
             if (treeObject.GlobalTransform.m7 == tankObject.GlobalTransform.m7 ||
                 treeObject.GlobalTransform.m8 == tankObject.GlobalTransform.m8)
             {
-                treeObject.SetPosition(GetRandomValue(54, 584), GetRandomValue(49, 431));
+                treeObject.SetPosition(GetRandomValue(54, 228), GetRandomValue(49, 431));
             }
         }
 
@@ -286,9 +286,11 @@ namespace Project2D
 
             ClearBackground(rl.Color.GREEN);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
+            DrawText(tankSprite.Height.ToString(), 10, 30, 14, rl.Color.RED);
 
-            DrawCircle((int)(smokeObject.GlobalTransform.m7), (int)(smokeObject.GlobalTransform.m8), 70, rl.Color.BLACK);
-            
+            //DrawCircle((int)(smokeObject.GlobalTransform.m7), (int)(smokeObject.GlobalTransform.m8), 70, rl.Color.BLACK);
+            DrawCircle((int)(treeObject.GlobalTransform.m7 + 5), (int)(treeObject.GlobalTransform.m8 + 4), 70, rl.Color.BLACK);
+            DrawRectangle((int)(tankObject.GlobalTransform.m7 - 50), (int)(tankObject.GlobalTransform.m8 - 50), 100, 100, rl.Color.BLACK);
 
             tankObject.Draw();
             bulletObject.Draw();

@@ -31,10 +31,15 @@ namespace Project2D
         private float timer = 0;
         private int fps = 1;
         private int frames;
+        private int score = 0;
 
         private int smokeFrames;
 
         private float deltaTime = 0.005f;
+
+        static Vector3 targetOrigin = new Vector3(GetRandomValue(30, 610), GetRandomValue(30, 450), 1);
+        private static float targetRadius = 30;
+        Sphere target = new Sphere(targetOrigin, targetRadius);
 
         public Game()
         {
@@ -78,13 +83,7 @@ namespace Project2D
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
             bulletObject.SetPosition(-100, -100);
             smokeObject.SetPosition(-100, -100);
-            treeObject.SetPosition(GetRandomValue(54, 584), GetRandomValue(49, 431));
-
-            if (treeObject.GlobalTransform.m7 == tankObject.GlobalTransform.m7 ||
-                treeObject.GlobalTransform.m8 == tankObject.GlobalTransform.m8)
-            {
-                treeObject.SetPosition(GetRandomValue(54, 228), GetRandomValue(49, 431));
-            }
+            treeObject.SetPosition(GetRandomValue(54, 586), GetRandomValue(49, 431));
         }
 
         public void Shutdown()
@@ -239,6 +238,17 @@ namespace Project2D
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 bulletObject.SetPosition(-100, -100);
             }
+            if (bullet.Overlaps(target))
+            {
+                turretObject.SetPosition(0, 0);
+                bulletObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                bulletObject.SetPosition(-100, -100);
+                targetOrigin.x = GetRandomValue(30, 610);
+                targetOrigin.y = GetRandomValue(30, 450);
+                score++;
+            }
 
             // Move smoke outside the window after a little bit
             if (smoke.Overlaps(border))
@@ -278,7 +288,21 @@ namespace Project2D
                 tankObject.SetPosition(320, 240);
             }
 
-                tankObject.Update(deltaTime);
+            // Target positioning
+            if (target.Overlaps(tree))
+            {
+                targetOrigin.x = GetRandomValue(30, 610);
+                targetOrigin.y = GetRandomValue(30, 450);
+            }
+
+            // Tree positioning
+            if (treeObject.GlobalTransform.m7 == tankObject.GlobalTransform.m7 ||
+                treeObject.GlobalTransform.m8 == tankObject.GlobalTransform.m8)
+            {
+                treeObject.SetPosition(GetRandomValue(54, 586), GetRandomValue(49, 431));
+            }
+
+            tankObject.Update(deltaTime);
             if (bullet.Overlaps(border))
             {
                 bulletObject.Update(deltaTime);
@@ -295,6 +319,9 @@ namespace Project2D
 
             ClearBackground(rl.Color.GREEN);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
+            DrawText(score.ToString(), 10, 30, 14, rl.Color.RED);
+
+            DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED);
 
             tankObject.Draw();
             bulletObject.Draw();

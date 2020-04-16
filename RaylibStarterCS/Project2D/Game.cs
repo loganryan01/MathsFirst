@@ -17,19 +17,20 @@ namespace Project2D
         SceneObject tankObject = new SceneObject();
         SceneObject turretObject = new SceneObject();
         SceneObject bulletObject = new SceneObject();
+        SceneObject smokeObject = new SceneObject();
 
         SpriteObject tankSprite = new SpriteObject();
         SpriteObject turretSprite = new SpriteObject();
         SpriteObject bulletSprite = new SpriteObject();
-
-        
-
+        SpriteObject smokeSprite = new SpriteObject();
 
         private long currentTime = 0;
         private long lastTime = 0;
         private float timer = 0;
         private int fps = 1;
         private int frames;
+
+        private int smokeFrames;
 
         private float deltaTime = 0.005f;
 
@@ -57,6 +58,11 @@ namespace Project2D
             // sets an offset for the bullet, so it rotates around the centre
             bulletSprite.SetPosition(bulletSprite.Height / 2.0f, -bulletSprite.Width / 2.0f);
 
+            smokeSprite.Load(@"D:\\Windows\\PNG\\Smoke\\smokeOrange0.png");
+            smokeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
+            smokeSprite.SetPosition(-smokeSprite.Width / 2.0f, smokeSprite.Height / 2.0f);
+
+            smokeObject.AddChild(smokeSprite);
             bulletObject.AddChild(bulletSprite);
             turretObject.AddChild(turretSprite);
             tankObject.AddChild(tankSprite);
@@ -64,6 +70,7 @@ namespace Project2D
 
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
             bulletObject.SetPosition(-100, -100);
+            smokeObject.SetPosition(-100, -100);
         }
 
         public void Shutdown()
@@ -162,23 +169,55 @@ namespace Project2D
             // reset bullet position
             if (plane1.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
+                // Return turretObject to original position
                 turretObject.SetPosition(0, 0);
+
+                // Set smoke to y-position of where the bullet collided with the plane
+                bulletObject.SetPosition(630, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(597, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(597, smokeObject.GlobalTransform.m8);
+
+                // Move bullet outside the window
                 bulletObject.SetPosition(-100, -100);
             }
             if (plane2.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
                 turretObject.SetPosition(0, 0);
+                bulletObject.SetPosition(bulletObject.GlobalTransform.m7, 470);
+                smokeObject.SetPosition(bulletObject.GlobalTransform.m7, 437);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, 437);
                 bulletObject.SetPosition(-100, -100);
             }
             if (plane3.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
                 turretObject.SetPosition(0, 0);
+                bulletObject.SetPosition(10, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(43, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(43, smokeObject.GlobalTransform.m8);
                 bulletObject.SetPosition(-100, -100);
             }
             if (plane4.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
                 turretObject.SetPosition(0, 0);
+                bulletObject.SetPosition(bulletObject.GlobalTransform.m7, 10);
+                smokeObject.SetPosition(bulletObject.GlobalTransform.m7, 43);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, 43);
                 bulletObject.SetPosition(-100, -100);
+            }
+
+            // Move smoke outside the window after a little bit
+            if (smokeObject.GlobalTransform.m7 == 597 ||
+                smokeObject.GlobalTransform.m7 == 43 ||
+                smokeObject.GlobalTransform.m8 == 437 ||
+                smokeObject.GlobalTransform.m8 == 43)
+            {
+                smokeFrames++;
+
+                if (smokeFrames == 10)
+                {
+                    smokeObject.SetPosition(-100, -100);
+                    smokeFrames = 0;
+                }
             }
 
             // Make sure tank does not go out of bounds
@@ -204,6 +243,7 @@ namespace Project2D
             {
                 bulletObject.Update(deltaTime);
             }
+            smokeObject.Update(deltaTime);
 
             lastTime = currentTime;
         }
@@ -212,11 +252,12 @@ namespace Project2D
         {
             BeginDrawing();
 
-            ClearBackground(rl.Color.WHITE);
+            ClearBackground(rl.Color.GREEN);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
 
             tankObject.Draw();
             bulletObject.Draw();
+            smokeObject.Draw();
 
             EndDrawing();
         }

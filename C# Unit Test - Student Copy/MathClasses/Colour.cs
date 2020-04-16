@@ -17,7 +17,10 @@ namespace MathClasses
 
         public Colour(byte red, byte green, byte blue, byte alpha)
         {
-            colour = 0x12345678;
+            colour |= (UInt32)red << 24;
+            colour |= (UInt32)green << 16;
+            colour |= (UInt32)blue << 8;
+            colour |= (UInt32)alpha << 0;
         }
 
         public byte GetRed() 

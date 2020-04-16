@@ -551,5 +551,18 @@ namespace UnitTestProject
 
             Assert.AreEqual<UInt32>(c.colour, 0x00000078);
         }
+
+        //Using RGBA, I created a unit test that will return the colour white.
+        [TestMethod]
+        public void ColourSetWhite()
+        {
+            Colour c = new Colour();
+            c.SetRed(0xFF);
+            c.SetGreen(0xFF);
+            c.SetBlue(0xFF);
+            c.SetAlpha(0xFF);
+
+            Assert.AreEqual<UInt32>(c.colour, 0xFFFFFFFF);
+        }
     }
 }

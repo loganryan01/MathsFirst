@@ -23,7 +23,14 @@ namespace Project2D
             this.radius = r;
         }
 
-        public bool Overlaps (AABB aabb)
+        public bool Overlaps(Sphere other)
+        {
+            Vector3 diff = other.center - center;
+            float r = radius + other.radius;
+            return diff.MagnitudeSqr() <= (r * r);
+        }
+
+        public bool Overlaps(AABB aabb)
         {
             Vector3 diff = aabb.ClosestPoint(center) - center;
             return diff.Dot(diff) <= (radius * radius);

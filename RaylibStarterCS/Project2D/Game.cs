@@ -193,7 +193,7 @@ namespace Project2D
                 }
             }
 
-            // reset bullet position
+            // Bullet Destruction
             if (plane1.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
                 // Return turretObject to original position
@@ -231,6 +231,14 @@ namespace Project2D
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, 43);
                 bulletObject.SetPosition(-100, -100);
             }
+            if (bullet.Overlaps(tree))
+            {
+                turretObject.SetPosition(0, 0);
+                bulletObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                bulletObject.SetPosition(-100, -100);
+            }
 
             // Move smoke outside the window after a little bit
             if (smoke.Overlaps(border))
@@ -262,6 +270,7 @@ namespace Project2D
                 tankObject.SetPosition(tankObject.LocalTransform.m7, 50);
             }
 
+            // Tank Destruction
             if (tree.Overlaps(tank))
             {
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
@@ -286,11 +295,6 @@ namespace Project2D
 
             ClearBackground(rl.Color.GREEN);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
-            DrawText(tankSprite.Height.ToString(), 10, 30, 14, rl.Color.RED);
-
-            //DrawCircle((int)(smokeObject.GlobalTransform.m7), (int)(smokeObject.GlobalTransform.m8), 70, rl.Color.BLACK);
-            DrawCircle((int)(treeObject.GlobalTransform.m7 + 5), (int)(treeObject.GlobalTransform.m8 + 4), 70, rl.Color.BLACK);
-            DrawRectangle((int)(tankObject.GlobalTransform.m7 - 50), (int)(tankObject.GlobalTransform.m8 - 50), 100, 100, rl.Color.BLACK);
 
             tankObject.Draw();
             bulletObject.Draw();

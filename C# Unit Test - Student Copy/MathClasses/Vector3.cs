@@ -73,6 +73,11 @@ namespace MathClasses
             return (float)Math.Sqrt(x * x + y * y + z * z);
         }
 
+        public float MagnitudeSqr()
+        {
+            return (x * x + y * y + z * z);
+        }
+
         public void Normalize()
         {
             float m = Magnitude();

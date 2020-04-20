@@ -31,8 +31,9 @@ namespace Project2D
         private float timer = 0;
         private int fps = 1;
         private int frames;
+        
         private int score = 0;
-
+        private int highscore = 0;
         private int smokeFrames;
         private bool gameOver = false;
 
@@ -109,11 +110,6 @@ namespace Project2D
             Plane plane3 = new Plane(edge3, edge4); //Left Side
             Plane plane4 = new Plane(edge4, edge1); //Top
 
-            //Box for tank
-            //Vector3 tankMin = new Vector3(tankObject.LocalTransform.m7 - 50, tankObject.LocalTransform.m8 + 50, 1);
-            //Vector3 tankMax = new Vector3(tankObject.LocalTransform.m7 + 50, tankObject.LocalTransform.m8 - 50, 1);
-            //AABB tank = new AABB(tankMin, tankMax);
-
             //Circle for tank
             Vector3 tankOrigin = new Vector3(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8, 1);
             float tankRadius = tankSprite.Height / 2.0f;
@@ -188,11 +184,14 @@ namespace Project2D
             if (IsMouseButtonPressed(rl.MouseButton.MOUSE_LEFT_BUTTON) && gameOver)
             {
                 gameOver = false;
+                highscore = score;
                 score = 0;
                 tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
                 bulletObject.SetPosition(-100, -100);
                 smokeObject.SetPosition(-100, -100);
                 treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431));
+                targetOrigin.x = GetRandomValue(30, 610);
+                targetOrigin.y = GetRandomValue(30, 450);
             }
 
             // bullet movement
@@ -278,23 +277,7 @@ namespace Project2D
                 }
             }
 
-            // Make sure tank does not go out of bounds
-            //if (tankObject.LocalTransform.m7 >= 594)
-            //{
-            //    tankObject.SetPosition(594, tankObject.LocalTransform.m8);
-            //}
-            //if (tankObject.LocalTransform.m7 <= 50)
-            //{
-            //    tankObject.SetPosition(50, tankObject.LocalTransform.m8);
-            //}
-            //if (tankObject.LocalTransform.m8 >= 430)
-            //{
-            //    tankObject.SetPosition(tankObject.LocalTransform.m7, 430);
-            //}
-            //if (tankObject.LocalTransform.m8 <= 50)
-            //{
-            //    tankObject.SetPosition(tankObject.LocalTransform.m7, 50);
-            //}
+            // Destroy tank f it goes out of bounds
             if (plane1.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
@@ -347,6 +330,11 @@ namespace Project2D
                 treeObject.SetPosition(GetRandomValue(54, 586), GetRandomValue(49, 431));
             }
 
+            if (gameOver)
+            {
+                treeObject.SetPosition(-200, 0);
+            }
+
             tankObject.Update(deltaTime);
             if (bullet.Overlaps(border))
             {
@@ -365,18 +353,26 @@ namespace Project2D
             ClearBackground(rl.Color.GREEN);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
             DrawText(score.ToString(), 10, 30, 14, rl.Color.RED);
+            DrawText(highscore.ToString(), 10, 50, 14, rl.Color.RED);
 
             DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED);
-            DrawCircle((int)treeObject.GlobalTransform.m7 + 4, (int)treeObject.GlobalTransform.m8 + 5, 60, rl.Color.BLACK);
-            //DrawRectangle((int)tankObject.LocalTransform.m7 - 50, (int)tankObject.LocalTransform.m8 - 50, 100, 100, rl.Color.BLACK);
-            DrawCircle((int)tankObject.LocalTransform.m7, (int)tankObject.LocalTransform.m8, 60, rl.Color.BLACK);
 
-            if (gameOver)
+            if (gameOver && score < highscore || gameOver && score == highscore)
             {
-                DrawText("Game Over", 240, 200, 30, rl.Color.RED);
-                DrawText("You Crashed", 240, 230, 15, rl.Color.RED);
-                DrawText("Your score was " + score, 240, 245, 15, rl.Color.RED);
-                DrawText("Left click to restart", 240, 260, 15, rl.Color.RED);
+                ClearBackground(rl.Color.RED);
+                DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
+                DrawText("You Crashed", 240, 230, 15, rl.Color.BLACK);
+                DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
+                DrawText("Left click to restart", 240, 260, 15, rl.Color.BLACK);
+            }
+            if (gameOver && score > highscore)
+            {
+                ClearBackground(rl.Color.RED);
+                DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
+                DrawText("You Crashed", 240, 230, 15, rl.Color.BLACK);
+                DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
+                DrawText("Congratulations! New highscore", 240, 260, 15, rl.Color.BLACK);
+                DrawText("Left click to restart", 240, 275, 15, rl.Color.BLACK);
             }
 
             tankObject.Draw();

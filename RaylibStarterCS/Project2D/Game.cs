@@ -34,6 +34,7 @@ namespace Project2D
         private int score = 0;
 
         private int smokeFrames;
+        private bool gameOver = false;
 
         private float deltaTime = 0.005f;
 
@@ -83,7 +84,7 @@ namespace Project2D
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
             bulletObject.SetPosition(-100, -100);
             smokeObject.SetPosition(-100, -100);
-            treeObject.SetPosition(GetRandomValue(54, 586), GetRandomValue(49, 431));
+            treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431));
         }
 
         public void Shutdown()
@@ -109,9 +110,15 @@ namespace Project2D
             Plane plane4 = new Plane(edge4, edge1); //Top
 
             //Box for tank
-            Vector3 tankMin = new Vector3(tankObject.LocalTransform.m7 - 50, tankObject.LocalTransform.m8 + 50, 1);
-            Vector3 tankMax = new Vector3(tankObject.LocalTransform.m7 + 50, tankObject.LocalTransform.m8 - 50, 1);
-            AABB tank = new AABB(tankMin, tankMax);
+            //Vector3 tankMin = new Vector3(tankObject.LocalTransform.m7 - 50, tankObject.LocalTransform.m8 + 50, 1);
+            //Vector3 tankMax = new Vector3(tankObject.LocalTransform.m7 + 50, tankObject.LocalTransform.m8 - 50, 1);
+            //AABB tank = new AABB(tankMin, tankMax);
+
+            //Circle for tank
+            Vector3 tankOrigin = new Vector3(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8, 1);
+            float tankRadius = tankSprite.Height / 2.0f;
+            Sphere tank = new Sphere(tankOrigin, tankRadius);
+
 
             //Circle for bullet 
             Vector3 bulletOrigin = new Vector3(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8, 1);
@@ -119,8 +126,8 @@ namespace Project2D
             Sphere bullet = new Sphere(bulletOrigin, bulletRadius);
 
             //Circle for tree
-            Vector3 treeOrigin = new Vector3(treeObject.GlobalTransform.m7 + 5, treeObject.GlobalTransform.m8 + 4, 1);
-            float treeRadius = 70;
+            Vector3 treeOrigin = new Vector3(treeObject.GlobalTransform.m7 + 4, treeObject.GlobalTransform.m8 + 5, 1);
+            float treeRadius = 60;
             Sphere tree = new Sphere(treeOrigin, treeRadius);
 
             //Circle for smoke
@@ -177,6 +184,15 @@ namespace Project2D
                 {
                     bulletObject.CopyTransform(turretObject.GlobalTransform);
                 }
+            }
+            if (IsMouseButtonPressed(rl.MouseButton.MOUSE_LEFT_BUTTON) && gameOver)
+            {
+                gameOver = false;
+                score = 0;
+                tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
+                bulletObject.SetPosition(-100, -100);
+                smokeObject.SetPosition(-100, -100);
+                treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431));
             }
 
             // bullet movement
@@ -263,29 +279,58 @@ namespace Project2D
             }
 
             // Make sure tank does not go out of bounds
-            if (tankObject.LocalTransform.m7 >= 594)
+            //if (tankObject.LocalTransform.m7 >= 594)
+            //{
+            //    tankObject.SetPosition(594, tankObject.LocalTransform.m8);
+            //}
+            //if (tankObject.LocalTransform.m7 <= 50)
+            //{
+            //    tankObject.SetPosition(50, tankObject.LocalTransform.m8);
+            //}
+            //if (tankObject.LocalTransform.m8 >= 430)
+            //{
+            //    tankObject.SetPosition(tankObject.LocalTransform.m7, 430);
+            //}
+            //if (tankObject.LocalTransform.m8 <= 50)
+            //{
+            //    tankObject.SetPosition(tankObject.LocalTransform.m7, 50);
+            //}
+            if (plane1.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
-                tankObject.SetPosition(594, tankObject.LocalTransform.m8);
+                gameOver = true;
+                smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                tankObject.SetPosition(-100, -100);
             }
-            if (tankObject.LocalTransform.m7 <= 50)
+            if (plane2.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
-                tankObject.SetPosition(50, tankObject.LocalTransform.m8);
+                gameOver = true;
+                smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                tankObject.SetPosition(-100, -100);
             }
-            if (tankObject.LocalTransform.m8 >= 430)
+            if (plane3.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
-                tankObject.SetPosition(tankObject.LocalTransform.m7, 430);
+                gameOver = true;
+                smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                tankObject.SetPosition(-100, -100);
             }
-            if (tankObject.LocalTransform.m8 <= 50)
+            if (plane4.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
-                tankObject.SetPosition(tankObject.LocalTransform.m7, 50);
+                gameOver = true;
+                smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                tankObject.SetPosition(-100, -100);
             }
 
             // Tank Destruction
             if (tree.Overlaps(tank))
             {
+                gameOver = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
-                tankObject.SetPosition(320, 240);
+                tankObject.SetPosition(-100, -100);
             }
 
             // Target positioning
@@ -322,6 +367,17 @@ namespace Project2D
             DrawText(score.ToString(), 10, 30, 14, rl.Color.RED);
 
             DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED);
+            DrawCircle((int)treeObject.GlobalTransform.m7 + 4, (int)treeObject.GlobalTransform.m8 + 5, 60, rl.Color.BLACK);
+            //DrawRectangle((int)tankObject.LocalTransform.m7 - 50, (int)tankObject.LocalTransform.m8 - 50, 100, 100, rl.Color.BLACK);
+            DrawCircle((int)tankObject.LocalTransform.m7, (int)tankObject.LocalTransform.m8, 60, rl.Color.BLACK);
+
+            if (gameOver)
+            {
+                DrawText("Game Over", 240, 200, 30, rl.Color.RED);
+                DrawText("You Crashed", 240, 230, 15, rl.Color.RED);
+                DrawText("Your score was " + score, 240, 245, 15, rl.Color.RED);
+                DrawText("Left click to restart", 240, 260, 15, rl.Color.RED);
+            }
 
             tankObject.Draw();
             bulletObject.Draw();

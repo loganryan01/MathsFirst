@@ -39,7 +39,7 @@ namespace Project2D
 
         private float deltaTime = 0.005f;
 
-        static Vector3 targetOrigin = new Vector3(GetRandomValue(30, 610), GetRandomValue(30, 450), 1);
+        static Vector3 targetOrigin = new Vector3(GetRandomValue(30, 580), GetRandomValue(30, 420), 1);
         private static float targetRadius = 30;
         Sphere target = new Sphere(targetOrigin, targetRadius);
 
@@ -65,7 +65,7 @@ namespace Project2D
             bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png");
             bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
             // sets an offset for the bullet, so it rotates around the centre
-            bulletSprite.SetPosition(bulletSprite.Height / 2.0f, -bulletSprite.Width / 2.0f);
+            bulletSprite.SetPosition(50, -6);
 
             smokeSprite.Load(@"D:\\Windows\\PNG\\Smoke\\smokeOrange0.png");
             smokeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
@@ -99,11 +99,22 @@ namespace Project2D
             Vector3 borderMax = new Vector3(640, 480, 1);
             AABB border = new AABB(borderMin, borderMax);
 
-            //Planes for window
-            Vector3 edge1 = new Vector3(640, 0, 1);
-            Vector3 edge2 = new Vector3(640, 480, 1);
-            Vector3 edge3 = new Vector3(0, 480, 1);
-            Vector3 edge4 = new Vector3(0, 0, 1);
+            //Planes for tank to collide
+            Vector3 edge5 = new Vector3(640, 0, 1);
+            Vector3 edge6 = new Vector3(640, 480, 1);
+            Vector3 edge7 = new Vector3(0, 480, 1);
+            Vector3 edge8 = new Vector3(0, 0, 1);
+
+            Plane plane5 = new Plane(edge5, edge6);
+            Plane plane6 = new Plane(edge6, edge7);
+            Plane plane7 = new Plane(edge7, edge8);
+            Plane plane8 = new Plane(edge8, edge5);
+
+            //Planes for bullet to collide
+            Vector3 edge1 = new Vector3(610, 30, 1);
+            Vector3 edge2 = new Vector3(610, 450, 1);
+            Vector3 edge3 = new Vector3(30, 450, 1);
+            Vector3 edge4 = new Vector3(30, 30, 1);
 
             Plane plane1 = new Plane(edge1, edge2); //Right side
             Plane plane2 = new Plane(edge2, edge3); //Bottom
@@ -174,7 +185,7 @@ namespace Project2D
             {
                 turretObject.Rotate(deltaTime);
             }
-            if (IsKeyPressed(rl.KeyboardKey.KEY_SPACE))
+            if (IsKeyDown(rl.KeyboardKey.KEY_SPACE))
             {
                 if (!bullet.Overlaps(border))
                 {
@@ -190,7 +201,7 @@ namespace Project2D
                 bulletObject.SetPosition(-100, -100);
                 smokeObject.SetPosition(-100, -100);
                 treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431));
-                targetOrigin.x = GetRandomValue(30, 610);
+                targetOrigin.x = GetRandomValue(30, 580);
                 targetOrigin.y = GetRandomValue(30, 450);
             }
 
@@ -260,7 +271,7 @@ namespace Project2D
                 smokeObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 bulletObject.SetPosition(-100, -100);
-                targetOrigin.x = GetRandomValue(30, 610);
+                targetOrigin.x = GetRandomValue(30, 580);
                 targetOrigin.y = GetRandomValue(30, 450);
                 score++;
             }
@@ -278,28 +289,28 @@ namespace Project2D
             }
 
             // Destroy tank f it goes out of bounds
-            if (plane1.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
+            if (plane5.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
             }
-            if (plane2.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
+            if (plane6.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
             }
-            if (plane3.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
+            if (plane7.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
             }
-            if (plane4.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
+            if (plane8.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
@@ -319,7 +330,7 @@ namespace Project2D
             // Target positioning
             if (target.Overlaps(tree))
             {
-                targetOrigin.x = GetRandomValue(30, 610);
+                targetOrigin.x = GetRandomValue(30, 580);
                 targetOrigin.y = GetRandomValue(30, 450);
             }
 
@@ -352,10 +363,13 @@ namespace Project2D
 
             ClearBackground(rl.Color.GREEN);
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
-            DrawText(score.ToString(), 10, 30, 14, rl.Color.RED);
-            DrawText(highscore.ToString(), 10, 50, 14, rl.Color.RED);
+            DrawText("Score: " + score, 10, 30, 14, rl.Color.RED);
+            DrawText("Highscore: " + highscore, 10, 50, 14, rl.Color.RED);
 
             DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED);
+            //DrawCircle((int)bulletObject.GlobalTransform.m7, (int)bulletObject.GlobalTransform.m8, bulletSprite.Height / 2.0f, rl.Color.BLACK);
+            DrawText(bulletObject.GlobalTransform.m7.ToString(), 10, 70, 14, rl.Color.RED);
+            DrawText(bulletObject.GlobalTransform.m8.ToString(), 10, 90, 14, rl.Color.RED);
 
             if (gameOver && score < highscore || gameOver && score == highscore)
             {

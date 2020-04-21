@@ -10,6 +10,7 @@ namespace MathClasses
     {
         public float m1, m2, m3, m4, m5, m6, m7, m8, m9;
 
+        // Default Matrix3 constructor
         public Matrix3()
         {
             m1 = 1; m2 = 0; m3 = 0;
@@ -17,6 +18,7 @@ namespace MathClasses
             m7 = 0; m8 = 0; m9 = 1;
         }
 
+        // Creates a 2-D Homogeneous Matrix
         public Matrix3(float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9)
         {
             this.m1 = m1; this.m2 = m2; this.m3 = m3;
@@ -24,6 +26,7 @@ namespace MathClasses
             this.m7 = m7; this.m8 = m8; this.m9 = m9;
         }
 
+        // Matrix Multiplication against a Vector
         public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
         {
             return new Vector3(
@@ -31,6 +34,7 @@ namespace MathClasses
                 (lhs.m2 * rhs.x) + (lhs.m5 * rhs.y) + (lhs.m8 * rhs.z),
                 (lhs.m3 * rhs.x) + (lhs.m6 * rhs.y) + (lhs.m9 * rhs.z));
         }
+
 
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
         {
@@ -46,6 +50,7 @@ namespace MathClasses
                 lhs.m3 * rhs.m7 + lhs.m6 * rhs.m8 + lhs.m9 * rhs.m9);
         }
 
+        // Update the values of the matrix to the values of the input matrix
         public void Set(Matrix3 m)
         {
             m1 = m.m1; m2 = m.m2; m3 = m.m3;
@@ -53,6 +58,7 @@ namespace MathClasses
             m7 = m.m7; m8 = m.m8; m9 = m.m9;
         }
 
+        // Update the values of the matrix to the values of the input matrix
         public void Set(float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9)
         {
             this.m1 = m1; this.m2 = m2; this.m3 = m3;
@@ -60,6 +66,7 @@ namespace MathClasses
             this.m7 = m7; this.m8 = m8; this.m9 = m9;
         }
 
+        // Set up a matrix to be rotated around the X axis.
         public void SetRotateX(double radians)
         {
             Set(1, 0, 0,
@@ -67,6 +74,7 @@ namespace MathClasses
                 0, (float)-Math.Sin(radians), (float)Math.Cos(radians));
         }
 
+        // Rotate an existing matrix around the X axis
         public void RotateX(double radians)
         {
             Matrix3 m = new Matrix3();
@@ -75,6 +83,7 @@ namespace MathClasses
             Set(this * m);
         }
 
+        // Set up a matrix to be rotated around the Y axis
         public void SetRotateY(double radians)
         {
             Set((float)Math.Cos(radians), 0, (float)-Math.Sin(radians),
@@ -82,6 +91,7 @@ namespace MathClasses
                 (float)Math.Sin(radians), 0, (float)Math.Cos(radians));
         }
 
+        // Rotate an existing matrix around the Y axis
         public void RotateY(double radians)
         {
             Matrix3 m = new Matrix3();
@@ -90,6 +100,7 @@ namespace MathClasses
             Set(this * m);
         }
 
+        // Set up a matrix to be rotated around the Z axis
         public void SetRotateZ(double radians)
         {
             Set((float)Math.Cos(radians), (float)Math.Sin(radians), 0,
@@ -97,6 +108,7 @@ namespace MathClasses
                 0, 0, 1);
         }
 
+        // Rotate an existing matrix around the Z axis
         public void RotateZ(double radians)
         {
             Matrix3 m = new Matrix3();
@@ -105,6 +117,7 @@ namespace MathClasses
             Set(this * m);
         }
 
+        // Creates a scaled matrix, based on a different on a different scale for each axis.
         public void SetScaled(float x, float y, float z)
         {
             m1 = x; m2 = 0; m3 = 0;
@@ -122,7 +135,8 @@ namespace MathClasses
             // apply vector offset
             m7 += x; m8 += y;
         }
-
+        
+        // Creates a scaled matrix, then multiplies itself with the scaled matrix
         public void Scale(float x, float y, float z)
         {
             Matrix3 m = new Matrix3();

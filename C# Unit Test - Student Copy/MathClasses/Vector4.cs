@@ -10,6 +10,7 @@ namespace MathClasses
     {
         public float x, y, z, w;
 
+        // Default Vector4 constructor
         public Vector4()
         {
             x = 0;
@@ -18,6 +19,7 @@ namespace MathClasses
             w = 0;
         }
 
+        // Creates a 3-D Homogeneous Vector
         public Vector4(float x, float y, float z, float w)
         {
             this.x = x;
@@ -26,16 +28,19 @@ namespace MathClasses
             this.w = w;
         }
 
+        // Add Vector4's together
         public static Vector4 operator +(Vector4 lhs, Vector4 rhs)
         {
             return new Vector4(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w);
         }
 
+        // Subtract Vector4's together
         public static Vector4 operator -(Vector4 lhs, Vector4 rhs)
         {
             return new Vector4(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w);
         }
 
+        // Multiply be a scalar
         public static Vector4 operator *(Vector4 v1, float s2)
         {
             return new Vector4(

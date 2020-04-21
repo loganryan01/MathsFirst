@@ -10,6 +10,7 @@ namespace MathClasses
     {
         public float m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16;
 
+        // Default Matrix4 constructor
         public Matrix4()
         {
             m1 = 1; m2 = 0; m3 = 0; m4 = 0;
@@ -18,6 +19,7 @@ namespace MathClasses
             m13= 0; m14= 0; m15= 0; m16= 1;
         }
 
+        // Creates a 3-D Homogeneous Matrix
         public Matrix4(float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9, float m10, float m11, float m12, float m13, float m14, float m15, float m16)
         {
             this.m1 = m1; this.m2 = m2; this.m3 = m3; this.m4 = m4;

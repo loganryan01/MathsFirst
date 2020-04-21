@@ -10,15 +10,17 @@ namespace Project2D
     // ray where direction should be normalised
     class Ray
     {
-        Vector3 origin;
-        Vector3 direction;
-        float length;
+        Vector3 origin; // Origin point
+        Vector3 direction; // Direction vector
+        float length; // Scalar length value
 
+        // Default Constructor
         public Ray()
         {
 
         }
 
+        // Constructor that allows us to pass in the values for the properties
         public Ray(Vector3 start, Vector3 direction, float length = float.MaxValue)
         {
             this.origin = start;
@@ -26,11 +28,13 @@ namespace Project2D
             this.length = length;
         }
 
+        // Clamp method to find the closest point
         float Clamp(float t, float a, float b)
         {
             return Math.Max(a, Math.Min(a, t));
         }
 
+        // Closest point to a point
         public Vector3 closestPoint(Vector3 point)
         {
             // ray origin to arbitrary point
@@ -43,6 +47,7 @@ namespace Project2D
             return origin + direction * t;
         }
 
+        // Test to see if ray intersects AABB
         public bool Intersects(AABB aabb, Vector3 I = null, Vector3 R = null)
         {
             // get distances to each axis of the box
@@ -140,6 +145,7 @@ namespace Project2D
             return false;
         }
 
+        // Tests to see if ray intersects plane
         public bool Intersects(Plane plane, Vector3 I = null, Vector3 R = null)
         {
             float t = direction.Dot(plane.N);

@@ -53,6 +53,14 @@ namespace MathClasses
             return v2 * s1;
         }
 
+        public static Vector3 operator /(Vector3 lhs, float rhs)
+        {
+            return new Vector3(
+                lhs.x / rhs,
+                lhs.y / rhs,
+                lhs.z / rhs);
+        }
+
         // Vector Dot Product
         public float Dot(Vector3 rhs)
         {
@@ -74,6 +82,12 @@ namespace MathClasses
             return (float)Math.Sqrt(x * x + y * y + z * z);
         }
 
+        // Calculating Magnitude
+        public float MagnitudeSqr() 
+        { 
+            return (x * x + y * y + z * z); 
+        }
+
         // Vector Normalisation
         public void Normalize()
         {
@@ -83,16 +97,24 @@ namespace MathClasses
             this.z /= m;
         }
 
+        public Vector3 GetNormalised() 
+        { 
+            return (this / Magnitude()); 
+        }
+
+        // Returns a vector whose componenets are created from the minimum components of the two passed in parameter Vectors
         public static Vector3 Min(Vector3 a, Vector3 b)
         {
             return new Vector3(Math.Min(a.x, b.x), Math.Min(a.y, b.y), Math.Min(a.z, b.z));
         }
 
+        // Returns a vector whose componenets are created from the maximum components of the two passed in parameter Vectors
         public static Vector3 Max(Vector3 a, Vector3 b)
         {
             return new Vector3(Math.Max(a.x, b.x), Math.Max(a.y, b.y), Math.Max(a.z, b.z));
         }
 
+        // Clamps a specified value within a range specified by minimum and maximum values.
         public static Vector3 Clamp(Vector3 t, Vector3 a, Vector3 b)
         {
             return Max(a, Min(b, t));

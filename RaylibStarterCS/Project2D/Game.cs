@@ -14,12 +14,14 @@ namespace Project2D
     {
         Stopwatch stopwatch = new Stopwatch();
         
+        // Scene objects
         SceneObject tankObject = new SceneObject();
         SceneObject turretObject = new SceneObject();
         SceneObject bulletObject = new SceneObject();
         SceneObject smokeObject = new SceneObject();
         SceneObject treeObject = new SceneObject();
 
+        // Sprite objects
         SpriteObject tankSprite = new SpriteObject();
         SpriteObject turretSprite = new SpriteObject();
         SpriteObject bulletSprite = new SpriteObject();
@@ -32,13 +34,14 @@ namespace Project2D
         private int fps = 1;
         private int frames;
         
-        private int score = 0;
-        private int highscore = 0;
-        private int smokeFrames;
-        private bool gameOver = false;
+        private int score = 0; // Player's score
+        private int highscore = 0; // Game's highscore
+        private int smokeFrames; // How many frames the smoke has been in the game
+        private bool gameOver = false; // If the player is still alive
 
         private float deltaTime = 0.005f;
 
+        // Setting up the target
         static Vector3 targetOrigin = new Vector3(GetRandomValue(30, 580), GetRandomValue(30, 420), 1);
         private static float targetRadius = 30;
         Sphere target = new Sphere(targetOrigin, targetRadius);
@@ -52,40 +55,37 @@ namespace Project2D
             stopwatch.Start();
             lastTime = stopwatch.ElapsedMilliseconds;
 
-            tankSprite.Load(@"D:\\Windows\\PNG\\Tanks\\tankBlue_outline.png");
-            tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // converts degrees to radians
-            // sets an offset for the base, so it rotates around the centre
-            tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f);
+            tankSprite.Load(@"D:\\Windows\\PNG\\Tanks\\tankBlue_outline.png"); // Loads tank image into tank sprite
+            tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tank
+            tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f); // Sets an offset for the base, so it rotates around the centre
 
-            turretSprite.Load(@"D:\\Windows\\PNG\\Tanks\\barrelBlue.png");
-            turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
-            // set the turret offset from the tank base
-            turretSprite.SetPosition(0, turretSprite.Width / 2.0f);
+            turretSprite.Load(@"D:\\Windows\\PNG\\Tanks\\barrelBlue.png"); // Loads turret image into turret sprite
+            turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the turret
+            turretSprite.SetPosition(0, turretSprite.Width / 2.0f); // Set the turret offset from the tank base
 
-            bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png");
-            bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f));
-            // sets an offset for the bullet, so it rotates around the centre
-            bulletSprite.SetPosition(50, -6);
+            bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png"); // Loads bullet image into bullet sprite
+            bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the bullet
+            bulletSprite.SetPosition(50, -6); // Sets an offset for the bullet
 
-            smokeSprite.Load(@"D:\\Windows\\PNG\\Smoke\\smokeOrange0.png");
-            smokeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
-            smokeSprite.SetPosition(-smokeSprite.Width / 2.0f, smokeSprite.Height / 2.0f);
+            smokeSprite.Load(@"D:\\Windows\\PNG\\Smoke\\smokeOrange0.png"); // Loads smoke image into smoke sprite
+            smokeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the smoke
+            smokeSprite.SetPosition(-smokeSprite.Width / 2.0f, smokeSprite.Height / 2.0f); // Sets an offset for the smoke
 
-            treeSprite.Load(@"D:\\Windows\\PNG\\Environment\\treeLarge.png");
-            treeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f));
-            treeSprite.SetPosition(-treeSprite.Width / 2.0f, treeSprite.Height / 2.0f);
+            treeSprite.Load(@"D:\\Windows\\PNG\\Environment\\treeLarge.png"); // Loads tree image into tree sprite
+            treeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tree
+            treeSprite.SetPosition(-treeSprite.Width / 2.0f, treeSprite.Height / 2.0f); // Sets an offset for the tree
 
-            treeObject.AddChild(treeSprite);
-            smokeObject.AddChild(smokeSprite);
-            bulletObject.AddChild(bulletSprite);
-            turretObject.AddChild(turretSprite);
-            tankObject.AddChild(tankSprite);
-            tankObject.AddChild(turretObject);
+            treeObject.AddChild(treeSprite); // Attach tree image to the tree object
+            smokeObject.AddChild(smokeSprite); // Attach smoke image to the smoke object
+            bulletObject.AddChild(bulletSprite); // Attach bullet image to the bullet object
+            turretObject.AddChild(turretSprite); // Attach turret image to the turret object
+            tankObject.AddChild(tankSprite); // Attach tank image to the tank object
+            tankObject.AddChild(turretObject); // Attach the turret to the tank as a child
 
-            tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
-            bulletObject.SetPosition(-100, -100);
-            smokeObject.SetPosition(-100, -100);
-            treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431));
+            tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f); // Position tank in the middle of the screen
+            bulletObject.SetPosition(-100, -100); // Position bullet outside the screen
+            smokeObject.SetPosition(-100, -100); // Position smoke outside the screen
+            treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431)); // Position tree in a random spot
         }
 
         public void Shutdown()
@@ -341,6 +341,7 @@ namespace Project2D
                 treeObject.SetPosition(GetRandomValue(54, 586), GetRandomValue(49, 431));
             }
 
+            // Move tree outside the window when the game over screen comes up
             if (gameOver)
             {
                 treeObject.SetPosition(-200, 0);
@@ -361,16 +362,14 @@ namespace Project2D
         {
             BeginDrawing();
 
-            ClearBackground(rl.Color.GREEN);
-            DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED);
-            DrawText("Score: " + score, 10, 30, 14, rl.Color.RED);
-            DrawText("Highscore: " + highscore, 10, 50, 14, rl.Color.RED);
+            ClearBackground(rl.Color.GREEN); // Paint background to green
+            DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED); // Show frames per second
+            DrawText("Score: " + score, 10, 30, 14, rl.Color.RED); // Show player's score
+            DrawText("Highscore: " + highscore, 10, 50, 14, rl.Color.RED); // Show highscore
 
-            DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED);
-            //DrawCircle((int)bulletObject.GlobalTransform.m7, (int)bulletObject.GlobalTransform.m8, bulletSprite.Height / 2.0f, rl.Color.BLACK);
-            DrawText(bulletObject.GlobalTransform.m7.ToString(), 10, 70, 14, rl.Color.RED);
-            DrawText(bulletObject.GlobalTransform.m8.ToString(), 10, 90, 14, rl.Color.RED);
+            DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED); // Draw target
 
+            // Draw Game Over screen
             if (gameOver && score < highscore || gameOver && score == highscore)
             {
                 ClearBackground(rl.Color.RED);

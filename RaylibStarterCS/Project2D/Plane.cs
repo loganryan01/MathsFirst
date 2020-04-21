@@ -10,9 +10,11 @@ namespace Project2D
     // 2D mathematical plane using Ax + By + d = 0
     class Plane
     {
+        // Member properties
         public Vector3 N = new Vector3(0, 0, 0);
         public float d;
 
+        // Enumeration to easily define the sides of the plane
         public enum ePlaneResult : int 
         {
             FRONT = 1,
@@ -20,23 +22,27 @@ namespace Project2D
             INTERSECTS = 0
         }
 
+        // Constructor where we set these values directly
         public Plane()
         {
 
         }
 
+        // Constructor where we set these values by passing in3 floats.
         public Plane(float x, float y, float d)
         {
             this.N = new Vector3(x, y, 0);
             this.d = d;
         }
 
+        // Constructor where we set these values by passing in a vector and a float
         public Plane(Vector3 n, float d)
         {
             this.N = n;
             this.d = d;
         }
 
+        // Constructor that takes in two position
         public Plane(Vector3 p1, Vector3 p2)
         {
             // calculate normalised vector p0 to p1
@@ -51,29 +57,19 @@ namespace Project2D
             d = -p1.Dot(N);
         }
 
-        public Plane(Vector3 p1, Vector3 p2, Vector3 p3)
-        {
-            // calculate edge vectors
-            Vector3 v1 = (p2 - p1).GetNormalised();
-            Vector3 v2 = (p3 - p1).GetNormalised();
-
-            // calculate normal
-            N = v1.Cross(v2);
-
-            // calculate d
-            d = -p1.Dot(N);
-        }
-
+        // Distance to Plane
         public float DistanceTo(Vector3 p)
         {
             return p.Dot(N) + d;
         }
 
+        // Closest point to a Plane
         public Vector3 ClosestPoint(Vector3 p)
         {
             return p - N * DistanceTo(p);
         }
 
+        // Determine which side of a plane a point is
         public ePlaneResult TestSide(Vector3 p)
         {
             float t = p.Dot(N) + d;
@@ -89,6 +85,7 @@ namespace Project2D
             return ePlaneResult.INTERSECTS;
         }
 
+        // Determine which side of a plane a sphere is on
         public ePlaneResult TestSide(Sphere sphere)
         {
             float t = DistanceTo(sphere.center);
@@ -105,6 +102,7 @@ namespace Project2D
             return ePlaneResult.INTERSECTS;
         }
         
+        // Determine which side of a plane a box is on
         public ePlaneResult TestSide(AABB aabb)
         {
             // tag if we find a corner on each side

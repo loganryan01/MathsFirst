@@ -9,24 +9,29 @@ namespace Project2D
 {
     class AABB
     {
+        // Minimum point
         public Vector3 min = new Vector3(float.NegativeInfinity,
                                   float.NegativeInfinity,
                                   float.NegativeInfinity);
+        // Maximum point
         public Vector3 max = new Vector3(float.PositiveInfinity,
                                   float.PositiveInfinity,
                                   float.PositiveInfinity);
 
+        // Default Constructor
         public AABB()
         {
 
         }
 
+        // Simple axis-aligned bounding box
         public AABB(Vector3 min, Vector3 max)
         {
             this.min = min;
             this.max = max;
         }
 
+        // Checks if there are minimum or maximum points
         public bool IsEmpty()
         {
             if (float.IsNegativeInfinity(min.x) &&
@@ -39,6 +44,7 @@ namespace Project2D
             return false;
         }
 
+        // No minimum or maximum points
         public void Empty()
         {
             min = new Vector3(float.NegativeInfinity,
@@ -135,11 +141,13 @@ namespace Project2D
             }
         }
 
+        // Finds the center of the box
         public Vector3 Center()
         {
             return (min + max) * 0.5f;
         }
 
+        // Calculates the half-extents
         public Vector3 Extents()
         {
             return new Vector3(Math.Abs(max.x - min.x) * 0.5f,
@@ -147,6 +155,7 @@ namespace Project2D
                                Math.Abs(max.z - min.z) * 0.5f);
         }
 
+        // Corners of the box
         public List<Vector3> Corners()
         {
             // ignoring z axis for 2D
@@ -158,6 +167,7 @@ namespace Project2D
             return corners;
         }
 
+        // Fitting an AABB to a collection of points
         public void Fit(List<Vector3> points)
         {
             // invalidate the extents
@@ -176,6 +186,7 @@ namespace Project2D
             }
         }
 
+        // Fitting an AABB to a collection of points
         public void Fit(Vector3[] points)
         {
             // invalidate the extents
@@ -194,6 +205,7 @@ namespace Project2D
             }
         }
 
+        // Test if a point is contained within an AABB
         public bool Overlaps(Vector3 p)
         {
             // test for not overlapped as it exits faster
@@ -201,6 +213,7 @@ namespace Project2D
                      p.x > max.x || p.y > max.y);
         }
 
+        // Test if a box overlaps another box
         public bool Overlaps(AABB other)
         {
             // test for not overlapped as it exits faster
@@ -208,6 +221,7 @@ namespace Project2D
                      min.x > other.max.x || min.y > other.max.y);
         }
 
+        // Finding the closest point to an AABB
         public Vector3 ClosestPoint(Vector3 p)
         {
             return Vector3.Clamp(p, min, max);

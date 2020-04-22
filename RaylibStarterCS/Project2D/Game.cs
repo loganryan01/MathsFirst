@@ -38,6 +38,8 @@ namespace Project2D
         private int highscore = 0; // Game's highscore
         private int smokeFrames; // How many frames the smoke has been in the game
         private bool gameOver = false; // If the player is still alive
+        private int clock = 60; // Time for player
+        private bool collision = false; // If the player crashed
 
         private float deltaTime = 0.005f;
 
@@ -195,8 +197,13 @@ namespace Project2D
             if (IsMouseButtonPressed(rl.MouseButton.MOUSE_LEFT_BUTTON) && gameOver)
             {
                 gameOver = false;
-                highscore = score;
+                collision = false;
+                if (score > highscore)
+                {
+                    highscore = score;
+                }
                 score = 0;
+                clock = 60;
                 tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
                 bulletObject.SetPosition(-100, -100);
                 smokeObject.SetPosition(-100, -100);
@@ -267,8 +274,8 @@ namespace Project2D
             if (bullet.Overlaps(target))
             {
                 turretObject.SetPosition(0, 0);
-                bulletObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
-                smokeObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
+                //bulletObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
+                smokeObject.SetPosition(targetOrigin.x, targetOrigin.y);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 bulletObject.SetPosition(-100, -100);
                 targetOrigin.x = GetRandomValue(30, 580);
@@ -288,10 +295,11 @@ namespace Project2D
                 }
             }
 
-            // Destroy tank f it goes out of bounds
+            // Destroy tank if it goes out of bounds
             if (plane5.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
+                collision = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
@@ -299,6 +307,7 @@ namespace Project2D
             if (plane6.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
+                collision = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
@@ -306,6 +315,7 @@ namespace Project2D
             if (plane7.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
+                collision = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
@@ -313,6 +323,7 @@ namespace Project2D
             if (plane8.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
             {
                 gameOver = true;
+                collision = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
@@ -322,6 +333,7 @@ namespace Project2D
             if (tree.Overlaps(tank))
             {
                 gameOver = true;
+                collision = true;
                 smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
@@ -347,6 +359,21 @@ namespace Project2D
                 treeObject.SetPosition(-200, 0);
             }
 
+            // Clock function
+            if (frames == 60)
+            {
+                clock--;
+            }
+            if (clock == 0)
+            {
+                gameOver = true;
+                tankObject.SetPosition(-100, -100);
+            }
+            if (collision)
+            {
+                clock = 60;
+            }
+
             tankObject.Update(deltaTime);
             if (bullet.Overlaps(border))
             {
@@ -366,11 +393,12 @@ namespace Project2D
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED); // Show frames per second
             DrawText("Score: " + score, 10, 30, 14, rl.Color.RED); // Show player's score
             DrawText("Highscore: " + highscore, 10, 50, 14, rl.Color.RED); // Show highscore
+            DrawText("Time Remaining: " + clock, 240, 10, 14, rl.Color.BLACK); // Show how much time the player has left
 
             DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED); // Draw target
 
             // Draw Game Over screen
-            if (gameOver && score < highscore || gameOver && score == highscore)
+            if (gameOver && score < highscore && collision || gameOver && score == highscore && collision)
             {
                 ClearBackground(rl.Color.RED);
                 DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
@@ -378,11 +406,28 @@ namespace Project2D
                 DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 260, 15, rl.Color.BLACK);
             }
-            if (gameOver && score > highscore)
+            if (gameOver && score > highscore && collision)
             {
                 ClearBackground(rl.Color.RED);
                 DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
                 DrawText("You Crashed", 240, 230, 15, rl.Color.BLACK);
+                DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
+                DrawText("Congratulations! New highscore", 240, 260, 15, rl.Color.BLACK);
+                DrawText("Left click to restart", 240, 275, 15, rl.Color.BLACK);
+            }
+            if (gameOver && score < highscore && clock <= 0 || gameOver && score == highscore && clock <= 0)
+            {
+                ClearBackground(rl.Color.RED);
+                DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
+                DrawText("You ran out of time", 240, 230, 15, rl.Color.BLACK);
+                DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
+                DrawText("Left click to restart", 240, 260, 15, rl.Color.BLACK);
+            }
+            if (gameOver && score > highscore && clock <= 0)
+            {
+                ClearBackground(rl.Color.RED);
+                DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
+                DrawText("You ran out of time", 240, 230, 15, rl.Color.BLACK);
                 DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
                 DrawText("Congratulations! New highscore", 240, 260, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 275, 15, rl.Color.BLACK);

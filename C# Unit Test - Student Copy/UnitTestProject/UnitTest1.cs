@@ -564,5 +564,38 @@ namespace UnitTestProject
 
             Assert.AreEqual<UInt32>(c.colour, 0xFFFFFFFF);
         }
+
+        // Test for colour yellow
+        [TestMethod]
+        public void ColourSetYellow()
+        {
+            Colour c = new Colour();
+            c.SetRed(0xFF);
+            c.SetGreen(0xFF);
+
+            Assert.AreEqual<UInt32>(c.colour, 0xFFFF0000);
+        }
+
+        // Test for colour cyan
+        [TestMethod]
+        public void ColourSetCyan()
+        {
+            Colour c = new Colour();
+            c.SetGreen(0xFF);
+            c.SetBlue(0xFF);
+
+            Assert.AreEqual<UInt32>(c.colour, 0x00FFFF00);
+        }
+
+        // Test for colour magenta
+        [TestMethod]
+        public void ColourSetMagenta()
+        {
+            Colour c = new Colour();
+            c.SetRed(0xFF);
+            c.SetBlue(0xFF);
+
+            Assert.AreEqual<UInt32>(c.colour, 0xFF00FF00);
+        }
     }
 }

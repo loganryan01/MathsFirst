@@ -36,6 +36,7 @@ namespace Project2D
         private int fps = 1;
         private int frames;
         
+        // ---- VARIABLES NEEDED TO RUN THE GAME ----
         private int score = 0; // Player's score
         private int highscore = 0; // Game's highscore
         private int smokeFrames; // How many frames the smoke has been in the game
@@ -66,30 +67,37 @@ namespace Project2D
             stopwatch.Start();
             lastTime = stopwatch.ElapsedMilliseconds;
 
+            // ---- TANK SPRITE CREATION ----
             tankSprite.Load("tankBlue_outline.png"); // Loads tank image into tank sprite
             tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tank
             tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f); // Sets an offset for the base, so it rotates around the centre
 
+            // ---- TURRET SPRITE CREATION ----
             turretSprite.Load("barrelBlue.png"); // Loads turret image into turret sprite
             turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the turret
             turretSprite.SetPosition(0, turretSprite.Width / 2.0f); // Set the turret offset from the tank base
 
+            // ---- BULLET SPRITE CREATION ----
             bulletSprite.Load("bulletBlue.png"); // Loads bullet image into bullet sprite
             bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the bullet
             bulletSprite.SetPosition(50, -6); // Sets an offset for the bullet
 
+            // ---- SMOKE SPRITE CREATION ----
             smokeSprite.Load("smokeOrange0.png"); // Loads smoke image into smoke sprite
             smokeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the smoke
             smokeSprite.SetPosition(-smokeSprite.Width / 2.0f, smokeSprite.Height / 2.0f); // Sets an offset for the smoke
 
+            // ---- TREE SPRITE CREATION ----
             treeSprite.Load("treeLarge.png"); // Loads tree image into tree sprite
             treeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tree
             treeSprite.SetPosition(-treeSprite.Width / 2.0f, treeSprite.Height / 2.0f); // Sets an offset for the tree
 
+            // ---- OIL SPRITE CREATION ----
             oilSprite.Load("oil.png"); // Loads oil image into oil sprite
             oilSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tree
             oilSprite.SetPosition(-oilSprite.Width / 2.0f, oilSprite.Height / 2.0f); // Sets an offset for the oil
 
+            // ---- MATRIX HIERARCHY ----
             oilObject.AddChild(oilSprite); // Attach oil image to the oil object
             treeObject.AddChild(treeSprite); // Attach tree image to the tree object
             smokeObject.AddChild(smokeSprite); // Attach smoke image to the smoke object
@@ -98,6 +106,7 @@ namespace Project2D
             tankObject.AddChild(tankSprite); // Attach tank image to the tank object
             tankObject.AddChild(turretObject); // Attach the turret to the tank as a child
 
+            // ---- OBJECT POSITIONING ----
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f); // Position tank in the middle of the screen
             bulletObject.SetPosition(-100, -100); // Position bullet outside the screen
             smokeObject.SetPosition(-100, -100); // Position smoke outside the screen
@@ -111,6 +120,8 @@ namespace Project2D
 
         public void Update()
         {
+            // ---- CREATE COLLISION SHAPES ----
+            
             //Box for window
             Vector3 borderMin = new Vector3(0, 0, 1);
             Vector3 borderMax = new Vector3(640, 480, 1);
@@ -175,6 +186,8 @@ namespace Project2D
             }
             frames++;
 
+            // ---- CONTROLS ----
+
             // Player controls
             if (IsKeyDown(rl.KeyboardKey.KEY_A))
             {
@@ -235,7 +248,9 @@ namespace Project2D
                 oilObject.SetPosition(GetRandomValue(400, 590), GetRandomValue(50, 430));
             }
 
-            // bullet movement
+            // ---- TESTING FOR OVERLAPS ----
+
+            // Bullet movement
             if (bullet.Overlaps(border))
             {
                 bullet.radius = bulletSprite.Height / 2.0f;
@@ -440,20 +455,28 @@ namespace Project2D
                 movingOrigin.y = -100;
             }
 
-            // Clock function
+            // ---- CLOCK CONTROLS ----
+
+            // Clock Decrease
             if (frames == 60)
             {
                 clock--;
             }
+
+            // Clock has reached zero
             if (clock == 0)
             {
                 gameOver = true;
                 tankObject.SetPosition(-100, -100);
             }
+
+            // Make sure the clock doesn't go below zero
             if (clock < 0)
             {
                 clock = 0;
             }
+
+            // Reset the clock
             if (collision)
             {
                 clock = 60;
@@ -475,16 +498,22 @@ namespace Project2D
         {
             BeginDrawing();
 
+            // ---- MAIN SCREEN DRAWING ----
+
             ClearBackground(rl.Color.GREEN); // Paint background to green
             DrawText("Score: " + score, 10, 10, 14, rl.Color.RED); // Show player's score
             DrawText("Highscore: " + highscore, 10, 30, 14, rl.Color.RED); // Show highscore
             DrawText("Time Remaining: " + clock, 240, 10, 14, rl.Color.RED); // Show how much time the player has left
             DrawText("Hold down H to see shapes of the objects", 350, 460, 14, rl.Color.RED);
 
+            // ---- DRAWING TARGETS ----
+
             DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED); // Draw target
             DrawCircle((int)movingOrigin.x, (int)movingOrigin.y, 30, rl.Color.BLUE); // Draw moving target
 
-            // Draw Game Over screen
+            // ---- DRAWING GAME OVER SCREEN ----
+
+            // Tank has crashed into a tree, no new highscore
             if (gameOver && score < highscore && collision && !explosion || gameOver && score == highscore && collision && !explosion)
             {
                 ClearBackground(rl.Color.RED);
@@ -493,6 +522,8 @@ namespace Project2D
                 DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 260, 15, rl.Color.BLACK);
             }
+            
+            // Tank has crashed into a tree, new highscore
             if (gameOver && score > highscore && collision)
             {
                 ClearBackground(rl.Color.RED);
@@ -502,6 +533,8 @@ namespace Project2D
                 DrawText("Congratulations! New highscore", 240, 260, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 275, 15, rl.Color.BLACK);
             }
+
+            // Time has run out, no new highscore
             if (gameOver && score < highscore && clock <= 0 || gameOver && score == highscore && clock <= 0)
             {
                 ClearBackground(rl.Color.RED);
@@ -510,6 +543,8 @@ namespace Project2D
                 DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 260, 15, rl.Color.BLACK);
             }
+
+            // Time has run out, new highscore
             if (gameOver && score > highscore && clock <= 0)
             {
                 ClearBackground(rl.Color.RED);
@@ -519,6 +554,8 @@ namespace Project2D
                 DrawText("Congratulations! New highscore", 240, 260, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 275, 15, rl.Color.BLACK);
             }
+            
+            // Tank or bullet has hit the oil barrel
             if (gameOver && explosion)
             {
                 ClearBackground(rl.Color.RED);
@@ -527,6 +564,8 @@ namespace Project2D
                 DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 260, 15, rl.Color.BLACK);
             }
+
+            // ---- DRAW COLLISION SHAPES ----
 
             // Show all objects collision shapes
             if (IsKeyDown(rl.KeyboardKey.KEY_H))

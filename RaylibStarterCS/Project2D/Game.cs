@@ -20,6 +20,7 @@ namespace Project2D
         SceneObject bulletObject = new SceneObject();
         SceneObject smokeObject = new SceneObject();
         SceneObject treeObject = new SceneObject();
+        SceneObject oilObject = new SceneObject();
 
         // Sprite objects
         SpriteObject tankSprite = new SpriteObject();
@@ -27,6 +28,7 @@ namespace Project2D
         SpriteObject bulletSprite = new SpriteObject();
         SpriteObject smokeSprite = new SpriteObject();
         SpriteObject treeSprite = new SpriteObject();
+        SpriteObject oilSprite = new SpriteObject();
 
         private long currentTime = 0;
         private long lastTime = 0;
@@ -40,6 +42,7 @@ namespace Project2D
         private bool gameOver = false; // If the player is still alive
         private int clock = 60; // Time for player
         private bool collision = false; // If the player crashed
+        private bool explosion = false; // If the oil barrel has exploded
 
         private float deltaTime = 0.005f;
 
@@ -57,26 +60,31 @@ namespace Project2D
             stopwatch.Start();
             lastTime = stopwatch.ElapsedMilliseconds;
 
-            tankSprite.Load(@"D:\\Windows\\PNG\\Tanks\\tankBlue_outline.png"); // Loads tank image into tank sprite
+            tankSprite.Load("tankBlue_outline.png"); // Loads tank image into tank sprite
             tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tank
             tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f); // Sets an offset for the base, so it rotates around the centre
 
-            turretSprite.Load(@"D:\\Windows\\PNG\\Tanks\\barrelBlue.png"); // Loads turret image into turret sprite
+            turretSprite.Load("barrelBlue.png"); // Loads turret image into turret sprite
             turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the turret
             turretSprite.SetPosition(0, turretSprite.Width / 2.0f); // Set the turret offset from the tank base
 
-            bulletSprite.Load(@"D:\\Windows\\PNG\\Bullets\\bulletBlue.png"); // Loads bullet image into bullet sprite
+            bulletSprite.Load("bulletBlue.png"); // Loads bullet image into bullet sprite
             bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the bullet
             bulletSprite.SetPosition(50, -6); // Sets an offset for the bullet
 
-            smokeSprite.Load(@"D:\\Windows\\PNG\\Smoke\\smokeOrange0.png"); // Loads smoke image into smoke sprite
+            smokeSprite.Load("smokeOrange0.png"); // Loads smoke image into smoke sprite
             smokeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the smoke
             smokeSprite.SetPosition(-smokeSprite.Width / 2.0f, smokeSprite.Height / 2.0f); // Sets an offset for the smoke
 
-            treeSprite.Load(@"D:\\Windows\\PNG\\Environment\\treeLarge.png"); // Loads tree image into tree sprite
+            treeSprite.Load("treeLarge.png"); // Loads tree image into tree sprite
             treeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tree
             treeSprite.SetPosition(-treeSprite.Width / 2.0f, treeSprite.Height / 2.0f); // Sets an offset for the tree
 
+            oilSprite.Load("oil.png"); // Loads oil image into oil sprite
+            oilSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tree
+            oilSprite.SetPosition(-oilSprite.Width / 2.0f, oilSprite.Height / 2.0f); // Sets an offset for the oil
+
+            oilObject.AddChild(oilSprite); // Attach oil image to the oil object
             treeObject.AddChild(treeSprite); // Attach tree image to the tree object
             smokeObject.AddChild(smokeSprite); // Attach smoke image to the smoke object
             bulletObject.AddChild(bulletSprite); // Attach bullet image to the bullet object
@@ -88,6 +96,7 @@ namespace Project2D
             bulletObject.SetPosition(-100, -100); // Position bullet outside the screen
             smokeObject.SetPosition(-100, -100); // Position smoke outside the screen
             treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431)); // Position tree in a random spot
+            oilObject.SetPosition(GetRandomValue(370, 590), GetRandomValue(50, 430)); // Position oil barrel in a random spot
         }
 
         public void Shutdown()
@@ -128,7 +137,6 @@ namespace Project2D
             float tankRadius = tankSprite.Height / 2.0f;
             Sphere tank = new Sphere(tankOrigin, tankRadius);
 
-
             //Circle for bullet 
             Vector3 bulletOrigin = new Vector3(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8, 1);
             float bulletRadius = bulletSprite.Height / 2.0f;
@@ -143,6 +151,11 @@ namespace Project2D
             Vector3 smokeOrigin = new Vector3(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8, 1);
             float smokeRadius = 70;
             Sphere smoke = new Sphere(smokeOrigin, smokeRadius);
+
+            //Circle for oil barrel
+            Vector3 oilOrigin = new Vector3(oilObject.GlobalTransform.m7, oilObject.GlobalTransform.m8, 1);
+            float oilRadius = 50;
+            Sphere oil = new Sphere(oilOrigin, oilRadius);
 
             currentTime = stopwatch.ElapsedMilliseconds;
             deltaTime = (currentTime - lastTime) / 1000.0f;
@@ -198,6 +211,7 @@ namespace Project2D
             {
                 gameOver = false;
                 collision = false;
+                explosion = false;
                 if (score > highscore)
                 {
                     highscore = score;
@@ -210,6 +224,7 @@ namespace Project2D
                 treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431));
                 targetOrigin.x = GetRandomValue(30, 580);
                 targetOrigin.y = GetRandomValue(30, 450);
+                oilObject.SetPosition(GetRandomValue(370, 590), GetRandomValue(50, 430));
             }
 
             // bullet movement
@@ -274,13 +289,24 @@ namespace Project2D
             if (bullet.Overlaps(target))
             {
                 turretObject.SetPosition(0, 0);
-                //bulletObject.SetPosition(bulletObject.GlobalTransform.m7, bulletObject.GlobalTransform.m8);
                 smokeObject.SetPosition(targetOrigin.x, targetOrigin.y);
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 bulletObject.SetPosition(-100, -100);
                 targetOrigin.x = GetRandomValue(30, 580);
                 targetOrigin.y = GetRandomValue(30, 450);
                 score++;
+            }
+            if (bullet.Overlaps(oil))
+            {
+                gameOver = true;
+                explosion = true;
+                turretObject.SetPosition(0, 0);
+                smokeObject.SetPosition(oilObject.GlobalTransform.m7, oilObject.GlobalTransform.m8);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                bulletObject.SetPosition(-200, -100);
+                oilObject.SetPosition(-100, -100);
+                tankObject.SetPosition(-300, 0);
+                score = 0;
             }
 
             // Move smoke outside the window after a little bit
@@ -338,9 +364,23 @@ namespace Project2D
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 tankObject.SetPosition(-100, -100);
             }
+            if (oil.Overlaps(tank))
+            {
+                gameOver = true;
+                explosion = true;
+                smokeObject.SetPosition(tankObject.GlobalTransform.m7, tankObject.GlobalTransform.m8);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                tankObject.SetPosition(-300, -100);
+                score = 0;
+            }
 
             // Target positioning
             if (target.Overlaps(tree))
+            {
+                targetOrigin.x = GetRandomValue(30, 580);
+                targetOrigin.y = GetRandomValue(30, 450);
+            }
+            if (target.Overlaps(oil))
             {
                 targetOrigin.x = GetRandomValue(30, 580);
                 targetOrigin.y = GetRandomValue(30, 450);
@@ -357,6 +397,7 @@ namespace Project2D
             if (gameOver)
             {
                 treeObject.SetPosition(-200, 0);
+                oilObject.SetPosition(-200, 0);
             }
 
             // Clock function
@@ -368,6 +409,10 @@ namespace Project2D
             {
                 gameOver = true;
                 tankObject.SetPosition(-100, -100);
+            }
+            if (clock < 0)
+            {
+                clock = 0;
             }
             if (collision)
             {
@@ -381,6 +426,7 @@ namespace Project2D
             }
             smokeObject.Update(deltaTime);
             treeObject.Update(deltaTime);
+            oilObject.Update(deltaTime);
 
             lastTime = currentTime;
         }
@@ -398,7 +444,7 @@ namespace Project2D
             DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED); // Draw target
 
             // Draw Game Over screen
-            if (gameOver && score < highscore && collision || gameOver && score == highscore && collision)
+            if (gameOver && score < highscore && collision)
             {
                 ClearBackground(rl.Color.RED);
                 DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
@@ -432,11 +478,20 @@ namespace Project2D
                 DrawText("Congratulations! New highscore", 240, 260, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 275, 15, rl.Color.BLACK);
             }
+            if (gameOver && explosion)
+            {
+                ClearBackground(rl.Color.RED);
+                DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
+                DrawText("You destoryed the oil barrel", 240, 230, 15, rl.Color.BLACK);
+                DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
+                DrawText("Left click to restart", 240, 260, 15, rl.Color.BLACK);
+            }
 
             tankObject.Draw();
             bulletObject.Draw();
             smokeObject.Draw();
             treeObject.Draw();
+            oilObject.Draw();
 
             EndDrawing();
         }

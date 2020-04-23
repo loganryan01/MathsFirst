@@ -1,0 +1,773 @@
+commit c7be225ad875a55b5f93052dc31d2dca23baf023
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 23 11:31:51 2020 +1000
+
+    Added oil barrel to game.
+
+commit b785e8bf77f62a6d8c6fbe9e4318191dfbd946f0
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 22 13:01:37 2020 +1000
+
+    Created a timer for how long the player has left before the game finishs.
+
+commit 8e88b3d8670ba97dcd2a842f9f3d6a4bc28f7ee5
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 21 16:33:25 2020 +1000
+
+    Added comments for code.
+
+commit 8eae83143b9c5d3cbdc4141c68f9aeed16174852
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 21 13:12:21 2020 +1000
+
+    Removed unnecessary code and commented code.
+
+commit e1627f0be2c2fcdb957c0ba3d7ab1bf000d21c86
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Mon Apr 20 16:43:05 2020 +1000
+
+    When space bar is pressed, bullet is spawned at the end of turret.
+
+commit 528ab1417ab66ca8891315d4234f8e4ea59d5cc3
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Mon Apr 20 13:14:51 2020 +1000
+
+    Changed colour for game over screen.
+
+commit 372761f3bf198bc9ec3a26c089f45fc4ccc2ff15
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Mon Apr 20 12:18:56 2020 +1000
+
+    Added Game Over screen.
+
+commit 1777ea73a7868222eccd073254e7037311ac613e
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 16 17:27:04 2020 +1000
+
+    Created target so player can earn points in the game.
+
+commit 444a8c37146a961dc3182827b77c17a9bd1d334f
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 16 16:20:34 2020 +1000
+
+    Added collision between tree and bullet.
+
+commit d8d6198bb48a3a9fb067b8256cffbebe44dc7db0
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 16 16:11:28 2020 +1000
+
+    Added collision between tank and tree.
+
+commit 6a3101925936c467f6c2442a61f193d252dc43f5
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 16 15:53:53 2020 +1000
+
+    Added tree to game.
+
+commit 739001d54ac30a3ae48cc1e4cb3b08f39969edd9
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 16 13:28:32 2020 +1000
+
+    Added explosion effect for bullet.
+
+commit 20a9103e0b84a6fc742f9fabe3fcea8a88874da9
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 14 17:36:11 2020 +1000
+
+    Organised code and added comments.
+
+commit 026758b69856a596c7b8768b5c43cdfd4055bd2e
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 14 16:17:44 2020 +1000
+
+    Added collision resolution for the bullet.
+
+commit 3617521e5833a5e7e97362b575bed7f96b9ebfd0
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Mon Apr 13 17:41:40 2020 +1000
+
+    Created planes around the border of the game window.
+
+commit f1a627774042bd3b44ac7a22c4d433a372476840
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Mon Apr 13 16:01:32 2020 +1000
+
+    Added plane to game. Added method to test where sphere is on the plane.
+
+commit daead6149b6d799fdb886be805c12bba418b7985
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Mon Apr 13 15:12:55 2020 +1000
+
+    Extended the intersect method in the ray class.
+
+commit b5d431a023cf3a7f38b1e061606e26c2f11160d8
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Mon Apr 13 13:40:44 2020 +1000
+
+    Positioned bullet at the end of the turret.
+
+commit 7d1bd6576a2a122fd99e3cc6938f8398f10cc113
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sat Apr 11 15:19:48 2020 +1000
+
+    Added movement to the bullet.
+
+commit 5c23250f9d368044db29748948b10d4e9c0d1e10
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 10 18:08:30 2020 +1000
+
+    Positioned bullet in the center of the tank.
+
+commit cee45586ae52eb29f14b79647f27e3b81796de2b
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 9 17:55:30 2020 +1000
+
+    Continued working on tank bullet. Try to get the bullet to face the same direction as the turret.
+
+commit 259e2dfd2f7d1559080a61dff0ec43f41f611ce0
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 9 16:12:59 2020 +1000
+
+    Created Sphere class to allow bullet to collide with objects.
+
+commit 74a92c48aceefd44ec930eba443422458621e8d4
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Apr 9 16:09:08 2020 +1000
+
+    Created bullet for tank.
+
+commit f1af00690e9a9cf6f68e4bb81322bd58cdb0891d
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 17:51:56 2020 +1000
+
+    Started making quadrants in tank game to set up bullet path for tank.
+
+commit 772d678a74c89be0aebfbea86c0887aaa4d50528
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 15:44:27 2020 +1000
+
+    Set up boxes for the window app and the tank.
+
+commit fd41858e0906881d3e7dd128a4d5724922845515
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 11:25:28 2020 +1000
+
+    Created an if statement that tells the game that the ray intersects if within range of the box.
+
+commit 44442e7cd7fe370de8c70d07dc333c65fa295935
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 11:20:44 2020 +1000
+
+    Created an if statement to ensure that the ray is within the box. Then calculate the distance to the intersection as the largest of the two min values.
+
+commit f36e25b114dcb21f69546caf14bd23909da83006
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 11:16:47 2020 +1000
+
+    Created a similar test for Ray y axis.
+
+commit 28ec6be1cfbf5c7a3e1e7ecc2cf27dc115098043
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 11:09:42 2020 +1000
+
+    Created an if-else statement to test if the Ray direction's X is facing in a negative direction, and if it is then it will just switch the min and max.
+
+commit 51f2c4d4289e873027ff74ad3d6a9bd8ec115f36
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 11:02:53 2020 +1000
+
+    Created a method that tests if the ray intersects against an axis-aligned bounding box. Created variables to track xmin, xmax, ymin and ymax.
+
+commit d4b21ee2722a0c277b1d2bf33f05e072db448e4a
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 10:57:29 2020 +1000
+
+    Created a method for ray class. This method will calculate the closest point on ray.
+
+commit 68df852ba176d307e463d8b0a6f532cd06483ec7
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 10:52:31 2020 +1000
+
+    Created a basic Ray class declaration and given the Ray 3 properties; and origin point, a direction vector that should always be normalised, and a scalar length value stored in a float. Created a constructor that allows me to pass in the values for the properties.
+
+commit 690a1d7e2d7d7cea4e68c89989cc066ada2c7502
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Wed Apr 8 10:37:27 2020 +1000
+
+    Created if statements to stop the tank from going outside the window.
+
+commit fd869bed48a3f2fa275ac1247d0dbf626de95ff6
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 18:04:52 2020 +1000
+
+    Added logic to get tank game to display a message when the tank goes outside the green border in the game.
+
+commit f84f31bdb6a1dc0f719f8beac73abeaf62a2f6b9
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 12:49:54 2020 +1000
+
+    Created another constructor for Plane. This constructor will take in 3 vector's. Added more methods to vector3 to allow the Plane constructor to work.
+
+commit fa4339fc90470ac7975dc35f4f97680cb1735e23
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 11:44:35 2020 +1000
+
+    Created a method to test if the box around the tank intersects the plane.
+
+commit 93a69fef21bd57cec5e2e938747bb48dda27bf02
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 11:35:08 2020 +1000
+
+    Added an enumeration to Plane class to easily the define sides of the plane.
+
+commit 8df94cb502d20786d700361170ba1d20473b7e71
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 11:31:36 2020 +1000
+
+    Created method for Plane. This method will find the closest point on a plane to an arbitrary point.
+
+commit 57a9493dff652cdd07270c994fd058fc9a871d2a
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 11:29:52 2020 +1000
+
+    Created a method to calculate distance to plane.
+
+commit 43bb96db92b23d4ef01db1a52e25b58ec4d93ba2
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 11:23:50 2020 +1000
+
+    Created a constructor for Plane. This constructor takes in two positions and calculates the normal and d.
+
+commit 481731c9e1c375790436e316de73b524362b19be
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 11:20:35 2020 +1000
+
+    Created a constructor for Plane. This constructor takes in a vector and a float.
+
+commit 794a2e775f21a19e3bbb8205198335f4aa944aa2
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 11:18:33 2020 +1000
+
+    Created Plane class with constructors where the values are set directly, either by passing in a vector and a float, or by passing in 3 floats.
+
+commit 222ef748b285515b9dca74be1c05b98a206abe78
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Tue Apr 7 10:43:17 2020 +1000
+
+    Created AABB for the tankObject.
+
+commit c08363e70efc1ca56c299518d9be4a2af9d8ca41
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:34:58 2020 +1000
+
+    Created a method to find the closest point on the surface of an AABB to an arbitrary point.
+
+commit d42599eeebb581d357ae8e7553f733460e0273f3
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:32:56 2020 +1000
+
+    Created a method to test if two AABBs overlap each other by comparing their min and max points.
+
+commit 5fa7a944e7874f3810feaf1325825a99c237e232
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:29:45 2020 +1000
+
+    Created a method to test if a point is contained within an AABB by checking if the point is within the range of the min and max corners.
+
+commit aa99d3caa9d66492a665f7aae23e93715b6d96b6
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:24:27 2020 +1000
+
+    Created a smiliar method to the fit method. This fit method can be implemented on an array of points.
+
+commit 7211295fcbc88cf9f09d925ffb2734d431c4abac
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:20:39 2020 +1000
+
+    Continued working on the fit function. Added code that will loop through all of the points and find the min and max.
+
+commit 63229a8ed50b3f48dcdf604bc6de8d3cbc447cdf
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:16:44 2020 +1000
+
+    Creating a method that will calculate a bounding region that would encapsulate them and fit an AABB around the points. First I invalidate our current min and max by setting min to the largest value possible, and by setting max to the smallest value possible.
+
+commit ca1d908941c21fb7ac2ba6d8f3f6d4f11c34a947
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:09:43 2020 +1000
+
+    Created a method to return the corners of the box, using min and max.
+
+commit 8ec72fd4a19e4265ef8207b38cd3b6465485b003
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:06:04 2020 +1000
+
+    Created a method that will calculat the half-extents by subtracting the min point from the max point and then halving the absolute value for each vector component.
+
+commit d27f0973c791bfd49817c54c86dab1ad2a26a15e
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 16:00:59 2020 +1000
+
+    Created a method that will find the center of the box by finding the point in between the min and max.
+
+commit a06f74fd4df64c47ea62deb215e496ffbf26cb93
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 15:58:07 2020 +1000
+
+    Created a second AABB constructor. This one stores two Vectors, min and max.
+
+commit f2c15a544d37702a8c210f21931bdeb1568a1eb4
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 15:54:44 2020 +1000
+
+    Created Maximum, Minimum and Clamp methods. The maximum method will return a Vector whose components are created from the maximum components of the two passed in parameter Vectors. The minimum method does the same function just usese minimum components. The clamp method clamps a specifed value t within a range specified by minimum and maximum values.
+
+commit c5014e556e5dd32f19ae7e0108403efc719ca620
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 15:45:42 2020 +1000
+
+    Created an Axis Aligned Boundary Box (AABB) class. This class will define the dimensions of the AABB by adding the points that define the geometry of the game.
+
+commit cba845d82ee71fc0614e4500edfe45f3e86ef1dd
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 15:15:56 2020 +1000
+
+    Fixed translate function. This has fixed the positioning of the tank when it moves.
+
+commit d7fcf3a37743d4249e562016d4360b0b402359ba
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 13:10:42 2020 +1000
+
+    Added movement to the turret of the tank.
+
+commit 3a8eeb0038936b89c1440e0ee166307ab1c0ad16
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 13:08:18 2020 +1000
+
+    Added movement to the tank.
+
+commit 2eaa54b009bc61dcb44b6eaa355ab0eeb75cb789
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 13:02:22 2020 +1000
+
+    Called Update on the tank.
+
+commit f17dd3013c6e7b56692a316cf61274ed185c9a01
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 13:00:57 2020 +1000
+
+    Fixed the positioning of the turret on the tank.
+
+commit b8e7264e2f40e4736f53a3d6b4504b079ec55819
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:54:29 2020 +1000
+
+    Added logic to draw the tank in the game.
+
+commit dc468a91ec2870c0198154c116a5b52d6502c190
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:51:59 2020 +1000
+
+    Positioned tank in the middle of the screen.
+
+commit e1074e7507ebeb924c037d1ab2eebe33137eb913
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:49:34 2020 +1000
+
+    Using the AddChild method, I attached the turret to the tank as a child.
+
+commit a9d0ef420a57c5a45d9a0e183ce15a0f14ae0494
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:47:11 2020 +1000
+
+    Added logic to load the two images into the sprites.
+
+commit d82ad98c085233bc61ca0d5cad75623b4261f527
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:40:50 2020 +1000
+
+    Created two SceneObject's and two SpriteObject's.
+
+commit 66762b4c213e6dcf132895a0357bab7e3b0bdffd
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:37:39 2020 +1000
+
+    Override the OnDraw method from the base class and in it we use the RayLib drawing functions to draw a textured sprite using the texture member variable as well as the globalTransform. This way the image will show up positioned and orientated based on the matrix.
+
+commit 9e0bf4c435c7fdbb333a8dab7ef44863d83290a3
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:32:16 2020 +1000
+
+    Created SprtieObject class. This class will inherit from SceneObject and add a single new member variable, a Texture, and we'll also add a method for loading the texture.
+
+commit 37fc716a5d3d4314da759de5345be48c6c3e48d2
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:26:35 2020 +1000
+
+    Added methods to manipulate the local transform.
+
+commit 1103bebdc6a48f0cc6e03fc075066e1ac2277878
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:22:10 2020 +1000
+
+    Created a method that updates the global transform on all child objects.
+
+commit 5aad50acf8f956dc1e899e1382be69d4f4c710f4
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:18:01 2020 +1000
+
+    Added properties so that external code can access the transforms for reading.
+
+commit 9173bf4738ca93039a28ee0551ca1425f9b5541b
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:16:14 2020 +1000
+
+    Added two transforms to SceneObject.
+
+commit f1a47e257b544d09a1acfc3a4ae9dbdfe86deee7
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:12:26 2020 +1000
+
+    Created two non-virtual methods. Update first calls OnUpdate on itself, then calls Update on all children. Draw first calls OnDraw on itself then calls Draw on all children.
+
+commit ca434ad4f9b1022c63191d5db1fc806b23a59b18
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:08:39 2020 +1000
+
+    Created two virtual methods. OnUpdate for implementing specific derived behaviours. OnDraw for implementing specific derived drawing behaviours.
+
+commit 6031a6fbb7874c0d8b2f0d8b38c1254e73e6f92b
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 12:05:25 2020 +1000
+
+    Added destructor to SceneObject.
+
+commit 4b1e8acb9feb5ad6650892a924ec16fcc427463f
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 11:57:44 2020 +1000
+
+    Added a method to be able to remove a child node.
+
+commit 777aab279b96910eacfe00a201fc81306e4fe6bc
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 11:55:58 2020 +1000
+
+    Added a method to add a child scene object to another scene object.
+
+commit 0fd35f5e775e10fd48b228e54c49c9a2b48c0ec7
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 11:53:23 2020 +1000
+
+    Created helper methods. One to query how many children an object has, one to access a certain child by an index, and another to return the parent.
+
+commit 7b933ea228d0ddc4ed04655c13ff6293aecaaac5
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 11:48:56 2020 +1000
+
+    Created scene object class with two member variables; a SceneObject called parent, and a list of SceneObjects called children.
+
+commit 30bdeed615b7cdb9e8fae3195ac2b993f0bb0429
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 11:34:35 2020 +1000
+
+    Corrected code. Fixed dll error. Change name from Hello World! to Tanks For Exverything!
+
+commit 6f3fd64880766fbd893d9521e0b9515f0724a9d8
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 11:09:49 2020 +1000
+
+    Created Game class to store all game logic.
+
+commit d29a44980868e05871427c2806d02695bf9eb428
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:56:24 2020 +1000
+
+    Added Raylib to project. Created program class for tank game. This will initialize the RayLib window and run the game loop.
+
+commit 1a22315ad51aef0512cbe24a8b12f47a673467f7
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:46:59 2020 +1000
+
+    Corrected all unit tests and incorrect code.
+
+commit 88115650ceebe4c6a408955ce9badd5a34b74031
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:43:01 2020 +1000
+
+    Created a normalize method for vector4. This will modify a vector4 so that its magnitude is equal to 1.
+
+commit 346122a041960f1c1af8ee218838b979b613f0ff
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:41:01 2020 +1000
+
+    Created a magnitude method for vector4. This will calculate the distance travelled.
+
+commit 424d786313cfb6c97028cb0ca7f67d204cffed63
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:32:49 2020 +1000
+
+    Created a cross product method for vector4. This will multiply two vector4's and returns a third vector4.
+
+commit 1579aa2afada5052cf831dd1d3cde8d13718a97f
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:29:35 2020 +1000
+
+    Created another multiplcation operator for vector4. This will multiply a float with a vector4 and return a new vector4.
+
+commit bbd5b3ef966647789c32412ebb476a06aa1481b9
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:25:57 2020 +1000
+
+    Created a dot product method for vector4. This will multiply two vector4's and the result being a single scalar value.
+
+commit 1eaadb9843ca83b0abcdea95887fff314a4e5c26
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:22:54 2020 +1000
+
+    Created a multiplication operator. This will multiply a vector4 with a float and return a new vector4.
+
+commit a548ff78ff47770f64bf4586332631d6a8c84d86
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:19:08 2020 +1000
+
+    Created a subtraction operator for vector4. This will subtract two vector4's and return a new vector4.
+
+commit 25af1ffeb4da157d59cde98d4b36e6d15fc18af8
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:10:53 2020 +1000
+
+    Created an addition constructor for vector4. This will add two vector4's and return a new vector4.
+
+commit 03798d08a0d9061f61899c6b2dd802a9d7b31d5c
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Sun Apr 5 09:07:00 2020 +1000
+
+    Created a second constructor for vector4. This will take parameters and set the new values for the vector4.
+
+commit f830fc28d59d60fecadce322ffb980f12850ac08
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 17:08:02 2020 +1100
+
+    Created a normalize method for vector3. This will modify a vecotr3 so that its magnitude is equal to 1.
+
+commit 3920c1df2b256e66221395d7034930cacc343d4d
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 17:04:56 2020 +1100
+
+    Created a cross product method and magnitude method for vector3. The cross product method will multiply two vector3's and returns a third vector3. The magnitude method will calculate the distance travelled.
+
+commit 8727e42a6933b5c312c31adc9365205ba24b0dca
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:56:39 2020 +1100
+
+    Created a dot product method for vector3. This will multiply two vector3 and the result being a single scalar value.
+
+commit db09ddb52db864ef088ff91decf57e4aa436319c
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:48:18 2020 +1100
+
+    Created another multiplcation operator for vector3. This will multiply a float with a vector3 and return a new vector3.
+
+commit 27a9cc557cb96a154cc8060ebf40147312f1cdc2
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:44:54 2020 +1100
+
+    Created a multiplication operator for vector3. This will multiply a vector3 with a float and return a new vector3.
+
+commit b7c502bb3bb7af8fed892df52625aca342faef67
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:36:25 2020 +1100
+
+    Created a subtraction operator. This will subtract two vector3's then return a new vector3.
+
+commit a421e4a3224a3aff13231fa6e6976ae207e9abcf
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:34:25 2020 +1100
+
+    Created an addition operator for vector3. This will add two vector3's and return a new vector3.
+
+commit 08bd61dabd987c60055b215b631d5d41014afcf4
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:29:59 2020 +1100
+
+    Created a second vector3 constructor. This has parameters.
+
+commit f1c7ca1f8eea0fe134fee8f90ce01aa9d9dfc1d9
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:26:57 2020 +1100
+
+    Created a method to set up a matrix to be rotated around the Z axis.
+
+commit e5d012b067bf54fda94e5bc764cabb774ce24501
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:24:20 2020 +1100
+
+    Created a method to set up a 4x4 matrix to be rotated around the Y axis.
+
+commit c54e07eac49fb8976ff3ce26c7108fb1e7c71f8c
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:22:20 2020 +1100
+
+    Created a method to set up a 4x4 matrix to be rotated around the X axis.
+
+commit 710ab50edaa81ef12d69684a8fdfbdca9f96097c
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:18:40 2020 +1100
+
+    Created a set function that will update the values of the 4x4 matrix to the values of the input matrix.
+
+commit 52be86ffa2da6c40f15165ad1e8936d4b1ce915b
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:15:22 2020 +1100
+
+    Create another multiplication operator. This will multiply two 4x4 matrices together and return a new 4x4 matrix.
+
+commit b4c3f7ca8732824542685ad44cf43c8383581ec4
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 16:03:18 2020 +1100
+
+    Created a multiplication operator for matrix4. This will multiply a vector4 with a 4x4 matrix to create a new vector4.
+
+commit 5317eac377a9a0353b63323121336163b03a4d48
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:58:20 2020 +1100
+
+    Created a second matrix4 constructor. This contains parameters.
+
+commit 19c8aeaeded38814552b9f56c7abd1452fb8b5c1
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:51:32 2020 +1100
+
+    Created a method that firsts creates a scaled 3x3 matrix, then multiplies itself with the scaled 3x3 matrix.
+
+commit dfca1d9aa689435e850b93519bab5ece56f2b359
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:48:58 2020 +1100
+
+    Created a method to translate an existing 3x3 matrix.
+
+commit b1040306c2230fef6d9f21744abf62ebefec63d9
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:47:16 2020 +1100
+
+    Created a SetTranslation function for the Matrix3 class to set the translation information in the matrix.
+
+commit 92041411edaa755333eacbc269b785db3b8e7602
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:39:55 2020 +1100
+
+    Created a method that will create a scaled matrix, based on a different scale for each axis.
+
+commit 403f9dd1d82874dc850725f53d8b16eaf5cb733f
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:36:35 2020 +1100
+
+    Created a method to rotate an existing matrix around the Z axis by first having it set up a rotated matrix and then multiplying them together, concatenating the result.
+
+commit eba8c8b5a2638e0dca665a13b735971d3680bba8
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:34:44 2020 +1100
+
+    Created a method to set up a matrix to be rotated around the Z axis.
+
+commit 6e05608aa8c3a20c4c0e22a7664f4c4f6797e042
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:31:42 2020 +1100
+
+    Created a method to rotate an existing matrix around the Y axis by first having it set yp a rotated matrix and then multiplying them together, concatening the result.
+
+commit 43fa3d9c1d22f41777a2db5de3fe4ac27d484a23
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:18:39 2020 +1100
+
+    Created a method to set up a matrix to be rotated around the Y axis.
+
+commit fbcc0ec3d0d6a268fd9e9680bc919cdb0bf7129a
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:15:52 2020 +1100
+
+    Created a method to rotate an existing matrix around the X axis by first having it set up a rotated matrix and then multiplying them together, concatenating the result.
+
+commit a4260b4a633e6d82eb5316d6415b88063b83770b
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:09:53 2020 +1100
+
+    Created a method to set up a matrix to be rotated around the X axis.
+
+commit f9ea2e405f95ff84f10dde034fc1cf9275ca527e
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:06:08 2020 +1100
+
+    Created a second set function for matrix3. This function will update the values of the input martix.
+
+commit 23f7abe712f7ce8a1937d2f31173f70c971beb4a
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 15:03:21 2020 +1100
+
+    Created a set function for matrix3. This will update the valuesof the matrix to the values of the input matrix.
+
+commit d135878614b9e82052051c15465f65fca8860f77
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 14:59:36 2020 +1100
+
+    Created another multiplication operator for matrix3. This will multiply two 3x3 matrices together to form a new matrix3.
+
+commit 23387cdc44100c8c70818fbb68328ced263540bc
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 14:45:16 2020 +1100
+
+    Created a new multiplication operator for matrix3. This will multiply a vector3 with a matrix3 to create a new vector3.
+
+commit 9a30ffd0f5a5b37417ee7d898402a9a19c4007d6
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 14:39:00 2020 +1100
+
+    Created a second matrix3 constructor. This constructor contains parameters.
+
+commit dbe06d7529a64b5e28c0b92cbe230ff7c3ded2e3
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 14:34:08 2020 +1100
+
+    Completed colour alpha functions.
+
+commit bbe6bc3e9bc12debd070f48e3747298fa017c962
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 14:31:31 2020 +1100
+
+    Completed colour blue functions.
+
+commit f8712385929563f3c29c6e5349b2a6dbecadf7c2
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 14:22:13 2020 +1100
+
+    Completed colour green functions.
+
+commit d2637030929e267456a4be97f009e5376109006d
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Apr 3 14:18:02 2020 +1100
+
+    Completed colour red functions.
+
+commit 029c223850b91ac23e14fce1ac67ac4d852f1b02
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Fri Mar 20 16:05:52 2020 +1100
+
+    Add lines to Colour class in number conversion exercises
+
+commit 25f134c715ffed79551338d16366a88255ae78c3
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Mar 19 15:44:17 2020 +1100
+
+    Add unit testing project from Canvas.
+
+commit 23e0664204335694d369c462c0f948b9b60b1e16
+Author: Logan Ryan <loganryan982@gmail.com>
+Date:   Thu Mar 19 15:41:33 2020 +1100
+
+    Add all the starting material from Canvas.
+
+commit 3e53834ee07958d3ef3e02c0b764d2e236b21f39
+Author: loganryan01 <61926209+loganryan01@users.noreply.github.com>
+Date:   Thu Mar 19 15:22:41 2020 +1100
+
+    Initial commit

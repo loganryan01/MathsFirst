@@ -39,6 +39,7 @@ namespace Project2D
         private int score = 0; // Player's score
         private int highscore = 0; // Game's highscore
         private int smokeFrames; // How many frames the smoke has been in the game
+        private int movingFrames; // How many frames the target has been in one spot
         private bool gameOver = false; // If the player is still alive
         private int clock = 60; // Time for player
         private bool collision = false; // If the player crashed
@@ -50,6 +51,11 @@ namespace Project2D
         static Vector3 targetOrigin = new Vector3(GetRandomValue(30, 580), GetRandomValue(30, 420), 1);
         private static float targetRadius = 30;
         Sphere target = new Sphere(targetOrigin, targetRadius);
+
+        // Setting up the moving target
+        static Vector3 movingOrigin = new Vector3(GetRandomValue(30, 580), GetRandomValue(30, 420), 1);
+        private static float movingRadius = 30;
+        Sphere moving = new Sphere(movingOrigin, movingRadius);
 
         public Game()
         {
@@ -224,6 +230,8 @@ namespace Project2D
                 treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431));
                 targetOrigin.x = GetRandomValue(30, 580);
                 targetOrigin.y = GetRandomValue(30, 450);
+                movingOrigin.x = GetRandomValue(30, 580);
+                movingOrigin.y = GetRandomValue(30, 450);
                 oilObject.SetPosition(GetRandomValue(370, 590), GetRandomValue(50, 430));
             }
 
@@ -308,6 +316,16 @@ namespace Project2D
                 tankObject.SetPosition(-300, 0);
                 score = 0;
             }
+            if (bullet.Overlaps(moving))
+            {
+                turretObject.SetPosition(0, 0);
+                smokeObject.SetPosition(movingOrigin.x, movingOrigin.y);
+                smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
+                bulletObject.SetPosition(-100, -100);
+                movingOrigin.x = GetRandomValue(30, 580);
+                movingOrigin.y = GetRandomValue(30, 450);
+                score += 5;
+            }
 
             // Move smoke outside the window after a little bit
             if (smoke.Overlaps(border))
@@ -318,6 +336,19 @@ namespace Project2D
                 {
                     smokeObject.SetPosition(-100, -100);
                     smokeFrames = 0;
+                }
+            }
+
+            // Move moving target to a new location after 3 seconds
+            if (moving.Overlaps(border))
+            {
+                movingFrames++;
+
+                if (movingFrames == 60)
+                {
+                    movingOrigin.x = GetRandomValue(30, 580);
+                    movingOrigin.y = GetRandomValue(30, 420);
+                    movingFrames = 0;
                 }
             }
 
@@ -398,6 +429,15 @@ namespace Project2D
             {
                 treeObject.SetPosition(-200, 0);
                 oilObject.SetPosition(-200, 0);
+                movingOrigin.x = -500;
+                movingOrigin.y = -100;
+            }
+
+            // Moving target is not within the border, moving target stops moving
+            if (!moving.Overlaps(border))
+            {
+                movingOrigin.x = -500;
+                movingOrigin.y = -100;
             }
 
             // Clock function
@@ -442,6 +482,7 @@ namespace Project2D
             DrawText("Time Remaining: " + clock, 240, 10, 14, rl.Color.BLACK); // Show how much time the player has left
 
             DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED); // Draw target
+            DrawCircle((int)movingOrigin.x, (int)movingOrigin.y, 30, rl.Color.BLUE); // Draw moving target
 
             // Draw Game Over screen
             if (gameOver && score < highscore && collision)

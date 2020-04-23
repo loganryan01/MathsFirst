@@ -102,7 +102,7 @@ namespace Project2D
             bulletObject.SetPosition(-100, -100); // Position bullet outside the screen
             smokeObject.SetPosition(-100, -100); // Position smoke outside the screen
             treeObject.SetPosition(GetRandomValue(54, 216), GetRandomValue(49, 431)); // Position tree in a random spot
-            oilObject.SetPosition(GetRandomValue(370, 590), GetRandomValue(50, 430)); // Position oil barrel in a random spot
+            oilObject.SetPosition(GetRandomValue(400, 590), GetRandomValue(50, 430)); // Position oil barrel in a random spot
         }
 
         public void Shutdown()
@@ -232,7 +232,7 @@ namespace Project2D
                 targetOrigin.y = GetRandomValue(30, 450);
                 movingOrigin.x = GetRandomValue(30, 580);
                 movingOrigin.y = GetRandomValue(30, 450);
-                oilObject.SetPosition(GetRandomValue(370, 590), GetRandomValue(50, 430));
+                oilObject.SetPosition(GetRandomValue(400, 590), GetRandomValue(50, 430));
             }
 
             // bullet movement
@@ -479,13 +479,14 @@ namespace Project2D
             DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED); // Show frames per second
             DrawText("Score: " + score, 10, 30, 14, rl.Color.RED); // Show player's score
             DrawText("Highscore: " + highscore, 10, 50, 14, rl.Color.RED); // Show highscore
-            DrawText("Time Remaining: " + clock, 240, 10, 14, rl.Color.BLACK); // Show how much time the player has left
+            DrawText("Time Remaining: " + clock, 240, 10, 14, rl.Color.RED); // Show how much time the player has left
+            DrawText("Hold down H to see shapes of the objects", 350, 460, 14, rl.Color.RED);
 
             DrawCircle((int)targetOrigin.x, (int)targetOrigin.y, 30, rl.Color.RED); // Draw target
             DrawCircle((int)movingOrigin.x, (int)movingOrigin.y, 30, rl.Color.BLUE); // Draw moving target
 
             // Draw Game Over screen
-            if (gameOver && score < highscore && collision)
+            if (gameOver && score < highscore && collision && !explosion || gameOver && score == highscore && collision && !explosion)
             {
                 ClearBackground(rl.Color.RED);
                 DrawText("Game Over", 240, 200, 30, rl.Color.BLACK);
@@ -526,6 +527,15 @@ namespace Project2D
                 DrawText("You destoryed the oil barrel", 240, 230, 15, rl.Color.BLACK);
                 DrawText("Your score was " + score, 240, 245, 15, rl.Color.BLACK);
                 DrawText("Left click to restart", 240, 260, 15, rl.Color.BLACK);
+            }
+
+            // Show all objects collision shapes
+            if (IsKeyDown(rl.KeyboardKey.KEY_H))
+            {
+                DrawCircleLines((int)tankObject.GlobalTransform.m7, (int)tankObject.GlobalTransform.m8, tankSprite.Height / 2.0f, rl.Color.BLACK);
+                DrawCircleLines((int)bulletObject.GlobalTransform.m7, (int)bulletObject.GlobalTransform.m8, bulletSprite.Height / 2.0f, rl.Color.BLACK);
+                DrawCircleLines((int)treeObject.GlobalTransform.m7 + 4, (int)treeObject.GlobalTransform.m8 + 5, 60, rl.Color.BLACK);
+                DrawCircleLines((int)oilObject.GlobalTransform.m7, (int)oilObject.GlobalTransform.m8, 50, rl.Color.BLACK);
             }
 
             tankObject.Draw();

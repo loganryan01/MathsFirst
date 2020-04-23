@@ -476,9 +476,8 @@ namespace Project2D
             BeginDrawing();
 
             ClearBackground(rl.Color.GREEN); // Paint background to green
-            DrawText(fps.ToString(), 10, 10, 14, rl.Color.RED); // Show frames per second
-            DrawText("Score: " + score, 10, 30, 14, rl.Color.RED); // Show player's score
-            DrawText("Highscore: " + highscore, 10, 50, 14, rl.Color.RED); // Show highscore
+            DrawText("Score: " + score, 10, 10, 14, rl.Color.RED); // Show player's score
+            DrawText("Highscore: " + highscore, 10, 30, 14, rl.Color.RED); // Show highscore
             DrawText("Time Remaining: " + clock, 240, 10, 14, rl.Color.RED); // Show how much time the player has left
             DrawText("Hold down H to see shapes of the objects", 350, 460, 14, rl.Color.RED);
 

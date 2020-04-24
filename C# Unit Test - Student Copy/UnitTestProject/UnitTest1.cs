@@ -552,50 +552,18 @@ namespace UnitTestProject
             Assert.AreEqual<UInt32>(c.colour, 0x00000078);
         }
 
-        //Using RGBA, I created a unit test that will return the colour white.
+        // Test if the red value has been moved into the green value
         [TestMethod]
-        public void ColourSetWhite()
+        public void ColourMoveRed()
         {
             Colour c = new Colour();
-            c.SetRed(0xFF);
-            c.SetGreen(0xFF);
-            c.SetBlue(0xFF);
-            c.SetAlpha(0xFF);
+            c.SetRed(0x12);
+            c.SetGreen(0x34);
+            c.SetBlue(0x56);
+            c.SetAlpha(0x78);
+            c.MoveRed();
 
-            Assert.AreEqual<UInt32>(c.colour, 0xFFFFFFFF);
-        }
-
-        // Test for colour yellow
-        [TestMethod]
-        public void ColourSetYellow()
-        {
-            Colour c = new Colour();
-            c.SetRed(0xFF);
-            c.SetGreen(0xFF);
-
-            Assert.AreEqual<UInt32>(c.colour, 0xFFFF0000);
-        }
-
-        // Test for colour cyan
-        [TestMethod]
-        public void ColourSetCyan()
-        {
-            Colour c = new Colour();
-            c.SetGreen(0xFF);
-            c.SetBlue(0xFF);
-
-            Assert.AreEqual<UInt32>(c.colour, 0x00FFFF00);
-        }
-
-        // Test for colour magenta
-        [TestMethod]
-        public void ColourSetMagenta()
-        {
-            Colour c = new Colour();
-            c.SetRed(0xFF);
-            c.SetBlue(0xFF);
-
-            Assert.AreEqual<UInt32>(c.colour, 0xFF00FF00);
+            Assert.AreEqual<UInt32>(c.colour, 0x00125678);
         }
     }
 }

@@ -543,6 +543,14 @@ namespace Project2D
             DrawText("Highscore: " + highscore, 10, 30, 14, rl.Color.RED); // Show highscore
             DrawText("Time Remaining: " + clock, 240, 10, 14, rl.Color.RED); // Show how much time the player has left
             DrawText("Hold down H to see shapes of the objects", 350, 460, 14, rl.Color.RED);
+            if (bulletObject.GlobalTransform.m7 < 0)
+            {
+                DrawText("Ready to Fire", 10, 50, 14, rl.Color.RED);
+            }
+            else
+            {
+                DrawText("Reloading", 10, 50, 14, rl.Color.RED);
+            }
 
             // ---- DRAWING TARGETS ----
 

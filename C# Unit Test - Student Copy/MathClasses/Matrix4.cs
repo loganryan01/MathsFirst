@@ -10,6 +10,8 @@ namespace MathClasses
     {
         public float m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16;
 
+        // ---- CONSTRUCTORS ----
+
         // Default Matrix4 constructor
         public Matrix4()
         {
@@ -20,7 +22,8 @@ namespace MathClasses
         }
 
         // Creates a 3-D Homogeneous Matrix
-        public Matrix4(float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9, float m10, float m11, float m12, float m13, float m14, float m15, float m16)
+        public Matrix4(float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, 
+                       float m9, float m10, float m11, float m12, float m13, float m14, float m15, float m16)
         {
             this.m1 = m1; this.m2 = m2; this.m3 = m3; this.m4 = m4;
             this.m5 = m5; this.m6 = m6; this.m7 = m7; this.m8 = m8;
@@ -28,6 +31,9 @@ namespace MathClasses
             this.m13 = m13; this.m14 = m14; this.m15 = m15; this.m16 = m16;
         }
 
+        // ---- IMPLEMENTING MATHS OPERATORS ----
+
+        // Matrix Multiplication against a Vector
         public static Vector4 operator *(Matrix4 lhs, Vector4 rhs)
         {
             return new Vector4(
@@ -37,6 +43,7 @@ namespace MathClasses
                 (rhs.x * lhs.m4) + (rhs.y * lhs.m8) + (rhs.z * lhs.m12) + (rhs.w * lhs.m16));
         }
 
+        // Matrix Multiplication against a matrix
         public static Matrix4 operator *(Matrix4 lhs, Matrix4 rhs)
         {
             return new Matrix4(
@@ -58,7 +65,11 @@ namespace MathClasses
                 rhs.m13 * lhs.m4 + rhs.m14 * lhs.m8 + rhs.m15 * lhs.m12 + rhs.m16 * lhs.m16);
         }
 
-        public void Set(float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9, float m10, float m11, float m12, float m13, float m14, float m15, float m16)
+        // ---- SET FUNCTIONS ----
+
+        // Update the values of the matrix to the values of the input matrix
+        public void Set(float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, 
+                        float m9, float m10, float m11, float m12, float m13, float m14, float m15, float m16)
         {
             this.m1 = m1; this.m2 = m2; this.m3 = m3; this.m4 = m4;
             this.m5 = m5; this.m6 = m6; this.m7 = m7; this.m8 = m8;
@@ -66,6 +77,9 @@ namespace MathClasses
             this.m13 = m13; this.m14 = m14; this.m15 = m15; this.m16 = m16;
         }
 
+        // ---- ROTATION TRANSFORMS ----
+
+        // Set up a matrix to be rotated around the X axis.
         public void SetRotateX(double radians)
         {
             Set(1, 0, 0, 0,
@@ -74,6 +88,7 @@ namespace MathClasses
                 0, 0, 0, 1);
         }
 
+        // Set up a matrix to be rotated around the Y axis
         public void SetRotateY(double radians)
         {
             Set((float)Math.Cos(radians), 0, (float)-Math.Sin(radians), 0,
@@ -82,6 +97,7 @@ namespace MathClasses
                 0, 0, 0, 1);
         }
 
+        // Set up a matrix to be rotated around the Z axis
         public void SetRotateZ(double radians)
         {
             Set((float)Math.Cos(radians), (float)Math.Sin(radians), 0, 0,

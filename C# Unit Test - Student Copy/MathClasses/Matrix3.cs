@@ -10,6 +10,8 @@ namespace MathClasses
     {
         public float m1, m2, m3, m4, m5, m6, m7, m8, m9;
 
+        // ---- CONSTRUCTORS ----
+
         // Default Matrix3 constructor
         public Matrix3()
         {
@@ -26,6 +28,8 @@ namespace MathClasses
             this.m7 = m7; this.m8 = m8; this.m9 = m9;
         }
 
+        // ---- IMPLEMENTING MATHS OPERATORS ----
+
         // Matrix Multiplication against a Vector
         public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
         {
@@ -35,7 +39,7 @@ namespace MathClasses
                 (lhs.m3 * rhs.x) + (lhs.m6 * rhs.y) + (lhs.m9 * rhs.z));
         }
 
-
+        // Matrix Multiplication against a Matrix
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(
@@ -49,6 +53,8 @@ namespace MathClasses
                 lhs.m2 * rhs.m7 + lhs.m5 * rhs.m8 + lhs.m8 * rhs.m9,
                 lhs.m3 * rhs.m7 + lhs.m6 * rhs.m8 + lhs.m9 * rhs.m9);
         }
+
+        // ---- SET FUNCTIONS ----
 
         // Update the values of the matrix to the values of the input matrix
         public void Set(Matrix3 m)
@@ -65,6 +71,8 @@ namespace MathClasses
             this.m4 = m4; this.m5 = m5; this.m6 = m6;
             this.m7 = m7; this.m8 = m8; this.m9 = m9;
         }
+
+        // ---- ROTATION TRANSFORMS ----
 
         // Set up a matrix to be rotated around the X axis.
         public void SetRotateX(double radians)
@@ -117,6 +125,8 @@ namespace MathClasses
             Set(this * m);
         }
 
+        // ---- SCALE TRANSFORMS ----
+
         // Creates a scaled matrix, based on a different on a different scale for each axis.
         public void SetScaled(float x, float y, float z)
         {
@@ -125,17 +135,6 @@ namespace MathClasses
             m7 = 0; m8 = 0; m9 = z;
         }
 
-        public void SetTranslation(float x, float y)
-        {
-            m7 = x; m8 = y; m9 = 1;
-        }
-
-        public void Translate(float x, float y)
-        {
-            // apply vector offset
-            m7 += x; m8 += y;
-        }
-        
         // Creates a scaled matrix, then multiplies itself with the scaled matrix
         public void Scale(float x, float y, float z)
         {
@@ -144,5 +143,22 @@ namespace MathClasses
 
             Set(this * m);
         }
+
+        // ---- TRANSLATION TRANSFORMS ----
+
+        // Sets the translation information in the matrix
+        public void SetTranslation(float x, float y)
+        {
+            m7 = x; m8 = y; m9 = 1;
+        }
+
+        // Translate an existing matrix
+        public void Translate(float x, float y)
+        {
+            // apply vector offset
+            m7 += x; m8 += y;
+        }
+        
+
     }
 }

@@ -10,6 +10,8 @@ namespace MathClasses
     {
         public float x, y, z;
 
+        // ---- CONSTRUCTORS ----
+
         // Default Vector3 Constructor
         public Vector3()
         {
@@ -25,6 +27,8 @@ namespace MathClasses
             this.y = y;
             this.z = z;
         }
+
+        // ---- IMPLEMENTING MATHS OPERATORS ----
 
         // Overloads the + operator
         public static Vector3 operator +(Vector3 lhs, Vector3 rhs)
@@ -53,6 +57,7 @@ namespace MathClasses
             return v2 * s1;
         }
 
+        // Overloads the / operator
         public static Vector3 operator /(Vector3 lhs, float rhs)
         {
             return new Vector3(
@@ -60,6 +65,8 @@ namespace MathClasses
                 lhs.y / rhs,
                 lhs.z / rhs);
         }
+
+        // ---- DOT AND CROSS PRODUCT ----
 
         // Vector Dot Product
         public float Dot(Vector3 rhs)
@@ -75,6 +82,8 @@ namespace MathClasses
                 z * rhs.x - x * rhs.z,
                 x * rhs.y - y * rhs.x);
         }
+
+        // ---- MAGNITUDE AND NORMALISATION ----
 
         // Calculating Magnitude
         public float Magnitude()
@@ -97,6 +106,7 @@ namespace MathClasses
             this.z /= m;
         }
 
+        // Return a normalised version, rather than normalise the Vector itself
         public Vector3 GetNormalised() 
         { 
             return (this / Magnitude()); 

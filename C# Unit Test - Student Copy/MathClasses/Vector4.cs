@@ -10,6 +10,8 @@ namespace MathClasses
     {
         public float x, y, z, w;
 
+        // ---- CONSTRUCTORS ----
+
         // Default Vector4 constructor
         public Vector4()
         {
@@ -28,19 +30,21 @@ namespace MathClasses
             this.w = w;
         }
 
-        // Add Vector4's together
+        // ---- IMPLEMENTING MATHS OPERATORS ----
+
+        // Overloads the + operator
         public static Vector4 operator +(Vector4 lhs, Vector4 rhs)
         {
             return new Vector4(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w);
         }
 
-        // Subtract Vector4's together
+        // Overloads the - operator
         public static Vector4 operator -(Vector4 lhs, Vector4 rhs)
         {
             return new Vector4(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w);
         }
 
-        // Multiply be a scalar
+        // Overloads the * operator
         public static Vector4 operator *(Vector4 v1, float s2)
         {
             return new Vector4(
@@ -50,16 +54,21 @@ namespace MathClasses
                 v1.w * s2);
         }
 
+        // Overloads the * operator
         public static Vector4 operator *(float s1, Vector4 v2)
         {
             return v2 * s1;
         }
 
+        // ---- DOT AND CROSS PRODUCT ----
+
+        // Vector Dot Product 
         public float Dot(Vector4 rhs)
         {
             return x * rhs.x + y * rhs.y + z * rhs.z + w * rhs.w;
         }
 
+        //  Cross Product - 4-D Perpendicular Vectors
         public Vector4 Cross(Vector4 rhs)
         {
             return new Vector4(
@@ -69,11 +78,15 @@ namespace MathClasses
                 0);
         }
 
+        // ---- MAGNITUDE AND NORMALISATION ----
+
+        // Calculating Magnitude
         public float Magnitude()
         {
             return (float)Math.Sqrt((double)(x * x + y * y + z * z + w * w));
         }
 
+        // Vector Normalisation
         public void Normalize()
         {
             float m = Magnitude();

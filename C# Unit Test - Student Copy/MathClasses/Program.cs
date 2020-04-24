@@ -8,14 +8,20 @@ namespace MathClasses
 {
     class Program
     {
+        // Enter the values in hex number
+        static Colour c = new Colour(0x12, 0x34, 0x56, 0x78);
+
         static void Main(string[] args)
         {
-            // The code provided will print ‘Hello World’ to the console.
-            // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            Console.WriteLine("Hello World!");
+            Console.WriteLine(c.colour); // Prints decimal numbers
+            Console.WriteLine(c.ToHex()); // Prints hex numbers
+            Console.WriteLine(c.ToBinary()); // Prints binary numbers
+            c.MoveRed();
+            Console.WriteLine("After Red value has been moved into the green value");
+            Console.WriteLine(c.colour); // Prints decimal numbers
+            Console.WriteLine(c.ToHex()); // Prints hex numbers
+            Console.WriteLine(c.ToBinary()); // Prints binary numbers
             Console.ReadKey();
-
-            // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
         }
     }
 }

@@ -72,5 +72,32 @@ namespace MathClasses
             colour = colour & 0xffffff00; // clear the alpha component
             colour |= (UInt32)alpha << 0; // move the alpha component in to the correct position from a 4-byte colour value
         }
+
+        // ---- QUESTION 6 ----
+
+        public void MoveRed()
+        {
+            SetGreen(GetRed()); // Set the green value equal to the red value
+            SetRed(0x00); // Set red to 00
+        }
+
+        // ---- CONVERT TO HEXADECIMAL ----
+
+        public string ToHex()
+        {
+            string hexString = colour.ToString("X");
+            return hexString;
+        }
+
+        public string ToBinary()
+        {
+            string hexString = colour.ToString("X");
+            string binaryString = String.Join(String.Empty,
+                hexString.Select(
+                    c => Convert.ToString(Convert.ToInt32(c.ToString(), 16), 2).PadLeft(4, '0')
+                    )
+                );
+            return binaryString;
+        }
     }
 }

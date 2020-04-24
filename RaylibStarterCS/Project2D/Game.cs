@@ -67,46 +67,50 @@ namespace Project2D
             stopwatch.Start();
             lastTime = stopwatch.ElapsedMilliseconds;
 
-            // ---- TANK SPRITE CREATION ----
+            // ---- SPRITE CREATION ----
+
+            // Tank sprite
             tankSprite.Load("tankBlue_outline.png"); // Loads tank image into tank sprite
             tankSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tank
             tankSprite.SetPosition(-tankSprite.Width / 2.0f, tankSprite.Height / 2.0f); // Sets an offset for the base, so it rotates around the centre
 
-            // ---- TURRET SPRITE CREATION ----
+            // Turret sprite
             turretSprite.Load("barrelBlue.png"); // Loads turret image into turret sprite
             turretSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the turret
             turretSprite.SetPosition(0, turretSprite.Width / 2.0f); // Set the turret offset from the tank base
 
-            // ---- BULLET SPRITE CREATION ----
+            // Bullet sprite
             bulletSprite.Load("bulletBlue.png"); // Loads bullet image into bullet sprite
             bulletSprite.SetRotate(90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the bullet
             bulletSprite.SetPosition(50, -6); // Sets an offset for the bullet
 
-            // ---- SMOKE SPRITE CREATION ----
+            // Smoke sprite
             smokeSprite.Load("smokeOrange0.png"); // Loads smoke image into smoke sprite
             smokeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the smoke
             smokeSprite.SetPosition(-smokeSprite.Width / 2.0f, smokeSprite.Height / 2.0f); // Sets an offset for the smoke
 
-            // ---- TREE SPRITE CREATION ----
+            // Tree sprite
             treeSprite.Load("treeLarge.png"); // Loads tree image into tree sprite
             treeSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tree
             treeSprite.SetPosition(-treeSprite.Width / 2.0f, treeSprite.Height / 2.0f); // Sets an offset for the tree
 
-            // ---- OIL SPRITE CREATION ----
+            // Oil sprite
             oilSprite.Load("oil.png"); // Loads oil image into oil sprite
             oilSprite.SetRotate(-90 * (float)(Math.PI / 180.0f)); // Sets the rotation of the tree
             oilSprite.SetPosition(-oilSprite.Width / 2.0f, oilSprite.Height / 2.0f); // Sets an offset for the oil
 
-            // ---- MATRIX HIERARCHY ----
-            oilObject.AddChild(oilSprite); // Attach oil image to the oil object
-            treeObject.AddChild(treeSprite); // Attach tree image to the tree object
-            smokeObject.AddChild(smokeSprite); // Attach smoke image to the smoke object
-            bulletObject.AddChild(bulletSprite); // Attach bullet image to the bullet object
-            turretObject.AddChild(turretSprite); // Attach turret image to the turret object
-            tankObject.AddChild(tankSprite); // Attach tank image to the tank object
+            // ---- SCENE HIERARCHY ----
+
+            oilObject.AddChild(oilSprite); // Attach oil sprite to the oil object
+            treeObject.AddChild(treeSprite); // Attach tree sprite to the tree object
+            smokeObject.AddChild(smokeSprite); // Attach smoke sprite to the smoke object
+            bulletObject.AddChild(bulletSprite); // Attach bullet sprite to the bullet object
+            turretObject.AddChild(turretSprite); // Attach turret sprite to the turret object
+            tankObject.AddChild(tankSprite); // Attach tank sprite to the tank object
             tankObject.AddChild(turretObject); // Attach the turret to the tank as a child
 
             // ---- OBJECT POSITIONING ----
+
             tankObject.SetPosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f); // Position tank in the middle of the screen
             bulletObject.SetPosition(-100, -100); // Position bullet outside the screen
             smokeObject.SetPosition(-100, -100); // Position smoke outside the screen
@@ -186,17 +190,21 @@ namespace Project2D
             }
             frames++;
 
-            // ---- CONTROLS ----
+            // ---- PLAYER CONTROLS ----
 
-            // Player controls
+            // Tank rotate Left
             if (IsKeyDown(rl.KeyboardKey.KEY_A))
             {
-                tankObject.Rotate(-deltaTime);
+                tankObject.Rotate(-deltaTime); 
             }
+            
+            // Tank rotate right
             if (IsKeyDown(rl.KeyboardKey.KEY_D))
             {
-                tankObject.Rotate(deltaTime);
+                tankObject.Rotate(deltaTime); 
             }
+            
+            // Tank move forward
             if (IsKeyDown(rl.KeyboardKey.KEY_W))
             {
                 Vector3 facing = new Vector3(
@@ -204,6 +212,8 @@ namespace Project2D
                            tankObject.LocalTransform.m2, 1) * deltaTime * 100;
                 tankObject.Translate(facing.x, facing.y);
             }
+            
+            // Tank move backward
             if (IsKeyDown(rl.KeyboardKey.KEY_S))
             {
                 Vector3 facing = new Vector3(
@@ -211,14 +221,20 @@ namespace Project2D
                            tankObject.LocalTransform.m2, 1) * deltaTime * -100;
                 tankObject.Translate(facing.x, facing.y);
             }
+            
+            // Turret rotate Left
             if (IsKeyDown(rl.KeyboardKey.KEY_Q))
             {
                 turretObject.Rotate(-deltaTime);
             }
+            
+            // Turret rotate right
             if (IsKeyDown(rl.KeyboardKey.KEY_E))
             {
                 turretObject.Rotate(deltaTime);
             }
+            
+            // Fire bullet
             if (IsKeyDown(rl.KeyboardKey.KEY_SPACE))
             {
                 if (!bullet.Overlaps(border))
@@ -226,6 +242,8 @@ namespace Project2D
                     bulletObject.CopyTransform(turretObject.GlobalTransform);
                 }
             }
+            
+            // Restart Game after Game Over screen
             if (IsMouseButtonPressed(rl.MouseButton.MOUSE_LEFT_BUTTON) && gameOver)
             {
                 gameOver = false;
@@ -248,7 +266,7 @@ namespace Project2D
                 oilObject.SetPosition(GetRandomValue(400, 590), GetRandomValue(50, 430));
             }
 
-            // ---- TESTING FOR OVERLAPS ----
+            // ---- BULLET FUNCTIONS ----
 
             // Bullet movement
             if (bullet.Overlaps(border))
@@ -263,7 +281,7 @@ namespace Project2D
                 }
             }
 
-            // Bullet Destruction
+            // Bullet gets destroyed when it hits the side of the window
             if (plane1.TestSide(bullet) == Plane.ePlaneResult.INTERSECTS)
             {
                 // Return turretObject to original position
@@ -301,6 +319,8 @@ namespace Project2D
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, 43);
                 bulletObject.SetPosition(-100, -100);
             }
+            
+            // Bullet gets destroyed when it hits tree
             if (bullet.Overlaps(tree))
             {
                 turretObject.SetPosition(0, 0);
@@ -309,6 +329,8 @@ namespace Project2D
                 smokeObject.SetPosition(smokeObject.GlobalTransform.m7, smokeObject.GlobalTransform.m8);
                 bulletObject.SetPosition(-100, -100);
             }
+
+            // Bullet gets destroyed and Player earns a point
             if (bullet.Overlaps(target))
             {
                 turretObject.SetPosition(0, 0);
@@ -319,6 +341,8 @@ namespace Project2D
                 targetOrigin.y = GetRandomValue(30, 450);
                 score++;
             }
+
+            // Bullet gets destroyed and the game is over when it hits the oil barrel
             if (bullet.Overlaps(oil))
             {
                 gameOver = true;
@@ -331,6 +355,8 @@ namespace Project2D
                 tankObject.SetPosition(-300, 0);
                 score = 0;
             }
+
+            // Bullet gets destroyed and Player earns 5 points
             if (bullet.Overlaps(moving))
             {
                 turretObject.SetPosition(0, 0);
@@ -341,6 +367,8 @@ namespace Project2D
                 movingOrigin.y = GetRandomValue(30, 450);
                 score += 5;
             }
+
+            // ---- SMOKE FUNCTIONS ----
 
             // Move smoke outside the window after a little bit
             if (smoke.Overlaps(border))
@@ -354,6 +382,8 @@ namespace Project2D
                 }
             }
 
+            // ---- MOVING TARGET FUNCTIONS ----
+
             // Move moving target to a new location after 3 seconds
             if (moving.Overlaps(border))
             {
@@ -366,6 +396,8 @@ namespace Project2D
                     movingFrames = 0;
                 }
             }
+
+            // ---- TANK FUNCTIONS ----
 
             // Destroy tank if it goes out of bounds
             if (plane5.TestSide(tank) == Plane.ePlaneResult.INTERSECTS)
@@ -420,6 +452,8 @@ namespace Project2D
                 score = 0;
             }
 
+            // ---- TARGET FUNCTIONS ----
+
             // Target positioning
             if (target.Overlaps(tree))
             {
@@ -431,6 +465,15 @@ namespace Project2D
                 targetOrigin.x = GetRandomValue(30, 580);
                 targetOrigin.y = GetRandomValue(30, 450);
             }
+
+            // Moving target is not within the border, moving target stops moving
+            if (!moving.Overlaps(border))
+            {
+                movingOrigin.x = -500;
+                movingOrigin.y = -100;
+            }
+
+            // ---- TREE FUNCTIONS ----
 
             // Tree positioning
             if (treeObject.GlobalTransform.m7 == tankObject.GlobalTransform.m7 ||
@@ -444,13 +487,6 @@ namespace Project2D
             {
                 treeObject.SetPosition(-200, 0);
                 oilObject.SetPosition(-200, 0);
-                movingOrigin.x = -500;
-                movingOrigin.y = -100;
-            }
-
-            // Moving target is not within the border, moving target stops moving
-            if (!moving.Overlaps(border))
-            {
                 movingOrigin.x = -500;
                 movingOrigin.y = -100;
             }
@@ -482,21 +518,23 @@ namespace Project2D
                 clock = 60;
             }
 
-            tankObject.Update(deltaTime);
+            // ---- UPDATING OBJECTS ----
+
+            tankObject.Update(deltaTime); // Update Tank and Turret
             if (bullet.Overlaps(border))
             {
-                bulletObject.Update(deltaTime);
+                bulletObject.Update(deltaTime); // Update Bullet
             }
-            smokeObject.Update(deltaTime);
-            treeObject.Update(deltaTime);
-            oilObject.Update(deltaTime);
+            smokeObject.Update(deltaTime); // Update Smoke
+            treeObject.Update(deltaTime); // Update Tree
+            oilObject.Update(deltaTime); // Update Oil Barrel
 
             lastTime = currentTime;
         }
 
         public void Draw()
         {
-            BeginDrawing();
+            BeginDrawing(); // Setup canvas to start drawing
 
             // ---- MAIN SCREEN DRAWING ----
 
@@ -576,13 +614,24 @@ namespace Project2D
                 DrawCircleLines((int)oilObject.GlobalTransform.m7, (int)oilObject.GlobalTransform.m8, 50, rl.Color.BLACK);
             }
 
+            // ---- DRAW ALL OBJECTS ----
+
+            // Draw Tank and Turret
             tankObject.Draw();
+
+            // Draw Bullet
             bulletObject.Draw();
+
+            // Draw Smoke
             smokeObject.Draw();
+
+            // Draw Tree
             treeObject.Draw();
+
+            // Draw Oil Barrel
             oilObject.Draw();
 
-            EndDrawing();
+            EndDrawing(); // End canvas drawing
         }
     }
 }
